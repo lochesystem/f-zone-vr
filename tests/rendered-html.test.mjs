@@ -15,18 +15,21 @@ test("renderiza a apresentação do F-Zone VR", async () => {
   const html = await response.text();
   assert.match(html, /<title>F-Zone VR — Neon velocity<\/title>/i);
   assert.match(html, /F-Zone/);
-  assert.match(html, /Iniciar corrida/);
-  assert.match(html, /Entrar em VR|VR indisponível/);
+  assert.match(html, /Jogar na tela/);
+  assert.match(html, /Verificando headset/);
   assert.match(html, /https:\/\/lochesystem\.github\.io\/f-zone-vr\/og\.png/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
 });
 
 test("inclui o núcleo de corrida e conforto WebXR", async () => {
-  const [engine, mechanics] = await Promise.all([
+  const [engine, mechanics, ui] = await Promise.all([
     readFile(new URL("../app/game/engine.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/game/mechanics.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/game/FZoneGame.tsx", import.meta.url), "utf8"),
   ]);
   assert.match(engine, /requestSession\("immersive-vr"/);
+  assert.match(engine, /"hand-tracking"/);
+  assert.match(engine, /vrChecked=true/);
   assert.match(engine, /setFoveation\(\.65\)/);
   assert.match(engine, /TOTAL_LAPS=3/);
   assert.match(engine, /TRACK_WIDTH=16/);
@@ -44,4 +47,6 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(engine, /countdownTime=3\.05/);
   assert.match(engine, /drawCountdownPanel/);
   assert.match(mechanics, /topSpeed=boosting\?178:126/);
+  assert.match(ui, /Entrar em VR/);
+  assert.match(ui, /engine\.enterVR\(\)\.catch/);
 });
