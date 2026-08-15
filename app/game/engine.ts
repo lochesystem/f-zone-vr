@@ -1,0 +1,153 @@
+import * as THREE from "three";
+import { advanceSpeed,clamp,deadzone } from "./mechanics";
+import { GAP_RANGES,MAGNETIC_RANGES,TRACK_POINTS,gapLift,isGap,magneticBank,progressInRange,trackSector } from "./track-data";
+import { INITIAL_SNAPSHOT,type InputMode,type RaceSnapshot } from "./types";
+
+type ControlState={steer:number;throttle:number;brake:number;boost:boolean;map:boolean;mode:InputMode};
+type Rival={root:THREE.Group;distance:number;speed:number;lane:number};
+const CYAN=0x69f6ff,AMBER=0xffc25e,MAGENTA=0xff3e93,TRACK_WIDTH=16,TOTAL_LAPS=3,SAMPLES=520;
+
+function makeTrack(){return new THREE.CatmullRomCurve3(TRACK_POINTS.map(point=>new THREE.Vector3(...point)),true,"centripetal");}
+
+function frame(curve:THREE.CatmullRomCurve3,progress:number){
+  const p=((progress%1)+1)%1,center=curve.getPointAt(p),forward=curve.getTangentAt(p).normalize();
+  const worldUp=Math.abs(forward.y)>.94?new THREE.Vector3(0,0,1):new THREE.Vector3(0,1,0);
+  const right=forward.clone().cross(worldUp).normalize(),up=right.clone().cross(forward).normalize(),bank=magneticBank(p);
+  right.applyAxisAngle(forward,bank);up.applyAxisAngle(forward,bank);
+  const matrix=new THREE.Matrix4().makeBasis(right,up,forward.clone().negate());
+  return {center,forward,right,up,bank,quaternion:new THREE.Quaternion().setFromRotationMatrix(matrix)};
+}
+
+function createTrack(curve:THREE.CatmullRomCurve3){
+  const positions:number[]=[],colors:number[]=[],indices:number[]=[];const base=new THREE.Color(0x0b2530),stripe=new THREE.Color(0x174657);
+  for(let i=0;i<=SAMPLES;i++){const progress=i/SAMPLES,f=frame(curve,progress),magnetic=MAGNETIC_RANGES.some(([start,end])=>progressInRange(progress,[start,end]));for(let lane=0;lane<=6;lane++){const point=f.center.clone().addScaledVector(f.right,-TRACK_WIDTH/2+lane*TRACK_WIDTH/6).addScaledVector(f.up,-.07);positions.push(point.x,point.y,point.z);const color=magnetic?new THREE.Color(0x452067):lane===0||lane===6||(i%18<2&&lane===3)?stripe:base;colors.push(color.r,color.g,color.b);}}
+  for(let i=0;i<SAMPLES;i++){const progress=(i+.5)/SAMPLES;if(isGap(progress))continue;for(let lane=0;lane<6;lane++){const a=i*7+lane,b=a+1,c=a+7,d=c+1;indices.push(a,c,b,b,c,d);}}
+  const geometry=new THREE.BufferGeometry();geometry.setAttribute("position",new THREE.Float32BufferAttribute(positions,3));geometry.setAttribute("color",new THREE.Float32BufferAttribute(colors,3));geometry.setIndex(indices);geometry.computeVertexNormals();
+  return new THREE.Mesh(geometry,new THREE.MeshStandardMaterial({vertexColors:true,metalness:.82,roughness:.29,emissive:0x02090f,side:THREE.DoubleSide}));
+}
+
+function tunnelHasClearance(curve:THREE.CatmullRomCurve3,progress:number){
+  const center=curve.getPointAt(progress),minimumClearance=TRACK_WIDTH*1.2;
+  for(let sample=0;sample<260;sample++){
+    const otherProgress=sample/260,separation=Math.abs(otherProgress-progress),circularSeparation=Math.min(separation,1-separation);
+    if(circularSeparation<.04)continue;
+    if(center.distanceToSquared(curve.getPointAt(otherProgress))<minimumClearance*minimumClearance)return false;
+  }
+  return true;
+}
+
+function createRacer(color:number,cockpit=false){
+  const root=new THREE.Group(),shell=new THREE.MeshStandardMaterial({color:0x101b25,metalness:.9,roughness:.2,emissive:new THREE.Color(color),emissiveIntensity:.12}),glow=new THREE.MeshBasicMaterial({color});
+  const body=new THREE.Mesh(new THREE.BoxGeometry(1.8,.32,3.65),shell);body.position.y=.4;root.add(body);
+  const nose=new THREE.Mesh(new THREE.ConeGeometry(.87,2.4,4),shell);nose.rotation.x=-Math.PI/2;nose.rotation.z=Math.PI/4;nose.position.set(0,.38,-2.5);root.add(nose);
+  for(const side of [-1,1]){const wing=new THREE.Mesh(new THREE.BoxGeometry(1.6,.12,2.15),shell);wing.position.set(side*1.3,.28,.35);wing.rotation.y=side*.16;root.add(wing);const rail=new THREE.Mesh(new THREE.BoxGeometry(.05,.09,2.1),glow);rail.position.set(side*2.05,.35,.2);root.add(rail);const thruster=new THREE.Mesh(new THREE.CylinderGeometry(.22,.3,.65,12),glow);thruster.rotation.x=Math.PI/2;thruster.position.set(side*.68,.35,2.05);root.add(thruster);}
+  if(!cockpit){const canopy=new THREE.Mesh(new THREE.SphereGeometry(.62,16,8,0,Math.PI*2,0,Math.PI/2),new THREE.MeshStandardMaterial({color:0x091017,emissive:color,emissiveIntensity:.35,metalness:.55,roughness:.08}));canopy.scale.set(.82,.48,1.2);canopy.position.set(0,.66,-.25);root.add(canopy);}
+  return root;
+}
+
+function createPlayerCraft(){
+  const root=new THREE.Group();root.name="Astra cockpit craft";
+  const hull=new THREE.MeshPhysicalMaterial({color:0x07121b,metalness:.92,roughness:.2,clearcoat:1,clearcoatRoughness:.14,emissive:0x063541,emissiveIntensity:.22});
+  const carbon=new THREE.MeshStandardMaterial({color:0x02070c,metalness:.76,roughness:.3});
+  const glow=new THREE.MeshBasicMaterial({color:CYAN,toneMapped:false});
+  const amber=new THREE.MeshBasicMaterial({color:AMBER,toneMapped:false});
+  const glass=new THREE.MeshPhysicalMaterial({color:0x07131d,metalness:.25,roughness:.06,transmission:.3,transparent:true,opacity:.72,clearcoat:1,emissive:0x0a3943,emissiveIntensity:.18});
+  const spine=new THREE.Mesh(new THREE.CapsuleGeometry(.42,2.75,8,16),hull);spine.rotation.x=Math.PI/2;spine.position.set(0,.02,.72);root.add(spine);
+  const nose=new THREE.Mesh(new THREE.ConeGeometry(.44,1.75,10),hull);nose.rotation.x=-Math.PI/2;nose.position.set(0,.02,-1.95);root.add(nose);
+  const canopy=new THREE.Mesh(new THREE.SphereGeometry(.5,24,12,0,Math.PI*2,0,Math.PI/2),glass);canopy.scale.set(.82,.48,1.35);canopy.position.set(0,.28,-.2);root.add(canopy);
+  for(const side of [-1,1]){
+    const pod=new THREE.Mesh(new THREE.CapsuleGeometry(.25,2.05,7,14),hull);pod.rotation.x=Math.PI/2;pod.position.set(side*.94,-.08,.72);root.add(pod);
+    const shoulder=new THREE.Mesh(new THREE.BoxGeometry(.76,.08,1.55),carbon);shoulder.position.set(side*.58,-.11,.62);shoulder.rotation.y=side*.11;root.add(shoulder);
+    const edge=new THREE.Mesh(new THREE.BoxGeometry(.035,.028,2.25),glow);edge.position.set(side*1.18,.02,.55);root.add(edge);
+    const intake=new THREE.Mesh(new THREE.TorusGeometry(.21,.035,7,20),amber);intake.position.set(side*.94,-.08,-.45);root.add(intake);
+    const vane=new THREE.Mesh(new THREE.ConeGeometry(.16,1.08,4),carbon);vane.rotation.x=-Math.PI/2;vane.rotation.z=Math.PI/4;vane.position.set(side*1.18,.02,-1.15);root.add(vane);
+    for(let detail=0;detail<3;detail++){const vent=new THREE.Mesh(new THREE.BoxGeometry(.19,.018,.36),new THREE.MeshBasicMaterial({color:detail===1?AMBER:0x1d6974}));vent.position.set(side*(.55+detail*.14),.27,.62+detail*.25);vent.rotation.y=side*.08;root.add(vent);}
+  }
+  const centerLight=new THREE.Mesh(new THREE.BoxGeometry(.18,.025,1.25),glow);centerLight.position.set(0,.31,-.72);root.add(centerLight);
+  return root;
+}
+
+export class FZoneEngine{
+  private renderer:THREE.WebGLRenderer;private scene=new THREE.Scene();private camera=new THREE.PerspectiveCamera(72,1,.05,1400);private clock=new THREE.Clock();private curve=makeTrack();private trackLength=this.curve.getLength();private rig=new THREE.Group();private ship=createPlayerCraft();private keys=new Set<string>();private listeners:Array<()=>void>=[];private snapshot:RaceSnapshot={...INITIAL_SNAPSHOT};private distance=0;private previousProgress=0;private lateral=0;private speed=0;private boost=100;private lap=1;private lapTime=0;private bestLap:number|null=null;private elapsed=0;private lastEmit=0;private hitCooldown=0;private messageTimeout=0;private countdownTime=0;private goTime=0;private countdownLabel:string|null=null;private lastCountdownLabel="";private rivals:Rival[]=[];private boostPads=[.145,.24,.42,.59,.665,.76,.91];private passedPads=new Set<number>();private mapButtonReady=true;private lastAirborne=false;private lastMagnetic=false;private mapCanvas=document.createElement("canvas");private mapTexture=new THREE.CanvasTexture(this.mapCanvas);private mapPanel=new THREE.Mesh(new THREE.PlaneGeometry(.58,.42),new THREE.MeshBasicMaterial({map:this.mapTexture,transparent:true,side:THREE.DoubleSide}));private countdownCanvas=document.createElement("canvas");private countdownTexture=new THREE.CanvasTexture(this.countdownCanvas);private countdownPanel=new THREE.Mesh(new THREE.PlaneGeometry(.78,.38),new THREE.MeshBasicMaterial({map:this.countdownTexture,transparent:true,depthTest:false,toneMapped:false}));private destroyed=false;
+  constructor(private canvas:HTMLCanvasElement,private emit:(snapshot:RaceSnapshot)=>void){
+    this.renderer=new THREE.WebGLRenderer({canvas,antialias:true,powerPreference:"high-performance"});this.renderer.setPixelRatio(Math.min(devicePixelRatio,1.25));this.renderer.outputColorSpace=THREE.SRGBColorSpace;this.renderer.toneMapping=THREE.ACESFilmicToneMapping;this.renderer.toneMappingExposure=1.35;this.renderer.xr.enabled=true;this.renderer.xr.setReferenceSpaceType("local-floor");this.scene.background=new THREE.Color(0x01040a);this.scene.fog=new THREE.FogExp2(0x020913,.0018);
+    this.buildWorld();this.bindEvents();this.resize();void this.checkVR();this.emitSnapshot(true);this.renderer.setAnimationLoop(()=>this.loop());
+  }
+  private buildWorld(){
+    this.scene.add(new THREE.HemisphereLight(0x75ecff,0x05050d,1.8));const sun=new THREE.DirectionalLight(0xbfefff,3.2);sun.position.set(60,100,30);this.scene.add(sun);this.scene.add(createTrack(this.curve));this.addRails();this.addBoostPads();this.addJumpGates();this.addMagneticTunnels();this.addCity();this.addStars();this.addGate();
+    this.rig.add(this.camera);this.camera.position.set(0,1.28,.12);this.rig.add(this.ship);this.ship.position.set(0,.02,.62);this.buildCockpit();this.scene.add(this.rig);
+    [MAGENTA,AMBER,0x795cff,0x4cff83,0xff5b3d].forEach((color,index)=>{const root=createRacer(color);root.scale.setScalar(.82);this.scene.add(root);this.rivals.push({root,distance:18+index*14,speed:102+index*3.7,lane:(index-2)*1.85});});this.updateTransforms(0);
+  }
+  private addRails(){
+    const material=new THREE.MeshBasicMaterial({color:CYAN});
+    for(const side of [-1,1]){
+      let points:THREE.Vector3[]=[];
+      const flush=()=>{if(points.length>2)this.scene.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(points,false,"centripetal"),Math.max(12,points.length*2),.055,5,false),material));points=[];};
+      for(let i=0;i<=SAMPLES;i++){const progress=i/SAMPLES;if(isGap(progress)){flush();continue;}const f=frame(this.curve,progress);points.push(f.center.clone().addScaledVector(f.right,side*(TRACK_WIDTH/2+.12)).addScaledVector(f.up,.34));}
+      flush();
+    }
+    for(let i=0;i<112;i++){const progress=i/112;if(isGap(progress))continue;const f=frame(this.curve,progress),color=i%8===0?AMBER:CYAN;for(const side of [-1,1]){const post=new THREE.Mesh(new THREE.BoxGeometry(.09,.85,.09),new THREE.MeshBasicMaterial({color}));post.position.copy(f.center).addScaledVector(f.right,side*(TRACK_WIDTH/2+.12)).addScaledVector(f.up,.38);post.quaternion.copy(f.quaternion);this.scene.add(post);}}
+  }
+  private addBoostPads(){this.boostPads.forEach((progress,index)=>{const f=frame(this.curve,progress);for(const lane of [-4.2,0,4.2]){const pad=new THREE.Mesh(new THREE.BoxGeometry(2.6,.035,7),new THREE.MeshBasicMaterial({color:index%2?AMBER:CYAN,transparent:true,opacity:.78}));pad.position.copy(f.center).addScaledVector(f.right,lane).addScaledVector(f.up,.03);pad.quaternion.copy(f.quaternion);this.scene.add(pad);}});}
+  private addJumpGates(){for(const [start,end] of GAP_RANGES){for(const [progress,color] of [[start-.006,AMBER],[end+.006,CYAN]] as const){const f=frame(this.curve,progress),group=new THREE.Group();group.position.copy(f.center);group.quaternion.copy(f.quaternion);const bar=new THREE.Mesh(new THREE.BoxGeometry(TRACK_WIDTH,.08,.65),new THREE.MeshBasicMaterial({color}));bar.position.y=.04;group.add(bar);for(const side of [-1,1]){const beacon=new THREE.Mesh(new THREE.ConeGeometry(.16,.9,6),new THREE.MeshBasicMaterial({color}));beacon.position.set(side*(TRACK_WIDTH/2-.3),.48,0);group.add(beacon);}this.scene.add(group);}}}
+  private addMagneticTunnels(){for(const [start,end] of MAGNETIC_RANGES){const rings=24;for(let i=0;i<=rings;i++){const progress=start+(end-start)*i/rings;if(!tunnelHasClearance(this.curve,progress))continue;const f=frame(this.curve,progress),ring=new THREE.Mesh(new THREE.TorusGeometry(TRACK_WIDTH*.61,.075,5,28),new THREE.MeshBasicMaterial({color:i%4===0?MAGENTA:0x6746a8,transparent:true,opacity:i%4===0?.8:.34}));ring.position.copy(f.center);ring.quaternion.copy(f.quaternion);this.scene.add(ring);}}}
+  private addGate(){const f=frame(this.curve,0),group=new THREE.Group(),material=new THREE.MeshBasicMaterial({color:CYAN});group.position.copy(f.center);group.quaternion.copy(f.quaternion);const top=new THREE.Mesh(new THREE.BoxGeometry(TRACK_WIDTH+2,.16,.16),material);top.position.y=4.7;group.add(top);for(const side of [-1,1]){const pillar=new THREE.Mesh(new THREE.BoxGeometry(.16,4.8,.16),material);pillar.position.set(side*(TRACK_WIDTH/2+.9),2.35,0);group.add(pillar);}this.scene.add(group);}
+  private addCity(){const towers=new THREE.InstancedMesh(new THREE.BoxGeometry(1,1,1),new THREE.MeshStandardMaterial({color:0x07131d,emissive:0x082b38,emissiveIntensity:.45,metalness:.68,roughness:.35}),260),matrix=new THREE.Matrix4(),color=new THREE.Color();for(let i=0;i<260;i++){const angle=i*2.399,radius=95+(i%23)*12,height=8+(i*13%19);matrix.compose(new THREE.Vector3(Math.cos(angle)*radius,height/2-8,Math.sin(angle)*radius),new THREE.Quaternion(),new THREE.Vector3(5+i%5,height,5+(i*3)%7));towers.setMatrixAt(i,matrix);color.setHex(i%9===0?0x114a5d:0x06121b);towers.setColorAt(i,color);}this.scene.add(towers);const floor=new THREE.Mesh(new THREE.CircleGeometry(520,72),new THREE.MeshBasicMaterial({color:0x01040a}));floor.rotation.x=-Math.PI/2;floor.position.y=-8.2;this.scene.add(floor);}
+  private addStars(){const positions:number[]=[];for(let i=0;i<900;i++){const radius=180+(i*43%460),angle=i*4.17,y=35+(i*29%230);positions.push(Math.cos(angle)*radius,y,Math.sin(angle)*radius);}const geometry=new THREE.BufferGeometry();geometry.setAttribute("position",new THREE.Float32BufferAttribute(positions,3));this.scene.add(new THREE.Points(geometry,new THREE.PointsMaterial({color:0xbbefff,size:.6,sizeAttenuation:true})));}
+  private buildCockpit(){
+    const alloy=new THREE.MeshPhysicalMaterial({color:0x071018,metalness:.94,roughness:.17,clearcoat:1,clearcoatRoughness:.12,emissive:0x031b23,emissiveIntensity:.25});
+    const inset=new THREE.MeshStandardMaterial({color:0x010408,metalness:.72,roughness:.3});
+    const glow=new THREE.MeshBasicMaterial({color:CYAN,toneMapped:false});
+    const amber=new THREE.MeshBasicMaterial({color:AMBER,toneMapped:false});
+    const center=new THREE.Mesh(new THREE.BoxGeometry(.86,.075,.48),alloy);center.position.set(0,.78,-.62);center.rotation.x=-.16;this.rig.add(center);
+    const centerScreen=new THREE.Mesh(new THREE.PlaneGeometry(.46,.16),new THREE.MeshBasicMaterial({color:0x0d6270,transparent:true,opacity:.72,toneMapped:false}));centerScreen.position.set(0,.846,-.76);centerScreen.rotation.x=-1.42;this.rig.add(centerScreen);
+    for(const side of [-1,1]){
+      const consoleMesh=new THREE.Mesh(new THREE.BoxGeometry(.68,.07,.82),alloy);consoleMesh.position.set(side*.72,.72,-.38);consoleMesh.rotation.set(-.14,side*-.1,side*-.025);this.rig.add(consoleMesh);
+      const consoleInset=new THREE.Mesh(new THREE.BoxGeometry(.48,.018,.45),inset);consoleInset.position.set(side*.72,.77,-.53);consoleInset.rotation.copy(consoleMesh.rotation);this.rig.add(consoleInset);
+      for(let light=0;light<4;light++){const indicator=new THREE.Mesh(new THREE.BoxGeometry(.065,.014,.16),light===3?amber:glow);indicator.position.set(side*(.53+light*.105),.79,-.55+light*.035);indicator.rotation.copy(consoleMesh.rotation);this.rig.add(indicator);}
+      const strut=new THREE.Mesh(new THREE.CapsuleGeometry(.035,1.55,5,10),alloy);strut.position.set(side*.82,1.26,-.88);strut.rotation.x=-.58;strut.rotation.z=side*-.22;this.rig.add(strut);
+      const strutLight=new THREE.Mesh(new THREE.CapsuleGeometry(.009,1.42,4,8),glow);strutLight.position.copy(strut.position);strutLight.rotation.copy(strut.rotation);strutLight.position.x-=side*.038;this.rig.add(strutLight);
+    }
+    const brow=new THREE.Mesh(new THREE.TorusGeometry(1.03,.035,8,40,Math.PI),alloy);brow.position.set(0,1.14,-.92);brow.rotation.z=Math.PI;this.rig.add(brow);
+    const reticle=new THREE.Mesh(new THREE.RingGeometry(.055,.064,24),new THREE.MeshBasicMaterial({color:CYAN,transparent:true,opacity:.75,side:THREE.DoubleSide,toneMapped:false}));reticle.position.set(0,1.48,-2.15);this.rig.add(reticle);
+    this.mapCanvas.width=512;this.mapCanvas.height=360;this.mapPanel.position.set(.68,1.02,-.96);this.mapPanel.rotation.set(-.16,-.1,0);this.mapPanel.visible=false;this.rig.add(this.mapPanel);this.drawCockpitMap(0);
+    this.countdownCanvas.width=512;this.countdownCanvas.height=256;this.countdownPanel.position.set(0,1.58,-2.35);this.countdownPanel.renderOrder=20;this.countdownPanel.visible=false;this.rig.add(this.countdownPanel);this.drawCountdownPanel(null);
+  }
+  private bindEvents(){this.addEvent(window,"resize",()=>this.resize());this.addEvent(window,"keydown",event=>{this.keys.add(event.code);if(event.code==="Escape")this.togglePause();if(event.code==="KeyM"&&!event.repeat)this.toggleMinimap();});this.addEvent(window,"keyup",event=>this.keys.delete(event.code));this.renderer.xr.addEventListener("sessionstart",()=>{this.snapshot.vrActive=true;this.snapshot.inputMode="vr";this.mapPanel.visible=this.snapshot.minimapVisible;this.renderer.setPixelRatio(1);this.renderer.xr.setFoveation(.65);this.emitSnapshot(true);});this.renderer.xr.addEventListener("sessionend",()=>{this.snapshot.vrActive=false;this.mapPanel.visible=false;this.renderer.setPixelRatio(Math.min(devicePixelRatio,1.25));this.resize();this.emitSnapshot(true);});}
+  private addEvent<K extends keyof WindowEventMap>(target:Window,type:K,fn:(event:WindowEventMap[K])=>void){target.addEventListener(type,fn);this.listeners.push(()=>target.removeEventListener(type,fn));}
+  private async checkVR(){try{this.snapshot.vrSupported=Boolean(navigator.xr&&await navigator.xr.isSessionSupported("immersive-vr"));}catch{this.snapshot.vrSupported=false;}this.emitSnapshot(true);}
+  async enterVR(){if(!navigator.xr)return;const shouldStart=this.snapshot.phase==="menu"||this.snapshot.phase==="finished";const session=await navigator.xr.requestSession("immersive-vr",{optionalFeatures:["local-floor","bounded-floor"]});await this.renderer.xr.setSession(session);if(shouldStart)this.start();}
+  start(){if(this.snapshot.phase==="paused"){this.snapshot.phase="racing";this.clock.getDelta();this.emitSnapshot(true);return;}this.distance=0;this.previousProgress=0;this.lateral=0;this.speed=0;this.boost=100;this.lap=1;this.lapTime=0;this.bestLap=null;this.elapsed=0;this.countdownTime=3.05;this.goTime=0;this.countdownLabel="3";this.lastCountdownLabel="3";this.passedPads.clear();this.rivals.forEach((rival,index)=>{rival.distance=18+index*14;});this.snapshot.phase="countdown";this.drawCountdownPanel("3");this.countdownPanel.visible=true;this.pulse(.18,45);this.emitSnapshot(true);this.clock.getDelta();}
+  toggleMinimap(){this.snapshot.minimapVisible=!this.snapshot.minimapVisible;this.mapPanel.visible=this.snapshot.vrActive&&this.snapshot.minimapVisible;if(this.mapPanel.visible)this.drawCockpitMap((this.distance/this.trackLength)%1);this.emitSnapshot(true);}
+  private togglePause(){if(this.snapshot.phase==="racing")this.snapshot.phase="paused";else if(this.snapshot.phase==="paused")this.snapshot.phase="racing";this.emitSnapshot(true);}
+  private readControls():ControlState{let steer=(this.keys.has("KeyD")||this.keys.has("ArrowRight")?1:0)-(this.keys.has("KeyA")||this.keys.has("ArrowLeft")?1:0),throttle=this.keys.has("KeyW")||this.keys.has("ArrowUp")?1:0,brake=this.keys.has("KeyS")||this.keys.has("ArrowDown")?1:0,boost=this.keys.has("ShiftLeft")||this.keys.has("ShiftRight")||this.keys.has("Space"),map=false,mode:InputMode="keyboard";const sources=Array.from(this.renderer.xr.getSession()?.inputSources??[]);if(sources.length){const left=sources.find(source=>source.handedness==="left")?.gamepad,right=sources.find(source=>source.handedness==="right")?.gamepad,axes=left?.axes??[];steer=deadzone(axes.length>=4?axes[2]??0:axes[0]??0);throttle=right?.buttons[0]?.value??0;brake=left?.buttons[0]?.value??0;boost=Boolean(right?.buttons[1]?.pressed||right?.buttons[4]?.pressed);map=Boolean(left?.buttons[4]?.pressed||left?.buttons[5]?.pressed);mode="vr";}else{const pad=Array.from(navigator.getGamepads()).find(Boolean);if(pad){steer=deadzone(pad.axes[0]??0);throttle=Math.max(throttle,pad.buttons[7]?.value??0);brake=Math.max(brake,pad.buttons[6]?.value??0);boost||=Boolean(pad.buttons[0]?.pressed||pad.buttons[5]?.pressed);map=Boolean(pad.buttons[3]?.pressed||pad.buttons[8]?.pressed);mode="gamepad";}}return{steer,throttle,brake,boost,map,mode};}
+  private loop(){if(this.destroyed)return;const dt=Math.min(this.clock.getDelta(),.05);if(this.snapshot.phase==="countdown")this.updateCountdown(dt);else if(this.snapshot.phase==="racing")this.updateRace(dt);else this.updateTransforms(dt);this.renderer.render(this.scene,this.camera);}
+  private updateCountdown(dt:number){this.countdownTime=Math.max(0,this.countdownTime-dt);const label=this.countdownTime>2?"3":this.countdownTime>1?"2":this.countdownTime>0?"1":"GO";if(label!==this.lastCountdownLabel){this.lastCountdownLabel=label;this.countdownLabel=label;this.drawCountdownPanel(label);this.pulse(label==="GO"?.42:.2,label==="GO"?90:45);this.emitSnapshot(true);}if(this.countdownTime<=0){this.snapshot.phase="racing";this.goTime=.8;this.showMessage("Propulsores liberados");this.emitSnapshot(true);}this.updateTransforms(dt);}
+  private updateRace(dt:number){
+    const controls=this.readControls();this.snapshot.inputMode=controls.mode;
+    if(this.goTime>0){this.goTime-=dt;if(this.goTime<=0){this.countdownLabel=null;this.countdownPanel.visible=false;this.emitSnapshot(true);}}
+    if(controls.map&&this.mapButtonReady){this.toggleMinimap();this.mapButtonReady=false;}else if(!controls.map)this.mapButtonReady=true;
+    const boosting=controls.boost&&this.boost>1&&this.speed>24;
+    this.speed=advanceSpeed(this.speed,controls.throttle,controls.brake,boosting,dt);this.boost=clamp(this.boost+(boosting?-31:8.5)*dt,0,100);
+    this.lateral+=controls.steer*(3.2+this.speed*.012)*dt;this.ship.rotation.z+=(-controls.steer*.075-this.ship.rotation.z)*Math.min(1,dt*6);
+    this.distance+=this.speed*dt;const progress=(this.distance/this.trackLength)%1,airborne=isGap(progress),magnetic=Math.abs(magneticBank(progress))>.1;
+    if(!airborne&&Math.abs(this.lateral)>TRACK_WIDTH/2-.9){this.lateral=clamp(this.lateral,-TRACK_WIDTH/2+.9,TRACK_WIDTH/2-.9);if(this.hitCooldown<=0){this.speed*=.62;this.snapshot.impactPulse+=1;this.hitCooldown=.55;this.showMessage("Contato lateral");this.pulse(.35,70);}}
+    if(airborne&&!this.lastAirborne){this.speed=Math.max(this.speed,88);this.showMessage("Salto orbital");this.pulse(.28,65);}
+    if(magnetic&&!this.lastMagnetic){this.showMessage("Aderência magnética");this.pulse(.18,45);}
+    this.lastAirborne=airborne;this.lastMagnetic=magnetic;this.hitCooldown-=dt;this.lapTime+=dt;this.elapsed+=dt;
+    if(progress<this.previousProgress&&this.speed>10){this.bestLap=this.bestLap===null?this.lapTime:Math.min(this.bestLap,this.lapTime);this.lap+=1;this.lapTime=0;this.passedPads.clear();if(this.lap>TOTAL_LAPS){this.lap=TOTAL_LAPS;this.snapshot.phase="finished";this.speed*=.7;this.showMessage("Prova concluída");}else this.showMessage(`Volta ${this.lap}`);}
+    this.previousProgress=progress;this.checkPads(progress);this.rivals.forEach((rival,index)=>{rival.distance+=(rival.speed+Math.sin(this.elapsed*.7+index)*5)*dt;});this.updateTransforms(dt);
+    if(this.messageTimeout>0){this.messageTimeout-=dt;if(this.messageTimeout<=0)this.snapshot.message="";}
+    if(this.elapsed-this.lastEmit>.05){this.lastEmit=this.elapsed;this.emitSnapshot();}
+  }
+  private checkPads(progress:number){this.boostPads.forEach((pad,index)=>{const distance=Math.min(Math.abs(progress-pad),1-Math.abs(progress-pad));if(distance<.008&&!this.passedPads.has(index)){this.passedPads.add(index);this.boost=clamp(this.boost+28,0,100);this.speed=Math.min(154,this.speed+14);this.showMessage("Fluxo recarregado");this.pulse(.22,45);}});}
+  private updateTransforms(dt:number){const progress=(this.distance/this.trackLength)%1,f=frame(this.curve,progress),lift=gapLift(progress);this.rig.position.copy(f.center).addScaledVector(f.right,this.lateral).addScaledVector(f.up,.35+lift);this.rig.quaternion.slerp(f.quaternion,dt>0?Math.min(1,dt*6):1);this.rivals.forEach((rival,index)=>{const rivalProgress=(rival.distance/this.trackLength)%1,rf=frame(this.curve,rivalProgress);rival.root.position.copy(rf.center).addScaledVector(rf.right,rival.lane+Math.sin(this.elapsed+index)*.35).addScaledVector(rf.up,.48+gapLift(rivalProgress));rival.root.quaternion.copy(rf.quaternion);rival.root.rotation.z=Math.sin(this.elapsed*.8+index)*.035;});if(this.mapPanel.visible)this.drawCockpitMap(progress);}
+  private position(){return 1+this.rivals.filter(rival=>rival.distance>this.distance).length;}
+  private showMessage(message:string){this.snapshot.message=message;this.snapshot.messagePulse+=1;this.messageTimeout=1.35;}
+  private pulse(intensity:number,duration:number){for(const source of Array.from(this.renderer.xr.getSession()?.inputSources??[])){const actuator=source.gamepad?.hapticActuators?.[0];if(actuator)void actuator.pulse(intensity,duration);}}
+  private emitSnapshot(force=false){if(this.destroyed&&!force)return;const progress=(this.distance/this.trackLength)%1;this.snapshot={...this.snapshot,speed:this.speed,boost:this.boost,lap:this.lap,totalLaps:TOTAL_LAPS,lapTime:this.lapTime,bestLap:this.bestLap,position:this.position(),racers:this.rivals.length+1,progress,sector:trackSector(progress),airborne:isGap(progress),magnetic:Math.abs(magneticBank(progress))>.1,countdown:this.countdownLabel};this.emit({...this.snapshot});}
+  private drawCountdownPanel(label:string|null){const context=this.countdownCanvas.getContext("2d");if(!context)return;const colors=["#ff365c","#ffc25e","#51ff9f"],active=label==="3"?0:label==="2"||label==="1"?1:label==="GO"?2:-1;context.clearRect(0,0,512,256);context.fillStyle="rgba(1,8,14,.86)";context.beginPath();context.roundRect(36,24,440,208,28);context.fill();context.strokeStyle="rgba(105,246,255,.45)";context.lineWidth=3;context.stroke();colors.forEach((color,index)=>{context.fillStyle=index===active?color:"#14232b";context.shadowColor=index===active?color:"transparent";context.shadowBlur=index===active?28:0;context.beginPath();context.arc(154+index*102,80,27,0,Math.PI*2);context.fill();context.shadowBlur=0;});if(label){context.textAlign="center";context.font="900 92px sans-serif";context.fillStyle=label==="3"?colors[0]:label==="GO"?colors[2]:colors[1];context.shadowColor=context.fillStyle;context.shadowBlur=24;context.fillText(label,256,205);context.shadowBlur=0;}this.countdownTexture.needsUpdate=true;this.countdownPanel.visible=label!==null;}
+  private drawCockpitMap(progress:number){const context=this.mapCanvas.getContext("2d");if(!context)return;const width=this.mapCanvas.width,height=this.mapCanvas.height,project=(point:THREE.Vector3)=>({x:28+(point.x+250)/530*(width-56),y:24+(210-point.z)/385*(height-48)});context.clearRect(0,0,width,height);context.fillStyle="rgba(2,12,20,.88)";context.fillRect(0,0,width,height);context.strokeStyle="rgba(105,246,255,.18)";context.lineWidth=1;for(let x=0;x<width;x+=32){context.beginPath();context.moveTo(x,0);context.lineTo(x,height);context.stroke();}for(let y=0;y<height;y+=32){context.beginPath();context.moveTo(0,y);context.lineTo(width,y);context.stroke();}context.lineWidth=7;context.lineCap="round";context.strokeStyle="#69f6ff";let drawing=false;for(let i=0;i<=220;i++){const p=i/220;if(isGap(p)){if(drawing)context.stroke();drawing=false;continue;}const point=project(this.curve.getPointAt(p));if(!drawing){context.beginPath();context.moveTo(point.x,point.y);drawing=true;}else context.lineTo(point.x,point.y);}if(drawing)context.stroke();context.setLineDash([8,8]);context.strokeStyle="#ffc25e";context.lineWidth=3;for(const [start,end] of GAP_RANGES){context.beginPath();for(let i=0;i<=12;i++){const point=project(this.curve.getPointAt(start+(end-start)*i/12));if(i===0)context.moveTo(point.x,point.y);else context.lineTo(point.x,point.y);}context.stroke();}context.setLineDash([]);const player=project(this.curve.getPointAt(progress));context.fillStyle="#ff3e93";context.shadowColor="#ff3e93";context.shadowBlur=14;context.beginPath();context.arc(player.x,player.y,9,0,Math.PI*2);context.fill();context.shadowBlur=0;context.fillStyle="#dffeff";context.font="700 18px monospace";context.fillText(trackSector(progress).toUpperCase(),22,28);this.mapTexture.needsUpdate=true;}
+  private resize(){const width=this.canvas.clientWidth||innerWidth,height=this.canvas.clientHeight||innerHeight;this.renderer.setSize(width,height,false);this.camera.aspect=width/Math.max(1,height);this.camera.updateProjectionMatrix();}
+  destroy(){this.destroyed=true;this.renderer.setAnimationLoop(null);this.listeners.forEach(dispose=>dispose());this.renderer.dispose();}
+}
