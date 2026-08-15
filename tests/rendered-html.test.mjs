@@ -16,7 +16,7 @@ test("renderiza a apresentação do F-Zone VR", async () => {
   assert.match(html, /<title>F-Zone VR — Neon velocity<\/title>/i);
   assert.match(html, /F-Zone/);
   assert.match(html, /Jogar na tela/);
-  assert.match(html, /Verificando headset/);
+  assert.match(html, /Preparando WebXR/);
   assert.match(html, /https:\/\/lochesystem\.github\.io\/f-zone-vr\/og\.png/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
 });
@@ -30,6 +30,8 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(engine, /requestSession\("immersive-vr"/);
   assert.match(engine, /"hand-tracking"/);
   assert.match(engine, /vrChecked=true/);
+  assert.match(engine, /vrApiAvailable=Boolean\(xr\)/);
+  assert.match(engine, /globalThis\.isSecureContext/);
   assert.match(engine, /setFoveation\(\.65\)/);
   assert.match(engine, /TOTAL_LAPS=3/);
   assert.match(engine, /TRACK_WIDTH=16/);
