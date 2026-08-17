@@ -17,7 +17,7 @@ test("renderiza a apresentação do F-Zone VR", async () => {
   assert.match(html, /F-Zone/);
   assert.match(html, /Entrar em VR/);
   assert.match(html, /Jogar na tela/);
-  assert.match(html, /A seleção de modo, nave e pista acontece antes da largada/);
+  assert.match(html, /Preparando o acesso imersivo|permanecem dentro do espaço imersivo/);
   assert.match(html, /https:\/\/lochesystem\.github\.io\/f-zone-vr\/og\.png/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
 });
@@ -68,8 +68,15 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(engine, /isEnergyZone\(progress\)/);
   assert.match(engine, /this\.boosting\?-29:this\.energyCharging\?18:\.18/);
   assert.match(engine, /drawSpeedPanel/);
+  assert.match(engine, /enterVRLobby/);
+  assert.match(engine, /openVrMenu\("results"\)/);
+  assert.match(engine, /private updateVrMenu\(\)/);
+  assert.match(engine, /this\.rig\.add\(this\.speedPanel\)/);
+  assert.match(engine, /this\.rig\.add\(this\.mapPanel\)/);
   assert.match(mechanics, /topSpeed=boosting\?tuning\.topSpeed\+38\*tuning\.boostPower:tuning\.topSpeed/);
   assert.match(ui, /Entrar em VR/);
+  assert.match(ui, /engine\.enterVRLobby\(\)/);
+  assert.match(ui, /permanecem dentro do espaço imersivo/);
   assert.match(ui, /engine\.enterVR\(\)\.catch/);
   assert.match(ui, /race\.displaySpeed/);
   assert.match(ui, /opponent-radar/);
