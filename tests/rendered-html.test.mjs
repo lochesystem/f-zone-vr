@@ -58,6 +58,8 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(engine, /this\.audio\.boostHit/);
   assert.match(engine, /opponents=active\.map/);
   assert.match(engine, /configureRace\(mode:GameModeId,shipId=/);
+  assert.match(engine, /STORY_EVENTS\[this\.storyEventIndex\]/);
+  assert.match(engine, /this\.lap>this\.totalLaps/);
   assert.match(engine, /this\.gameMode==="arcade"\?\[\]/);
   assert.match(engine, /private updateCountdown\(dt:number\)/);
   assert.match(engine, /countdownTime=3\.05/);
@@ -79,6 +81,8 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(ui, /setShipId\(ship\.id\);setScreen\("track"\)/);
   assert.match(ui, /Escolha a pista/);
   assert.match(ui, /Resultado oficial/);
+  assert.match(ui, /Próxima corrida/);
+  assert.match(ui, /Temporada concluída/);
   assert.match(ui, /screen==="entry"/);
   assert.match(audio, /class RaceAudio/);
   assert.match(audio, /createOscillator/);
@@ -91,5 +95,7 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(gameData, /id:"story"/);
   assert.match(gameData, /id:"arcade"/);
   assert.match(gameData, /const SHIPS/);
+  assert.match(gameData, /const STORY_EVENTS/);
+  assert.match(gameData, /Coroa Solar/);
   assert.match(roadmap, /Pilotagem e escala/);
 });
