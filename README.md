@@ -28,7 +28,7 @@ Jogo original de corrida antigravitacional para navegador e Meta Quest 3. Pilote
 | Rift Ascent | 5,20 km | Cordilheira sob aurora, rampas íngremes, dois saltos e curvas magnéticas moderadas. |
 | Solar Foundry | 6,60 km | Forja solar diurna, traçado recortado, dutos térmicos e duas pontes de reator. |
 | Magma Crown | 6,13 km | Caldeira vulcânica, lago de lava, descida obsidiana e plataformas de resfriamento. |
-| Cloudline Metro | 6,54 km | Metrópole diurna acima das nuvens, grandes retas, aerovias e tráfego distante. |
+| Cloudline Metro | 7,57 km | Metrópole diurna acima das nuvens, grandes retas, aerovias e um loop vertical completo. |
 
 Novas pistas precisam seguir as [regras obrigatórias de geometria, conforto e identidade](docs/TRACK-DESIGN.md).
 

@@ -25,7 +25,7 @@ export const TRACKS:TrackSpec[]=[
   {id:"rift-ascent",name:"Rift Ascent",region:"Zenith",description:"Circuito de resistência com ascensão progressiva, crista magnética e mergulho sobre a cidade.",laps:4,difficulty:4,available:true,features:["5,2 km","2 saltos","Wall ride"]},
   {id:"solar-foundry",name:"Solar Foundry",region:"Cinturão Helios",description:"Uma forja solar diurna com traçado recortado, dutos térmicos e duas pontes de reator.",laps:4,difficulty:4,available:true,features:["6,6 km","2 saltos","Forja solar"]},
   {id:"magma-crown",name:"Magma Crown",region:"Caldeira Rubra",description:"Uma coroa vulcânica longa, com descidas sobre lava, pontes de resfriamento e aderência magnética.",laps:4,difficulty:4,available:true,features:["6,1 km","2 saltos","Caldeira"]},
-  {id:"cloudline-metro",name:"Cloudline Metro",region:"Aerovia Nimbus",description:"Um circuito diurno sobre as nuvens, com retas metropolitanas, pontes aéreas e curvas de alta velocidade.",laps:4,difficulty:3,available:true,features:["6,5 km","2 saltos","Metrópole aérea"]},
+  {id:"cloudline-metro",name:"Cloudline Metro",region:"Aerovia Nimbus",description:"Um circuito diurno sobre as nuvens, com retas metropolitanas, pontes aéreas e um loop vertical completo.",laps:4,difficulty:4,available:true,features:["7,6 km","Loop vertical","Metrópole aérea"]},
 ];
 
 export const STORY_EVENTS:StoryEvent[]=[

@@ -142,7 +142,7 @@ Escala dos atributos: 1 a 5.
 | Rift Ascent | Implementada | 5,20 km | 4 | Cordilheira sob aurora boreal, subida de até 31°, dois saltos e curvas magnéticas moderadas. |
 | Solar Foundry | Implementada | 6,60 km | 4 | Forja solar diurna, circuito recortado, dutos industriais, elevação progressiva e duas pontes aéreas. |
 | Magma Crown | Implementada | 6,13 km | 4 | Caldeira noturna, lago de lava, coroa vulcânica, descida obsidiana e plataformas de resfriamento. |
-| Cloudline Metro | Implementada | 6,54 km | 4 | Metrópole clara acima das nuvens, retas extensas, aerovias e tráfego visual distante. |
+| Cloudline Metro | Implementada | 7,57 km | 4 | Metrópole clara acima das nuvens, retas extensas, aerovias e um loop vertical completo. |
 
 As regras completas estão em [TRACK-DESIGN.md](TRACK-DESIGN.md). Requisitos centrais:
 

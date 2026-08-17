@@ -87,6 +87,7 @@ Cada pista é uma `TrackLayout` formada por:
 - pontos tridimensionais que geram uma curva fechada;
 - escala global;
 - intervalos de lacunas, magnetismo, recarga e boost;
+- intervalos opcionais de loop vertical, com orientação por transporte paralelo;
 - setores nomeados;
 - tema visual.
 

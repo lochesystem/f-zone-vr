@@ -19,7 +19,7 @@ O roadmap ordena entregas. Regras permanentes ficam no [GDD](GDD.md), em [decis�
 - [x] Rift Ascent com 5,20 km, aurora, rampas e saltos.
 - [x] Solar Foundry com 6,60 km, cenário industrial diurno e duas pontes de reator.
 - [x] Magma Crown com 6,13 km, caldeira vulcânica, lava e plataformas de resfriamento.
-- [x] Cloudline Metro com 6,54 km, cidade sobre nuvens, grandes retas e aerovias distantes.
+- [x] Cloudline Metro com 7,57 km, cidade sobre nuvens, grandes retas, aerovias e loop vertical.
 - [x] Turntable 3D de pistas no desktop e no VR usando a geometria real.
 - [x] Sessão VR contínua, controles rastreados, raios e cursores.
 - [x] HUD no cockpit e cockpit acompanhando parcialmente o movimento da nave.

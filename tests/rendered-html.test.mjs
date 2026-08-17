@@ -88,7 +88,16 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(engine, /isEnergyZone\(progress,this\.trackLayout\)/);
   assert.match(engine, /updateBoostEnergy\(this\.boost,this\.boosting,this\.energyCharging,dt\)/);
   assert.match(engine, /private resetRaceState\(\)/);
+  assert.match(engine, /this\.lastEmit=0/);
+  assert.match(engine, /this\.resetRaceState\(\);this\.countdownLabel=null;this\.snapshot\.phase="menu"/);
   assert.match(engine, /rivalTargetSpeed\(this\.gameMode,index,this\.storyEventIndex\)/);
+  assert.match(engine, /rival\.root\.rotateY\(yaw\)/);
+  assert.doesNotMatch(engine, /rival\.root\.rotation\.y=/);
+  assert.match(engine, /this\.ship\.visible=false/);
+  assert.doesNotMatch(engine, /const centerScreen=/);
+  assert.match(engine, /emberPositions/);
+  assert.match(engine, /const skySun=/);
+  assert.match(engine, /const cloudGeometry=/);
   assert.match(engine, /drawSpeedPanel/);
   assert.match(engine, /enterVRLobby/);
   assert.match(engine, /openVrMenu\("results"\)/);

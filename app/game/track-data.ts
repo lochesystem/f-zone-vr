@@ -7,7 +7,7 @@ export interface TrackTheme {sky:number;fog:number;fogDensity:number;track:numbe
 export interface TrackLayout {
   id:string;name:string;points:ReadonlyArray<TrackPoint>;gaps:ReadonlyArray<TrackRange>;
   magnetic:ReadonlyArray<MagneticRange>;energy:ReadonlyArray<TrackRange>;boostPads:ReadonlyArray<number>;
-  sectors:ReadonlyArray<readonly [number,number,string]>;scale:number;theme:TrackTheme;
+  sectors:ReadonlyArray<readonly [number,number,string]>;scale:number;theme:TrackTheme;verticalLoops?:ReadonlyArray<TrackRange>;
 }
 
 export const TRACK_POINTS:ReadonlyArray<TrackPoint> = [
@@ -52,8 +52,13 @@ export const MAGMA_CROWN_POINTS:ReadonlyArray<TrackPoint> = [
 export const CLOUDLINE_METRO_POINTS:ReadonlyArray<TrackPoint> = [
   [737,195,0],[769,210,44],[774,223,96],[748,233,154],[693,240,207],[614,243,248],
   [520,242,270],[420,238,274],[322,232,266],[231,226,257],[150,219,256],[74,215,270],
-  [0,212,298],[-79,212,331],[-167,214,360],[-264,218,371],[-368,222,359],
-  [-472,226,323],[-567,228,270],[-643,227,210],[-693,223,154],[-715,215,106],
+  [0,212,298],[-79,212,331],[-167,214,360],[-264,218,371],[-291,222,356],
+  [-317,233,341],[-339,250,328],[-357,272,317],[-369,297,308],[-375,325,302],
+  [-374,353,299],[-366,378,299],[-353,400,300],[-336,417,304],[-315,428,310],
+  [-292,432,316],[-269,429,322],[-248,419,327],[-231,402,331],[-218,381,333],
+  [-210,356,332],[-209,329,329],[-215,302,323],[-227,277,314],[-245,256,303],
+  [-267,239,290],[-293,229,275],[-320,226,260],[-385,226,250],[-449,226,240],
+  [-514,227,230],[-578,227,220],[-643,227,210],[-693,223,154],[-715,215,106],
   [-710,204,69],[-683,190,36],[-643,175,0],[-599,160,-44],[-559,147,-96],
   [-527,137,-154],[-502,130,-207],[-481,127,-248],[-456,128,-270],[-421,132,-274],
   [-368,138,-266],[-297,144,-257],[-207,151,-256],[-106,155,-270],[0,158,-298],
@@ -89,9 +94,9 @@ const MAGMA_CROWN:TrackLayout={
   theme:{sky:0x16060d,fog:0x4c120d,fogDensity:.00072,track:0x21191c,stripe:0x593026,magnetic:0x8e2230,rail:0xffa43a,accent:0xff4a1f,ground:0x120607,environment:"magma-crown"},
 };
 const CLOUDLINE_METRO:TrackLayout={
-  id:"cloudline-metro",name:"Cloudline Metro",points:CLOUDLINE_METRO_POINTS,gaps:[[.12,.132],[.64,.652]],
-  magnetic:[[.345,.405,Math.PI*.18],[.78,.835,-Math.PI*.12]],energy:[[.035,.075],[.265,.305],[.535,.575],[.86,.905]],
-  boostPads:[.105,.225,.37,.505,.615,.755,.91],sectors:[[0,.15,"Terminal Aurora"],[.15,.31,"Expresso Celeste"],[.31,.47,"Curva Nimbus"],[.47,.66,"Ponte Aerovia"],[.66,.84,"Distrito Alto"],[.84,1,"Retorno Metropolitano"]],scale:1.8,
+  id:"cloudline-metro",name:"Cloudline Metro",points:CLOUDLINE_METRO_POINTS,gaps:[[.12,.13],[.64,.65]],verticalLoops:[[.295,.455]],
+  magnetic:[[.29,.46,Math.PI*.04],[.78,.835,-Math.PI*.12]],energy:[[.035,.075],[.255,.285],[.535,.575],[.86,.905]],
+  boostPads:[.105,.225,.275,.505,.615,.755,.91],sectors:[[0,.15,"Terminal Aurora"],[.15,.295,"Expresso Celeste"],[.295,.455,"Loop Nimbus"],[.455,.66,"Ponte Aerovia"],[.66,.84,"Distrito Alto"],[.84,1,"Retorno Metropolitano"]],scale:1.8,
   theme:{sky:0x82c9e7,fog:0xc8ecf4,fogDensity:.00043,track:0x17374b,stripe:0x3e7895,magnetic:0x5367b8,rail:0xe9fbff,accent:0xff4fa3,ground:0xd9f2f2,environment:"cloudline-metro"},
 };
 
@@ -104,4 +109,4 @@ export function isEnergyZone(progress:number,layout:TrackLayout=HELIX_VERGE){ret
 export function gapLift(progress:number,layout:TrackLayout=HELIX_VERGE){const p=circularProgress(progress);for(const [start,end] of layout.gaps){if(p>=start&&p<=end){const phase=(p-start)/(end-start);return Math.sin(phase*Math.PI)*12;}}return 0;}
 function smoothstep(value:number){const x=Math.max(0,Math.min(1,value));return x*x*(3-2*x);}
 export function magneticBank(progress:number,layout:TrackLayout=HELIX_VERGE){const p=circularProgress(progress);for(const [start,end,maximum] of layout.magnetic){if(p<start||p>end)continue;const phase=(p-start)/(end-start),edge=.22,envelope=phase<edge?smoothstep(phase/edge):phase>1-edge?smoothstep((1-phase)/edge):1;return maximum*envelope;}return 0;}
-export function trackSector(progress:number,layout:TrackLayout=HELIX_VERGE){if(isGap(progress,layout))return "Salto orbital";if(layout.magnetic.some(([start,end])=>progressInRange(progress,[start,end])))return "Túnel magnético";const p=circularProgress(progress);return layout.sectors.find(([start,end])=>p>=start&&p<end)?.[2]??layout.name;}
+export function trackSector(progress:number,layout:TrackLayout=HELIX_VERGE){if(isGap(progress,layout))return "Salto orbital";if(layout.verticalLoops?.some(range=>progressInRange(progress,range)))return "Loop vertical";if(layout.magnetic.some(([start,end])=>progressInRange(progress,[start,end])))return "Túnel magnético";const p=circularProgress(progress);return layout.sectors.find(([start,end])=>p>=start&&p<end)?.[2]??layout.name;}

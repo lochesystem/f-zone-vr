@@ -101,6 +101,7 @@ Aplicar a cada circuito novo ou alterado:
 - [ ] Linha de chegada contabiliza uma volta apenas.
 - [ ] Identidade visual é diferente das demais pistas.
 - [ ] Corrida padrão dura aproximadamente 2 a 4 minutos.
+- [ ] Loops verticais mantêm orientação contínua, folga 3D e cockpit estável no headset.
 
 ## Regressão visual das naves
 

@@ -13,3 +13,14 @@ Estas regras são obrigatórias para qualquer circuito novo do F-Zone VR.
 9. **Validação automática** — comprimento, distância entre trechos, inclinação, suavidade e alinhamento dos saltos devem passar em `tests/track-clearance.test.mjs`.
 10. **Identidade visual isolada** — cada pista define céu, neblina, superfície, bordas, iluminação e cenário próprios. Objetos decorativos não podem ser compartilhados quando invadirem o volume de outro circuito.
 11. **Variedade magnética** — túneis não devem provocar inversões completas por padrão. Inclinações fortes são eventos especiais e devem alternar com túneis de baixa rotação.
+
+## Loops verticais
+
+Um loop completo é uma exceção deliberada à regra de conforto e precisa cumprir todos estes pontos:
+
+- entrada e saída alinhadas, sem vértice ou teletransporte de orientação;
+- raio amplo e mudança angular progressiva;
+- quadro de orientação transportado ao longo da spline para evitar inversões instantâneas da câmera;
+- folga tridimensional maior que a largura da pista em relação aos demais segmentos;
+- sinalização visual e setor identificado antes da subida;
+- teste obrigatório no Meta Quest 3, incluindo conforto sentado e estabilidade do cockpit.
