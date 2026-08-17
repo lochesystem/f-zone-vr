@@ -91,6 +91,9 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(engine, /enterVRLobby/);
   assert.match(engine, /openVrMenu\("results"\)/);
   assert.match(engine, /private updateVrMenu\(\)/);
+  assert.match(engine, /private vrPausePressed/);
+  assert.match(engine, /"Retomar corrida","Reiniciar corrida","Menu principal","Sair do VR"/);
+  assert.match(engine, /buttons\[9\]\?\.pressed/);
   assert.match(engine, /getController\(index\)/);
   assert.match(engine, /this\.rig\.add\(controller\)/);
   assert.match(engine, /"selectstart"/);
@@ -100,6 +103,8 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(engine, /RingGeometry\(\.018,\.032/);
   assert.match(engine, /this\.cockpit\.add\(this\.speedPanel\)/);
   assert.match(engine, /this\.cockpit\.add\(this\.mapPanel\)/);
+  assert.match(engine, /sizeAttenuation:false/);
+  assert.match(engine, /private hasTrackClearance/);
   assert.match(mechanics, /topSpeed=boosting\?tuning\.topSpeed\+38\*tuning\.boostPower:tuning\.topSpeed/);
   assert.match(ui, /Entrar em VR/);
   assert.match(ui, /engine\.enterVRLobby\(\)/);

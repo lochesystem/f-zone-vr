@@ -116,7 +116,7 @@ O cockpit pertence à nave selecionada e deve parecer um habitáculo, não uma b
 | Selecionar | Gatilho no alvo |
 | Navegar menu | Analógico esquerdo |
 | Confirmar por foco | Botão principal direito |
-| Voltar/pausar | Botão de menu/retorno |
+| Voltar/pausar | Menu esquerdo quando exposto pelo navegador; clique do analógico como alternativa |
 | Direção na corrida | Analógico esquerdo |
 | Acelerar | Gatilho direito |
 | Frear | Gatilho esquerdo |
@@ -136,5 +136,6 @@ O cockpit pertence à nave selecionada e deve parecer um habitáculo, não uma b
 - [ ] Cabeça pode olhar para os lados sem levar o painel junto.
 - [ ] Cockpit acompanha curvas sem atraso desconfortável.
 - [ ] Pausa, opções, resultado e próxima corrida funcionam em VR.
+- [ ] Pausa espacial permite retomar, reiniciar ou voltar ao menu principal sem encerrar a sessão XR.
 - [ ] Nenhum cursor permanece no centro durante a corrida.
 - [ ] FPS e resposta dos controles permanecem estáveis numa corrida completa.

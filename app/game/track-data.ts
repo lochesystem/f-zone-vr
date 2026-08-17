@@ -56,7 +56,7 @@ const SOLAR_FOUNDRY:TrackLayout={
   id:"solar-foundry",name:"Solar Foundry",points:SOLAR_FOUNDRY_POINTS,gaps:[[.079,.091],[.618,.63]],
   magnetic:[[.325,.385,Math.PI*.2],[.73,.785,-Math.PI*.16]],energy:[[.02,.06],[.255,.295],[.515,.555],[.84,.885]],
   boostPads:[.115,.205,.405,.585,.68,.81,.94],sectors:[[0,.13,"Forja Nascente"],[.13,.3,"Dutos Helios"],[.3,.46,"Coroa Térmica"],[.46,.64,"Ponte do Reator"],[.64,.82,"Fundição Alta"],[.82,1,"Retorno Solar"]],scale:1.8,
-  theme:{sky:0x8cc8dc,fog:0xd8b078,fogDensity:.00072,track:0x6b4930,stripe:0xe58c31,magnetic:0xffb52e,rail:0xffe08a,accent:0xff612e,ground:0x2b160d,environment:"solar-foundry"},
+  theme:{sky:0x7fb8ca,fog:0xc68c61,fogDensity:.00064,track:0x172c33,stripe:0x477784,magnetic:0xffc457,rail:0xffed9a,accent:0xff6b35,ground:0x35160e,environment:"solar-foundry"},
 };
 
 export const TRACK_LAYOUTS:Readonly<Record<string,TrackLayout>>={[HELIX_VERGE.id]:HELIX_VERGE,[RIFT_ASCENT.id]:RIFT_ASCENT,[SOLAR_FOUNDRY.id]:SOLAR_FOUNDRY};
