@@ -21,17 +21,17 @@ export const SHIPS:ShipSpec[]=[
 ];
 
 export const TRACKS:TrackSpec[]=[
-  {id:"helix-verge",name:"Helix Verge",region:"Órbita baixa",description:"Circuito de estreia com saltos orbitais e túnel magnético.",laps:3,difficulty:2,available:true,features:["Saltos","Mag-lock","Boost pads"]},
-  {id:"rift-ascent",name:"Rift Ascent",region:"Zenith",description:"Circuito longo com ascensão progressiva, crista magnética e mergulho sobre a cidade.",laps:3,difficulty:4,available:true,features:["Subida íngreme","2 saltos","Wall ride"]},
+  {id:"helix-verge",name:"Helix Verge",region:"Órbita baixa",description:"Circuito de estreia expandido com saltos orbitais e túnel magnético.",laps:4,difficulty:2,available:true,features:["3,6 km","Saltos","Mag-lock"]},
+  {id:"rift-ascent",name:"Rift Ascent",region:"Zenith",description:"Circuito de resistência com ascensão progressiva, crista magnética e mergulho sobre a cidade.",laps:4,difficulty:4,available:true,features:["5,2 km","2 saltos","Wall ride"]},
   {id:"neon-abyss",name:"Neon Abyss",region:"Subnível 09",description:"Uma prova longa em tubos, paredes magnéticas e trechos suspensos.",laps:4,difficulty:5,available:false,features:["Túneis","Wall ride","Trecho aéreo"]},
 ];
 
 export const STORY_EVENTS:StoryEvent[]=[
-  {id:"first-spark",chapter:"01",title:"Primeira Centelha",rival:"Nyx Calder",briefing:"Nyx testa sua linha nas retas de Helix Verge.",difficulty:1,laps:3},
-  {id:"zenith-debt",chapter:"02",title:"Dívida Zenith",rival:"Juno Vale",briefing:"Juno pressiona nas zonas de recarga e fecha a passagem.",difficulty:2,laps:3},
-  {id:"iron-line",chapter:"03",title:"Linha de Ferro",rival:"Rook Mercer",briefing:"Rook usa uma nave pesada e não cede espaço nas curvas.",difficulty:3,laps:3},
-  {id:"violet-lock",chapter:"04",title:"Bloqueio Violeta",rival:"Iris Kade",briefing:"Iris domina o túnel magnético e ataca na saída.",difficulty:4,laps:4},
-  {id:"solar-crown",chapter:"05",title:"Coroa Solar",rival:"Sol Renn",briefing:"A final da temporada exige velocidade, energia e pódio.",difficulty:5,laps:4},
+  {id:"first-spark",chapter:"01",title:"Primeira Centelha",rival:"Nyx Calder",briefing:"Nyx testa sua linha nas retas de Helix Verge.",difficulty:1,laps:4},
+  {id:"zenith-debt",chapter:"02",title:"Dívida Zenith",rival:"Juno Vale",briefing:"Juno pressiona nas zonas de recarga e fecha a passagem.",difficulty:2,laps:4},
+  {id:"iron-line",chapter:"03",title:"Linha de Ferro",rival:"Rook Mercer",briefing:"Rook usa uma nave pesada e não cede espaço nas curvas.",difficulty:3,laps:4},
+  {id:"violet-lock",chapter:"04",title:"Bloqueio Violeta",rival:"Iris Kade",briefing:"Iris domina o túnel magnético e ataca na saída.",difficulty:4,laps:5},
+  {id:"solar-crown",chapter:"05",title:"Coroa Solar",rival:"Sol Renn",briefing:"A final da temporada exige velocidade, energia e pódio.",difficulty:5,laps:5},
 ];
 
 export const RIVAL_NAMES=["Nyx Calder","Juno Vale","Rook Mercer","Iris Kade","Sol Renn"];

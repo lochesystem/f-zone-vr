@@ -39,16 +39,16 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(engine, /vrApiAvailable=Boolean\(xr\)/);
   assert.match(engine, /globalThis\.isSecureContext/);
   assert.match(engine, /setFoveation\(\.65\)/);
-  assert.match(engine, /TOTAL_LAPS=3/);
+  assert.match(engine, /TOTAL_LAPS=4/);
   assert.match(engine, /TRACK_WIDTH=48/);
-  assert.match(engine, /SAMPLES=520/);
+  assert.match(engine, /SAMPLES=720/);
   assert.match(engine, /"centripetal"/);
   assert.match(trackData, /boostPads:\[\.145,\.24,\.42,\.59,\.665,\.76,\.91\]/);
   assert.match(engine, /addJumpGates\(\)/);
   assert.match(engine, /addMagneticTunnels\(\)/);
   assert.match(engine, /private environmentWorld=new THREE\.Group/);
   assert.match(engine, /private addAuroraRidge\(\)/);
-  assert.match(engine, /ground\.position\.y=-155/);
+  assert.match(engine, /ground\.position\.y=-240/);
   assert.match(engine, /toggleMinimap\(\)/);
   assert.match(engine, /gapLift\(progress,this\.trackLayout\)/);
   assert.match(engine, /createPlayerCraft\(\)/);
@@ -64,6 +64,8 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(engine, /variant===3/);
   assert.match(engine, /MeshPhysicalMaterial/);
   assert.match(engine, /lateralVelocity/);
+  assert.match(engine, /cockpitRoll=this\.ship\.rotation\.z\*\.82/);
+  assert.match(engine, /cockpitYaw=this\.ship\.rotation\.y\*\.62/);
   assert.match(engine, /resolveRivalCollisions/);
   assert.match(engine, /this\.drafting/);
   assert.match(engine, /this\.speed>32&&throttle>\.15/);

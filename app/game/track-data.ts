@@ -7,7 +7,7 @@ export interface TrackTheme {sky:number;fog:number;fogDensity:number;track:numbe
 export interface TrackLayout {
   id:string;name:string;points:ReadonlyArray<TrackPoint>;gaps:ReadonlyArray<TrackRange>;
   magnetic:ReadonlyArray<MagneticRange>;energy:ReadonlyArray<TrackRange>;boostPads:ReadonlyArray<number>;
-  sectors:ReadonlyArray<readonly [number,number,string]>;theme:TrackTheme;
+  sectors:ReadonlyArray<readonly [number,number,string]>;scale:number;theme:TrackTheme;
 }
 
 export const TRACK_POINTS:ReadonlyArray<TrackPoint> = [
@@ -26,19 +26,19 @@ export const RIFT_ASCENT_POINTS:ReadonlyArray<TrackPoint> = [
   [-45,10,20],[-5,10,25],[25,8,60],[35,6,115],[25,4,180],
 ];
 
-export const GAP_RANGES:ReadonlyArray<TrackRange> = [[.165,.195],[.685,.715]];
+export const GAP_RANGES:ReadonlyArray<TrackRange> = [[.171,.188],[.693,.71]];
 export const MAGNETIC_RANGES:ReadonlyArray<MagneticRange> = [[.455,.555,Math.PI/2],[.79,.865,-Math.PI*.62]];
 export const ENERGY_RANGES:ReadonlyArray<TrackRange> = [[.035,.085],[.305,.355],[.585,.635],[.885,.935]];
 
 const HELIX_VERGE:TrackLayout={
   id:"helix-verge",name:"Helix Verge",points:TRACK_POINTS,gaps:GAP_RANGES,magnetic:MAGNETIC_RANGES,energy:ENERGY_RANGES,
-  boostPads:[.145,.24,.42,.59,.665,.76,.91],sectors:[[0,.11,"Helix Verge"],[.11,.29,"Escalada Zenith"],[.29,.42,"Mergulho Aurora"],[.42,1,"Helix Verge"]],
+  boostPads:[.145,.24,.42,.59,.665,.76,.91],sectors:[[0,.11,"Helix Verge"],[.11,.29,"Escalada Zenith"],[.29,.42,"Mergulho Aurora"],[.42,1,"Helix Verge"]],scale:1.8,
   theme:{sky:0x01040a,fog:0x020913,fogDensity:.0018,track:0x0b2530,stripe:0x174657,magnetic:0x452067,rail:0x69f6ff,accent:0xff3e93,ground:0x01040a,environment:"orbital-city"},
 };
 const RIFT_ASCENT:TrackLayout={
-  id:"rift-ascent",name:"Rift Ascent",points:RIFT_ASCENT_POINTS,gaps:[[.205,.232],[.704,.726]],
+  id:"rift-ascent",name:"Rift Ascent",points:RIFT_ASCENT_POINTS,gaps:[[.211,.226],[.709,.721]],
   magnetic:[[.355,.435,Math.PI*.32],[.79,.865,-Math.PI*.18]],energy:[[.035,.078],[.285,.325],[.545,.59],[.905,.95]],
-  boostPads:[.12,.265,.47,.625,.755,.89],sectors:[[0,.15,"Portal Rift"],[.15,.36,"Escalada Zenith"],[.36,.54,"Crista Magnética"],[.54,.74,"Mergulho Solar"],[.74,.9,"Túnel Vértice"],[.9,1,"Retorno Rift"]],
+  boostPads:[.12,.265,.47,.625,.755,.89],sectors:[[0,.15,"Portal Rift"],[.15,.36,"Escalada Zenith"],[.36,.54,"Crista Magnética"],[.54,.74,"Mergulho Solar"],[.74,.9,"Túnel Vértice"],[.9,1,"Retorno Rift"]],scale:1.8,
   theme:{sky:0x07182c,fog:0x183a52,fogDensity:.00105,track:0x163f4b,stripe:0x3b8490,magnetic:0x236b68,rail:0x7dffe0,accent:0xa8ff62,ground:0x041523,environment:"aurora-ridge"},
 };
 

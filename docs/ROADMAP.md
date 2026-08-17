@@ -6,7 +6,8 @@
 4. **Concluído — História** — cinco corridas com dificuldade crescente, rival nomeado por evento, quatro voltas nas provas finais e progressão condicionada ao pódio.
    - Direção de arte: cinco silhuetas de nave distintas, com casco, asas, motores e materiais coerentes com seus atributos.
 5. **Em andamento — Arcade, Cup e pistas** — sistema multicircuito concluído e Rift Ascent liberada; próximo passo é transformar Cup em campeonato por pontos e variar a ambientação de cada região.
-   - Rift Ascent: 2,89 km, pista de 48 m, subida/descida de até 31°, dois saltos e duas zonas magnéticas.
+   - Helix Verge expandida para 3,61 km e Rift Ascent para 5,20 km; provas comuns agora têm quatro voltas e as finais da História, cinco.
+   - O cockpit acompanha a guinada, a inclinação e o deslocamento lateral da nave sem mover artificialmente a cabeça do jogador em VR.
    - Identidade de Rift Ascent: alta atmosfera azul, aurora em camadas, cristas distantes e inclinações magnéticas moderadas; cenário isolado para não atravessar a pista.
    - As regras geométricas obrigatórias estão registradas em `docs/TRACK-DESIGN.md` e cobertas por testes automatizados.
 6. **VS** — preparar arquitetura para multijogador posterior.

@@ -5,12 +5,12 @@ import * as THREE from "three";
 
 const TRACK_WIDTH=48,SAMPLES=720;
 
-async function loadTrack(constant){
+async function loadTrack(constant,scale=1.8){
   const source=await readFile(new URL("../app/game/track-data.ts",import.meta.url),"utf8");
   const match=source.match(new RegExp(`${constant}[^=]*=\\s*(\\[[\\s\\S]*?\\]);`));
   assert.ok(match,`${constant} deve continuar sendo uma lista literal auditável`);
   const points=JSON.parse(match[1].replace(/,\s*]/g,"]"));
-  return new THREE.CatmullRomCurve3(points.map(point=>new THREE.Vector3(...point)),true,"centripetal");
+  return new THREE.CatmullRomCurve3(points.map(point=>new THREE.Vector3(...point).multiplyScalar(scale)),true,"centripetal");
 }
 
 function minimumSeparatedDistance(curve){
@@ -28,13 +28,19 @@ function minimumSeparatedDistance(curve){
 
 test("Helix Verge preserva a correção contra cruzamentos",async()=>{
   const curve=await loadTrack("TRACK_POINTS"),minimum=minimumSeparatedDistance(curve);
-  assert.ok(minimum>32,`distância mínima entre trechos de Helix Verge: ${minimum.toFixed(2)}m`);
+  assert.ok(curve.getLength()>3500,`comprimento de Helix Verge: ${curve.getLength().toFixed(2)}m`);
+  assert.ok(minimum>TRACK_WIDTH+12,`distância mínima entre trechos de Helix Verge: ${minimum.toFixed(2)}m`);
 });
 
 test("Rift Ascent é longa, larga e não cruza outros trechos",async()=>{
   const curve=await loadTrack("RIFT_ASCENT_POINTS"),minimum=minimumSeparatedDistance(curve);
-  assert.ok(curve.getLength()>2500,`comprimento da Rift Ascent: ${curve.getLength().toFixed(2)}m`);
+  assert.ok(curve.getLength()>5000,`comprimento da Rift Ascent: ${curve.getLength().toFixed(2)}m`);
   assert.ok(minimum>TRACK_WIDTH+12,`distância mínima entre trechos da Rift Ascent: ${minimum.toFixed(2)}m`);
+});
+
+test("corridas completas não terminam em aproximadamente um minuto",async()=>{
+  const maximumMetresPerSecond=600/3.6;
+  for(const constant of ["TRACK_POINTS","RIFT_ASCENT_POINTS"]){const curve=await loadTrack(constant),minimumRaceSeconds=curve.getLength()*4/maximumMetresPerSecond;assert.ok(minimumRaceSeconds>85,`${constant}: duração teórica mínima ${minimumRaceSeconds.toFixed(1)}s`);}
 });
 
 test("Rift Ascent tem inclinação forte sem mudança vertical instantânea",async()=>{
@@ -49,7 +55,7 @@ test("Rift Ascent tem inclinação forte sem mudança vertical instantânea",asy
 });
 
 test("saltos de Rift Ascent mantêm aterrissagens alinhadas",async()=>{
-  const curve=await loadTrack("RIFT_ASCENT_POINTS"),gaps=[[.205,.232],[.704,.726]];
+  const curve=await loadTrack("RIFT_ASCENT_POINTS"),gaps=[[.211,.226],[.709,.721]];
   for(const [start,end] of gaps){
     const distance=curve.getPointAt(start).distanceTo(curve.getPointAt(end)),angle=curve.getTangentAt(start).angleTo(curve.getTangentAt(end))*180/Math.PI;
     assert.ok(distance>=60&&distance<=85,`salto deve ter vão controlado, recebeu ${distance.toFixed(2)}m`);

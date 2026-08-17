@@ -2,7 +2,7 @@
 
 Estas regras são obrigatórias para qualquer circuito novo do F-Zone VR.
 
-1. **Escala e duração** — largura jogável de 48 m e volta longa o bastante para não parecer uma oval curta e repetitiva.
+1. **Escala e duração** — largura jogável de 48 m, percurso efetivo mínimo de 3,5 km e quatro voltas como padrão para evitar corridas de aproximadamente um minuto.
 2. **Curvas legíveis** — usar spline centrípeta, raios progressivos e transições suaves; curvas em “V” e mudanças instantâneas de direção são proibidas.
 3. **Separação física** — trechos não vizinhos precisam manter folga maior que a largura da pista. Túneis e anéis magnéticos só podem ser criados quando houver volume livre ao redor.
 4. **Elevação confortável** — subidas e descidas podem ser fortes, mas a inclinação deve crescer e terminar progressivamente para reduzir desconforto em VR.
