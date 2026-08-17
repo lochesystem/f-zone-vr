@@ -48,6 +48,11 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(engine, /toggleMinimap\(\)/);
   assert.match(engine, /gapLift\(progress\)/);
   assert.match(engine, /createPlayerCraft\(\)/);
+  assert.match(engine, /createRacer\(spec:ShipSpec,variant=0/);
+  assert.match(engine, /createRacer\(SHIPS\[index\],index\)/);
+  assert.match(engine, /private replacePlayerCraft\(\)/);
+  assert.match(engine, /ship\.userData\.shipId/);
+  assert.match(engine, /variant===3/);
   assert.match(engine, /MeshPhysicalMaterial/);
   assert.match(engine, /lateralVelocity/);
   assert.match(engine, /resolveRivalCollisions/);

@@ -41,36 +41,21 @@ function tunnelHasClearance(curve:THREE.CatmullRomCurve3,progress:number){
   return true;
 }
 
-function createRacer(color:number,cockpit=false){
-  const root=new THREE.Group(),shell=new THREE.MeshStandardMaterial({color:0x101b25,metalness:.9,roughness:.2,emissive:new THREE.Color(color),emissiveIntensity:.12}),glow=new THREE.MeshBasicMaterial({color});
-  const body=new THREE.Mesh(new THREE.BoxGeometry(1.8,.32,3.65),shell);body.position.y=.4;root.add(body);
-  const nose=new THREE.Mesh(new THREE.ConeGeometry(.87,2.4,4),shell);nose.rotation.x=-Math.PI/2;nose.rotation.z=Math.PI/4;nose.position.set(0,.38,-2.5);root.add(nose);
-  for(const side of [-1,1]){const wing=new THREE.Mesh(new THREE.BoxGeometry(1.6,.12,2.15),shell);wing.position.set(side*1.3,.28,.35);wing.rotation.y=side*.16;root.add(wing);const rail=new THREE.Mesh(new THREE.BoxGeometry(.05,.09,2.1),glow);rail.position.set(side*2.05,.35,.2);root.add(rail);const thruster=new THREE.Mesh(new THREE.CylinderGeometry(.22,.3,.65,12),glow);thruster.rotation.x=Math.PI/2;thruster.position.set(side*.68,.35,2.05);root.add(thruster);}
-  if(!cockpit){const canopy=new THREE.Mesh(new THREE.SphereGeometry(.62,16,8,0,Math.PI*2,0,Math.PI/2),new THREE.MeshStandardMaterial({color:0x091017,emissive:color,emissiveIntensity:.35,metalness:.55,roughness:.08}));canopy.scale.set(.82,.48,1.2);canopy.position.set(0,.66,-.25);root.add(canopy);}
-  return root;
+function createRacer(spec:ShipSpec,variant=0,cockpit=false){
+  const root=new THREE.Group(),accent=new THREE.Color(spec.accent),shell=new THREE.MeshPhysicalMaterial({color:spec.color,metalness:.9,roughness:.2,clearcoat:1,clearcoatRoughness:.12,emissive:accent,emissiveIntensity:.14}),dark=new THREE.MeshStandardMaterial({color:0x02070c,metalness:.82,roughness:.28}),glow=new THREE.MeshBasicMaterial({color:accent,toneMapped:false}),glass=new THREE.MeshPhysicalMaterial({color:0x07131d,metalness:.2,roughness:.05,transmission:.35,transparent:true,opacity:.78,clearcoat:1,emissive:accent,emissiveIntensity:.3});root.name=spec.name;root.userData.shipId=spec.id;
+  const addEngine=(x:number,z:number,size=.25)=>{const housing=new THREE.Mesh(new THREE.CylinderGeometry(size*1.2,size*1.35,.72,14),dark),core=new THREE.Mesh(new THREE.CylinderGeometry(size*.7,size*.9,.76,14),glow);housing.rotation.x=core.rotation.x=Math.PI/2;housing.position.set(x,.3,z);core.position.set(x,.3,z+.05);root.add(housing,core);};
+  const spineLength=3.45+spec.stats.topSpeed*.16,spine=new THREE.Mesh(new THREE.CapsuleGeometry(.36+spec.stats.body*.035,spineLength,8,16),shell);spine.rotation.x=Math.PI/2;spine.position.set(0,.36,.2);root.add(spine);
+  const nose=new THREE.Mesh(new THREE.ConeGeometry(.42+spec.stats.body*.055,1.65+spec.stats.topSpeed*.18,variant===2?6:10),shell);nose.rotation.x=-Math.PI/2;nose.position.set(0,.34,-2.2-spec.stats.topSpeed*.08);root.add(nose);
+  if(variant===0){for(const side of [-1,1]){const wing=new THREE.Mesh(new THREE.BoxGeometry(1.45,.1,1.85),shell);wing.position.set(side*1.15,.25,.35);wing.rotation.y=side*.2;root.add(wing);const edge=new THREE.Mesh(new THREE.BoxGeometry(.055,.05,1.9),glow);edge.position.set(side*1.88,.3,.28);root.add(edge);addEngine(side*.68,1.92);}}
+  else if(variant===1){for(const side of [-1,1]){const blade=new THREE.Mesh(new THREE.ConeGeometry(.52,2.9,3),shell);blade.rotation.x=-Math.PI/2;blade.rotation.z=side*.36;blade.position.set(side*.92,.22,.15);root.add(blade);const fin=new THREE.Mesh(new THREE.BoxGeometry(.08,.62,1.3),dark);fin.position.set(side*1.22,.55,.85);fin.rotation.z=side*.18;root.add(fin);addEngine(side*.48,1.82,.2);}}
+  else if(variant===2){const armor=new THREE.Mesh(new THREE.BoxGeometry(2.45,.42,2.25),shell);armor.position.set(0,.35,.45);root.add(armor);for(const side of [-1,1]){const pod=new THREE.Mesh(new THREE.BoxGeometry(.78,.52,3.15),dark);pod.position.set(side*1.22,.28,.55);root.add(pod);const bumper=new THREE.Mesh(new THREE.BoxGeometry(.18,.2,2.65),glow);bumper.position.set(side*1.68,.26,.4);root.add(bumper);addEngine(side*1.2,2.05,.34);}}
+  else if(variant===3){spine.visible=false;for(const side of [-1,1]){const hull=new THREE.Mesh(new THREE.CapsuleGeometry(.4,3.65,8,16),shell);hull.rotation.x=Math.PI/2;hull.position.set(side*.72,.32,.18);root.add(hull);const bridge=new THREE.Mesh(new THREE.BoxGeometry(1.15,.12,1.25),dark);bridge.position.set(0,.28,.55);root.add(bridge);const pulse=new THREE.Mesh(new THREE.TorusGeometry(.29,.055,8,24),glow);pulse.position.set(side*.72,.32,1.92);root.add(pulse);addEngine(side*.72,2.05,.3);}}
+  else {for(const side of [-1,1]){const wing=new THREE.Mesh(new THREE.ConeGeometry(.7,2.6,4),shell);wing.rotation.x=-Math.PI/2;wing.rotation.z=Math.PI/4;wing.scale.x=.52;wing.position.set(side*1.18,.2,-.05);root.add(wing);const rail=new THREE.Mesh(new THREE.BoxGeometry(.08,.08,2.65),glow);rail.position.set(side*1.55,.28,.2);rail.rotation.y=side*.1;root.add(rail);addEngine(side*.62,1.9,.23);}const dorsal=new THREE.Mesh(new THREE.BoxGeometry(.09,.7,1.55),dark);dorsal.position.set(0,.68,.65);root.add(dorsal);}
+  if(!cockpit){const canopy=new THREE.Mesh(new THREE.SphereGeometry(.58,20,10,0,Math.PI*2,0,Math.PI/2),glass);canopy.scale.set(variant===1?.62:.82,.5,variant===2?.9:1.25);canopy.position.set(0,.68,-.28);root.add(canopy);}
+  for(let detail=0;detail<3;detail++){const panel=new THREE.Mesh(new THREE.BoxGeometry(.22,.025,.5),detail===1?glow:dark);panel.position.set((detail-1)*.3,.7,.45+detail*.5);root.add(panel);}return root;
 }
 
-function createPlayerCraft(){
-  const root=new THREE.Group();root.name="Astra cockpit craft";
-  const hull=new THREE.MeshPhysicalMaterial({color:0x07121b,metalness:.92,roughness:.2,clearcoat:1,clearcoatRoughness:.14,emissive:0x063541,emissiveIntensity:.22});
-  const carbon=new THREE.MeshStandardMaterial({color:0x02070c,metalness:.76,roughness:.3});
-  const glow=new THREE.MeshBasicMaterial({color:CYAN,toneMapped:false});
-  const amber=new THREE.MeshBasicMaterial({color:AMBER,toneMapped:false});
-  const glass=new THREE.MeshPhysicalMaterial({color:0x07131d,metalness:.25,roughness:.06,transmission:.3,transparent:true,opacity:.72,clearcoat:1,emissive:0x0a3943,emissiveIntensity:.18});
-  const spine=new THREE.Mesh(new THREE.CapsuleGeometry(.42,2.75,8,16),hull);spine.rotation.x=Math.PI/2;spine.position.set(0,.02,.72);root.add(spine);
-  const nose=new THREE.Mesh(new THREE.ConeGeometry(.44,1.75,10),hull);nose.rotation.x=-Math.PI/2;nose.position.set(0,.02,-1.95);root.add(nose);
-  const canopy=new THREE.Mesh(new THREE.SphereGeometry(.5,24,12,0,Math.PI*2,0,Math.PI/2),glass);canopy.scale.set(.82,.48,1.35);canopy.position.set(0,.28,-.2);root.add(canopy);
-  for(const side of [-1,1]){
-    const pod=new THREE.Mesh(new THREE.CapsuleGeometry(.25,2.05,7,14),hull);pod.rotation.x=Math.PI/2;pod.position.set(side*.94,-.08,.72);root.add(pod);
-    const shoulder=new THREE.Mesh(new THREE.BoxGeometry(.76,.08,1.55),carbon);shoulder.position.set(side*.58,-.11,.62);shoulder.rotation.y=side*.11;root.add(shoulder);
-    const edge=new THREE.Mesh(new THREE.BoxGeometry(.035,.028,2.25),glow);edge.position.set(side*1.18,.02,.55);root.add(edge);
-    const intake=new THREE.Mesh(new THREE.TorusGeometry(.21,.035,7,20),amber);intake.position.set(side*.94,-.08,-.45);root.add(intake);
-    const vane=new THREE.Mesh(new THREE.ConeGeometry(.16,1.08,4),carbon);vane.rotation.x=-Math.PI/2;vane.rotation.z=Math.PI/4;vane.position.set(side*1.18,.02,-1.15);root.add(vane);
-    for(let detail=0;detail<3;detail++){const vent=new THREE.Mesh(new THREE.BoxGeometry(.19,.018,.36),new THREE.MeshBasicMaterial({color:detail===1?AMBER:0x1d6974}));vent.position.set(side*(.55+detail*.14),.27,.62+detail*.25);vent.rotation.y=side*.08;root.add(vent);}
-  }
-  const centerLight=new THREE.Mesh(new THREE.BoxGeometry(.18,.025,1.25),glow);centerLight.position.set(0,.31,-.72);root.add(centerLight);
-  return root;
-}
+function createPlayerCraft(spec:ShipSpec=SHIPS[0]){const variant=Math.max(0,SHIPS.findIndex(ship=>ship.id===spec.id)),root=createRacer(spec,variant,true);root.name=`${spec.name} cockpit craft`;root.scale.set(.72,.72,.72);root.userData.shipId=spec.id;return root;}
 
 export class FZoneEngine{
   private currentShip:ShipSpec=SHIPS[0];private storyEventIndex=0;private totalLaps=TOTAL_LAPS;
@@ -84,7 +69,7 @@ export class FZoneEngine{
   private buildWorld(){
     this.scene.add(new THREE.HemisphereLight(0x75ecff,0x05050d,1.8));const sun=new THREE.DirectionalLight(0xbfefff,3.2);sun.position.set(60,100,30);this.scene.add(sun);this.scene.add(createTrack(this.curve));this.addRails();this.addEnergyStrips();this.addBoostPads();this.addJumpGates();this.addMagneticTunnels();this.addCity();this.addStars();this.addGate();
     this.rig.add(this.camera);this.camera.position.set(0,1.28,.12);this.rig.add(this.ship);this.ship.position.set(0,.02,.62);this.buildCockpit();this.buildVrMenu();this.buildVrControllers();this.buildBoostStreaks();this.scene.add(this.rig);
-    [MAGENTA,AMBER,0x795cff,0x4cff83,0xff5b3d].forEach((color,index)=>{const root=createRacer(color);root.scale.setScalar(.82);this.scene.add(root);const lane=(index-2)*3.8;this.rivals.push({root,name:RIVAL_NAMES[index],distance:18+index*14,speed:102+index*3.7,lane,targetLane:lane,decisionTimer:.55+index*.23,color});});this.updateTransforms(0);
+    [MAGENTA,AMBER,0x795cff,0x4cff83,0xff5b3d].forEach((color,index)=>{const root=createRacer(SHIPS[index],index);root.scale.setScalar(.82);this.scene.add(root);const lane=(index-2)*3.8;this.rivals.push({root,name:RIVAL_NAMES[index],distance:18+index*14,speed:102+index*3.7,lane,targetLane:lane,decisionTimer:.55+index*.23,color});});this.updateTransforms(0);
   }
   private addRails(){
     const material=new THREE.MeshBasicMaterial({color:CYAN});
@@ -134,7 +119,8 @@ export class FZoneEngine{
   private addEvent<K extends keyof WindowEventMap>(target:Window,type:K,fn:(event:WindowEventMap[K])=>void){target.addEventListener(type,fn);this.listeners.push(()=>target.removeEventListener(type,fn));}
   private async checkVR(){const xr=navigator.xr;this.snapshot.vrApiAvailable=Boolean(xr);this.snapshot.vrChecked=true;this.emitSnapshot(true);if(!xr)return;try{this.snapshot.vrSupported=await xr.isSessionSupported("immersive-vr");}catch{this.snapshot.vrSupported=false;}this.emitSnapshot(true);}
   setAudioSettings(settings:AudioSettings){this.audio.setSettings(settings);}
-  configureRace(mode:GameModeId,shipId=SHIPS[0].id,storyEventIndex=0){this.gameMode=mode;this.currentShip=SHIPS.find(ship=>ship.id===shipId)??SHIPS[0];this.storyEventIndex=clamp(Math.round(storyEventIndex),0,STORY_EVENTS.length-1);const event=STORY_EVENTS[this.storyEventIndex],support=RIVAL_NAMES.filter(name=>name!==event.rival);this.totalLaps=mode==="story"?event.laps:TOTAL_LAPS;this.rivals.forEach((rival,index)=>{rival.root.visible=mode!=="arcade";rival.name=mode==="story"?(index===this.rivals.length-1?event.rival:support[index]):RIVAL_NAMES[index];});this.emitSnapshot(true);}
+  configureRace(mode:GameModeId,shipId=SHIPS[0].id,storyEventIndex=0){this.gameMode=mode;this.currentShip=SHIPS.find(ship=>ship.id===shipId)??SHIPS[0];if(this.ship.userData.shipId!==this.currentShip.id)this.replacePlayerCraft();this.storyEventIndex=clamp(Math.round(storyEventIndex),0,STORY_EVENTS.length-1);const event=STORY_EVENTS[this.storyEventIndex],support=RIVAL_NAMES.filter(name=>name!==event.rival);this.totalLaps=mode==="story"?event.laps:TOTAL_LAPS;this.rivals.forEach((rival,index)=>{rival.root.visible=mode!=="arcade";rival.name=mode==="story"?(index===this.rivals.length-1?event.rival:support[index]):RIVAL_NAMES[index];});this.emitSnapshot(true);}
+  private replacePlayerCraft(){const previous=this.ship,next=createPlayerCraft(this.currentShip);next.position.set(0,.02,.62);next.rotation.copy(previous.rotation);this.rig.remove(previous);previous.traverse(object=>{if(!(object instanceof THREE.Mesh))return;object.geometry.dispose();const materials=Array.isArray(object.material)?object.material:[object.material];materials.forEach(material=>material.dispose());});this.ship=next;this.rig.add(this.ship);}
   returnToMenu(){this.snapshot.phase="menu";this.speed=0;this.boosting=false;this.lastBoosting=false;this.energyCharging=false;this.countdownPanel.visible=false;this.audio.update(0,0,false,false);if(this.renderer.xr.isPresenting){this.openVrMenu("mode");}this.emitSnapshot(true);}
   private async requestVrSession(){if(!globalThis.isSecureContext)throw new Error("O modo VR exige uma página HTTPS segura");if(!navigator.xr)throw new Error("A API WebXR não apareceu. Abra no Meta Quest Browser e recarregue a página");const session=await navigator.xr.requestSession("immersive-vr",{optionalFeatures:["local-floor","bounded-floor","hand-tracking"]});await this.renderer.xr.setSession(session);}
   async enterVRLobby(){void this.audio.start();this.snapshot.phase="menu";this.vrMenuActive=true;this.vrMenuStep="mode";this.vrMenuIndex=0;this.drawVrMenu();try{await this.requestVrSession();this.vrMenuPanel.visible=true;this.speedPanel.visible=false;this.mapPanel.visible=false;this.emitSnapshot(true);}catch(error){this.vrMenuActive=false;throw error;}}
