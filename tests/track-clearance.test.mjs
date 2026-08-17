@@ -56,3 +56,10 @@ test("saltos de Rift Ascent mantêm aterrissagens alinhadas",async()=>{
     assert.ok(angle<18,`aterrissagem deve estar alinhada, recebeu ${angle.toFixed(2)}°`);
   }
 });
+
+test("Rift Ascent usa cenário isolado e inclinações magnéticas confortáveis",async()=>{
+  const source=await readFile(new URL("../app/game/track-data.ts",import.meta.url),"utf8");
+  assert.match(source,/environment:"aurora-ridge"/);
+  assert.match(source,/magnetic:\[\[\.355,\.435,Math\.PI\*\.32\],\[\.79,\.865,-Math\.PI\*\.18\]\]/);
+  assert.doesNotMatch(source,/rift-ascent[\s\S]*?Math\.PI\*\.72/);
+});

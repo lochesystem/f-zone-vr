@@ -46,6 +46,9 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(trackData, /boostPads:\[\.145,\.24,\.42,\.59,\.665,\.76,\.91\]/);
   assert.match(engine, /addJumpGates\(\)/);
   assert.match(engine, /addMagneticTunnels\(\)/);
+  assert.match(engine, /private environmentWorld=new THREE\.Group/);
+  assert.match(engine, /private addAuroraRidge\(\)/);
+  assert.match(engine, /ground\.position\.y=-155/);
   assert.match(engine, /toggleMinimap\(\)/);
   assert.match(engine, /gapLift\(progress,this\.trackLayout\)/);
   assert.match(engine, /createPlayerCraft\(\)/);

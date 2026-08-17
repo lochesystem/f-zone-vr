@@ -11,3 +11,5 @@ Estas regras são obrigatórias para qualquer circuito novo do F-Zone VR.
 7. **Mapa fiel** — o minimapa é gerado pela mesma curva usada pela física, incluindo saltos, recarga, jogador e rivais.
 8. **Voltas completas** — toda pista é um circuito fechado, tem linha de largada, contagem de voltas e reinicialização correta dos impulsos.
 9. **Validação automática** — comprimento, distância entre trechos, inclinação, suavidade e alinhamento dos saltos devem passar em `tests/track-clearance.test.mjs`.
+10. **Identidade visual isolada** — cada pista define céu, neblina, superfície, bordas, iluminação e cenário próprios. Objetos decorativos não podem ser compartilhados quando invadirem o volume de outro circuito.
+11. **Variedade magnética** — túneis não devem provocar inversões completas por padrão. Inclinações fortes são eventos especiais e devem alternar com túneis de baixa rotação.
