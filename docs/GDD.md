@@ -140,6 +140,7 @@ Escala dos atributos: 1 a 5.
 | --- | --- | ---: | ---: | --- |
 | Helix Verge | Implementada | 3,61 km | 4 | Cidade orbital noturna, magenta e ciano, lacunas aéreas e magnetismo. |
 | Rift Ascent | Implementada | 5,20 km | 4 | Cordilheira sob aurora boreal, subida de até 31°, dois saltos e curvas magnéticas moderadas. |
+| Solar Foundry | Implementada | 6,60 km | 4 | Forja solar diurna, circuito recortado, dutos industriais, elevação progressiva e duas pontes aéreas. |
 
 As regras completas estão em [TRACK-DESIGN.md](TRACK-DESIGN.md). Requisitos centrais:
 
@@ -179,6 +180,7 @@ O ranking considera progresso total — volta mais posição no circuito — e a
 ### VR
 
 - Menus são painéis espaciais selecionáveis por raios dos dois controles.
+- A seleção de circuitos apresenta um turntable 3D da geometria real, incluindo elevação, lacunas e setores especiais.
 - Um cursor marca a interseção; gatilho confirma a opção apontada.
 - Analógico também permite navegação para acessibilidade e contingência.
 - Velocímetro, energia e mapa ficam anexos ao painel da nave, não à cabeça.
@@ -248,7 +250,7 @@ Trocar apenas a cor do mesmo cenário não conta como nova identidade.
 - Corrida desktop e WebXR no Meta Quest 3.
 - Fluxo de menus antes da corrida e permanência em VR.
 - Cinco naves e cinco rivais.
-- Duas pistas, voltas, cronômetro, ranking e resultados.
+- Três pistas, voltas, cronômetro, ranking e resultados.
 - Colisões, vácuo, boost, energia, zonas de recarga e minimapa.
 - Música, efeitos e opções de volume.
 - Publicação automática no GitHub Pages.
@@ -262,7 +264,7 @@ Trocar apenas a cor do mesmo cenário não conta como nova identidade.
 
 ### Planejado
 
-- Pelo menos cinco pistas realmente distintas.
+- Mais duas pistas para completar o conjunto inicial de cinco regiões distintas.
 - Campeonato completo e desbloqueios.
 - Mais feedback visual/sonoro por nave e rival.
 - Ajustes de conforto configuráveis.

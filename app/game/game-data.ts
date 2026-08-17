@@ -23,6 +23,7 @@ export const SHIPS:ShipSpec[]=[
 export const TRACKS:TrackSpec[]=[
   {id:"helix-verge",name:"Helix Verge",region:"Órbita baixa",description:"Circuito de estreia expandido com saltos orbitais e túnel magnético.",laps:4,difficulty:2,available:true,features:["3,6 km","Saltos","Mag-lock"]},
   {id:"rift-ascent",name:"Rift Ascent",region:"Zenith",description:"Circuito de resistência com ascensão progressiva, crista magnética e mergulho sobre a cidade.",laps:4,difficulty:4,available:true,features:["5,2 km","2 saltos","Wall ride"]},
+  {id:"solar-foundry",name:"Solar Foundry",region:"Cinturão Helios",description:"Uma forja solar diurna com traçado recortado, dutos térmicos e duas pontes de reator.",laps:4,difficulty:4,available:true,features:["6,6 km","2 saltos","Forja solar"]},
   {id:"neon-abyss",name:"Neon Abyss",region:"Subnível 09",description:"Uma prova longa em tubos, paredes magnéticas e trechos suspensos.",laps:4,difficulty:5,available:false,features:["Túneis","Wall ride","Trecho aéreo"]},
 ];
 
