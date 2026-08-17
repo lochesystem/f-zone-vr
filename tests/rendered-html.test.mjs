@@ -22,10 +22,12 @@ test("renderiza a apresentação do F-Zone VR", async () => {
 });
 
 test("inclui o núcleo de corrida e conforto WebXR", async () => {
-  const [engine, mechanics, ui] = await Promise.all([
+  const [engine, mechanics, ui, audio, types] = await Promise.all([
     readFile(new URL("../app/game/engine.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/game/mechanics.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/game/FZoneGame.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/game/audio.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/game/types.ts", import.meta.url), "utf8"),
   ]);
   assert.match(engine, /requestSession\("immersive-vr"/);
   assert.match(engine, /"hand-tracking"/);
@@ -47,10 +49,22 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(engine, /lateralVelocity/);
   assert.match(engine, /resolveRivalCollisions/);
   assert.match(engine, /this\.drafting/);
+  assert.match(engine, /this\.speed>32&&throttle>\.15/);
+  assert.match(engine, /this\.speed<\.75\)this\.speed=0/);
+  assert.match(engine, /buildBoostStreaks/);
+  assert.match(engine, /this\.audio\.boostHit/);
+  assert.match(engine, /opponents=this\.rivals\.map/);
   assert.match(engine, /private updateCountdown\(dt:number\)/);
   assert.match(engine, /countdownTime=3\.05/);
   assert.match(engine, /drawCountdownPanel/);
   assert.match(mechanics, /topSpeed=boosting\?178:126/);
   assert.match(ui, /Entrar em VR/);
   assert.match(ui, /engine\.enterVR\(\)\.catch/);
+  assert.match(ui, /race\.speed<\.75\?0/);
+  assert.match(ui, /opponent-radar/);
+  assert.match(ui, /boost-fx/);
+  assert.match(audio, /class RaceAudio/);
+  assert.match(audio, /createOscillator/);
+  assert.match(audio, /createBufferSource/);
+  assert.match(types, /opponents:OpponentMarker\[\]/);
 });
