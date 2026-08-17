@@ -72,6 +72,7 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(engine, /openVrMenu\("results"\)/);
   assert.match(engine, /private updateVrMenu\(\)/);
   assert.match(engine, /getController\(index\)/);
+  assert.match(engine, /this\.rig\.add\(controller\)/);
   assert.match(engine, /"selectstart"/);
   assert.match(engine, /setFromXRController/);
   assert.match(engine, /intersectObject\(this\.vrMenuPanel/);
