@@ -18,6 +18,8 @@ O roadmap ordena entregas. Regras permanentes ficam no [GDD](GDD.md), em [decis�
 - [x] Helix Verge ampliada para 3,61 km.
 - [x] Rift Ascent com 5,20 km, aurora, rampas e saltos.
 - [x] Solar Foundry com 6,60 km, cenário industrial diurno e duas pontes de reator.
+- [x] Magma Crown com 6,13 km, caldeira vulcânica, lava e plataformas de resfriamento.
+- [x] Cloudline Metro com 6,54 km, cidade sobre nuvens, grandes retas e aerovias distantes.
 - [x] Turntable 3D de pistas no desktop e no VR usando a geometria real.
 - [x] Sessão VR contínua, controles rastreados, raios e cursores.
 - [x] HUD no cockpit e cockpit acompanhando parcialmente o movimento da nave.
@@ -30,10 +32,10 @@ O roadmap ordena entregas. Regras permanentes ficam no [GDD](GDD.md), em [decis�
 Objetivo: consolidar a base antes de multiplicar conteúdo.
 
 - [ ] Sessões cronometradas com cada nave e pista no desktop e no Quest.
-- [ ] Ajustar IA para vitória difícil, mas repetível por habilidade.
+- [x] Centralizar e suavizar a velocidade-base da IA para manter primeira posição alcançável.
 - [ ] Revisar aceleração, frenagem, resposta lateral, barreira e contato.
-- [ ] Confirmar faixa coerente de 400–600 km/h e reset entre corridas.
-- [ ] Eliminar bugs de estado após repetir várias corridas.
+- [x] Confirmar por teste automatizado a faixa de até 600 km/h e reset de velocidade, nitro, volta e rivais.
+- [x] Isolar o reset completo da sessão para impedir estado residual entre corridas.
 - [ ] Medir duração: alvo de 2–4 minutos por corrida padrão.
 - [ ] Completar os checklists de pista e VR em hardware real.
 
@@ -57,16 +59,16 @@ Cada pista deve cumprir [TRACK-DESIGN.md](TRACK-DESIGN.md) e ter duração real 
 1. **Helix Verge** — cidade orbital noturna; entregue.
 2. **Rift Ascent** — aurora e cordilheira; entregue.
 3. **Solar Foundry** — complexo industrial diurno, calor e estruturas solares; entregue.
-4. **Magma Crown** — caldeira vulcânica, lava e plataformas de refrigeração; planejada.
-5. **Cloudline Metro** — cidade clara acima das nuvens, grandes retas e tráfego visual distante; planejada.
+4. **Magma Crown** — caldeira vulcânica, lava e plataformas de refrigeração; entregue.
+5. **Cloudline Metro** — cidade clara acima das nuvens, grandes retas e tráfego visual distante; entregue.
 
 Para cada nova pista:
 
-- [ ] geometria validada automaticamente;
-- [ ] nenhuma interseção, parede acidental ou curva em V;
-- [ ] minimapa fiel;
-- [ ] IA completa o circuito;
-- [ ] cenário não invade o volume dirigível;
+- [x] geometria validada automaticamente;
+- [x] nenhuma interseção, parede acidental ou curva em V;
+- [x] minimapa fiel, derivado da mesma spline;
+- [x] IA percorre o mesmo circuito fechado;
+- [x] cenário posicionado fora do volume dirigível;
 - [ ] teste completo no Quest.
 
 ## Prioridade 4 — História e rivais

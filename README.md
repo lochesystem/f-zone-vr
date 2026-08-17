@@ -11,7 +11,7 @@ Jogo original de corrida antigravitacional para navegador e Meta Quest 3. Pilote
 - Corrida em navegador desktop e WebXR no Meta Quest 3.
 - Sessão VR contínua com menus espaciais e ponteiros dos dois controles.
 - Cinco naves com atributos, silhuetas e cockpits próprios.
-- Três circuitos longos, com quatro voltas, saltos, elevação e setores magnéticos.
+- Cinco circuitos longos, com quatro voltas, saltos, elevação e setores magnéticos.
 - Seleção de pista com turntable 3D produzido pela geometria real do percurso, inclusive no VR.
 - Modos História, Arcade e Cup; VS está planejado.
 - Cinco rivais, colisão entre naves, vácuo, barreiras e ranking.
@@ -27,6 +27,8 @@ Jogo original de corrida antigravitacional para navegador e Meta Quest 3. Pilote
 | Helix Verge | 3,61 km | Cidade orbital noturna, lacunas aéreas e magnetismo em ciano/magenta. |
 | Rift Ascent | 5,20 km | Cordilheira sob aurora, rampas íngremes, dois saltos e curvas magnéticas moderadas. |
 | Solar Foundry | 6,60 km | Forja solar diurna, traçado recortado, dutos térmicos e duas pontes de reator. |
+| Magma Crown | 6,13 km | Caldeira vulcânica, lago de lava, descida obsidiana e plataformas de resfriamento. |
+| Cloudline Metro | 6,54 km | Metrópole diurna acima das nuvens, grandes retas, aerovias e tráfego distante. |
 
 Novas pistas precisam seguir as [regras obrigatórias de geometria, conforto e identidade](docs/TRACK-DESIGN.md).
 

@@ -18,6 +18,16 @@ npm run lint
 npm run build:pages
 ```
 
+### Cobertura automática atual
+
+- Cinco circuitos medidos quanto a comprimento e separação entre segmentos.
+- Magma Crown e Cloudline Metro verificadas quanto a inclinação progressiva e alinhamento dos saltos.
+- Duração mínima teórica verificada para quatro voltas no limite de 600 km/h.
+- Nitro sem recarga passiva e velocímetro limitado a 600 km/h.
+- Reinício centralizado para limpar velocidade, nitro, volta, progresso, cronômetros e rivais.
+
+Essas verificações reduzem regressões, mas a homologação final continua exigindo cinco corridas consecutivas e teste de conforto no Meta Quest 3.
+
 ## Matriz de plataformas
 
 | Área | Desktop/teclado | Desktop/gamepad | Meta Quest 3 |

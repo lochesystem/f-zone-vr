@@ -1,4 +1,8 @@
 export function clamp(value:number,min:number,max:number){return Math.min(max,Math.max(min,value));}
 export function deadzone(value:number,threshold=.14){const magnitude=Math.abs(value);if(magnitude<=threshold)return 0;return Math.sign(value)*(magnitude-threshold)/(1-threshold);}
 export function advanceSpeed(speed:number,throttle:number,brake:number,boosting:boolean,dt:number,tuning={topSpeed:126,acceleration:1,boostPower:1}){const topSpeed=boosting?tuning.topSpeed+38*tuning.boostPower:tuning.topSpeed;const drive=throttle*(speed<35?62:39)*tuning.acceleration;const braking=brake*88;const drag=5.4+speed*.035;return clamp(speed+(drive-braking-drag)*dt,0,topSpeed);}
+export const RACE_BALANCE={boostDrain:29,energyRecovery:18,passiveBoostRecovery:0,displaySpeedCap:600} as const;
+export function updateBoostEnergy(boost:number,boosting:boolean,energyCharging:boolean,dt:number){const rate=boosting?-RACE_BALANCE.boostDrain:energyCharging?RACE_BALANCE.energyRecovery:RACE_BALANCE.passiveBoostRecovery;return clamp(boost+rate*dt,0,100);}
+export function displaySpeedKmh(speed:number){return speed<.75?0:Math.min(RACE_BALANCE.displaySpeedCap,Math.round(Math.max(0,speed)*3.6));}
+export function rivalTargetSpeed(mode:"story"|"arcade"|"cup",index:number,storyEventIndex:number){const storyDifficulty=mode==="story"?Math.max(0,storyEventIndex)*1.15:0;return (mode==="cup"?106:99)+Math.max(0,index)*2.8+storyDifficulty;}
 export function formatTime(seconds:number){const minutes=Math.floor(seconds/60);const remainder=Math.max(0,seconds-minutes*60);return `${String(minutes).padStart(2,"0")}:${remainder.toFixed(2).padStart(5,"0")}`;}

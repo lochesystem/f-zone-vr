@@ -141,6 +141,8 @@ Escala dos atributos: 1 a 5.
 | Helix Verge | Implementada | 3,61 km | 4 | Cidade orbital noturna, magenta e ciano, lacunas aéreas e magnetismo. |
 | Rift Ascent | Implementada | 5,20 km | 4 | Cordilheira sob aurora boreal, subida de até 31°, dois saltos e curvas magnéticas moderadas. |
 | Solar Foundry | Implementada | 6,60 km | 4 | Forja solar diurna, circuito recortado, dutos industriais, elevação progressiva e duas pontes aéreas. |
+| Magma Crown | Implementada | 6,13 km | 4 | Caldeira noturna, lago de lava, coroa vulcânica, descida obsidiana e plataformas de resfriamento. |
+| Cloudline Metro | Implementada | 6,54 km | 4 | Metrópole clara acima das nuvens, retas extensas, aerovias e tráfego visual distante. |
 
 As regras completas estão em [TRACK-DESIGN.md](TRACK-DESIGN.md). Requisitos centrais:
 
@@ -250,7 +252,7 @@ Trocar apenas a cor do mesmo cenário não conta como nova identidade.
 - Corrida desktop e WebXR no Meta Quest 3.
 - Fluxo de menus antes da corrida e permanência em VR.
 - Cinco naves e cinco rivais.
-- Três pistas, voltas, cronômetro, ranking e resultados.
+- Cinco pistas, voltas, cronômetro, ranking e resultados.
 - Colisões, vácuo, boost, energia, zonas de recarga e minimapa.
 - Música, efeitos e opções de volume.
 - Publicação automática no GitHub Pages.
@@ -264,7 +266,7 @@ Trocar apenas a cor do mesmo cenário não conta como nova identidade.
 
 ### Planejado
 
-- Mais duas pistas para completar o conjunto inicial de cinco regiões distintas.
+- Testes de campanha e conforto no Quest para homologar as duas pistas mais recentes.
 - Campeonato completo e desbloqueios.
 - Mais feedback visual/sonoro por nave e rival.
 - Ajustes de conforto configuráveis.

@@ -44,9 +44,21 @@ test("Solar Foundry é longa, recortada e mantém separação segura",async()=>{
   assert.ok(minimum>TRACK_WIDTH+12,`distância mínima entre trechos da Solar Foundry: ${minimum.toFixed(2)}m`);
 });
 
+test("Magma Crown contorna a caldeira sem cruzar o próprio traçado",async()=>{
+  const curve=await loadTrack("MAGMA_CROWN_POINTS"),minimum=minimumSeparatedDistance(curve);
+  assert.ok(curve.getLength()>6000,`comprimento da Magma Crown: ${curve.getLength().toFixed(2)}m`);
+  assert.ok(minimum>TRACK_WIDTH+12,`distância mínima entre trechos da Magma Crown: ${minimum.toFixed(2)}m`);
+});
+
+test("Cloudline Metro preserva retas longas e separação sobre a cidade",async()=>{
+  const curve=await loadTrack("CLOUDLINE_METRO_POINTS"),minimum=minimumSeparatedDistance(curve);
+  assert.ok(curve.getLength()>6400,`comprimento da Cloudline Metro: ${curve.getLength().toFixed(2)}m`);
+  assert.ok(minimum>TRACK_WIDTH+12,`distância mínima entre trechos da Cloudline Metro: ${minimum.toFixed(2)}m`);
+});
+
 test("corridas completas não terminam em aproximadamente um minuto",async()=>{
   const maximumMetresPerSecond=600/3.6;
-  for(const constant of ["TRACK_POINTS","RIFT_ASCENT_POINTS","SOLAR_FOUNDRY_POINTS"]){const curve=await loadTrack(constant),minimumRaceSeconds=curve.getLength()*4/maximumMetresPerSecond;assert.ok(minimumRaceSeconds>85,`${constant}: duração teórica mínima ${minimumRaceSeconds.toFixed(1)}s`);}
+  for(const constant of ["TRACK_POINTS","RIFT_ASCENT_POINTS","SOLAR_FOUNDRY_POINTS","MAGMA_CROWN_POINTS","CLOUDLINE_METRO_POINTS"]){const curve=await loadTrack(constant),minimumRaceSeconds=curve.getLength()*4/maximumMetresPerSecond;assert.ok(minimumRaceSeconds>85,`${constant}: duração teórica mínima ${minimumRaceSeconds.toFixed(1)}s`);}
 });
 
 test("Rift Ascent tem inclinação forte sem mudança vertical instantânea",async()=>{
@@ -93,6 +105,27 @@ test("cenário da Solar Foundry permanece fora do volume dirigível",async()=>{
   assert.match(engine,/private addSolarFoundry\(\)/);
   assert.match(engine,/radius=1180\+\(index%6\)\*45/);
   assert.match(engine,/radius=1120\+\(index%3\)\*150/);
+});
+
+test("Magma Crown e Cloudline Metro têm inclinação progressiva e saltos alinhados",async()=>{
+  for(const [constant,gaps,minGrade,maxGrade] of [["MAGMA_CROWN_POINTS",[[.12,.132],[.72,.732]],24,28],["CLOUDLINE_METRO_POINTS",[[.12,.132],[.64,.652]],16,21]]){
+    const curve=await loadTrack(constant);let maximumGrade=0,maximumStep=0;
+    for(let index=0;index<SAMPLES;index++){const tangent=curve.getTangentAt(index/SAMPLES),next=curve.getTangentAt((index+1)/SAMPLES);maximumGrade=Math.max(maximumGrade,Math.abs(Math.asin(tangent.y))*180/Math.PI);maximumStep=Math.max(maximumStep,tangent.angleTo(next)*180/Math.PI);}
+    assert.ok(maximumGrade>=minGrade&&maximumGrade<=maxGrade,`${constant}: inclinação máxima ${maximumGrade.toFixed(2)}°`);
+    assert.ok(maximumStep<8,`${constant}: mudança angular máxima ${maximumStep.toFixed(2)}°`);
+    for(const [start,end] of gaps){const distance=curve.getPointAt(start).distanceTo(curve.getPointAt(end)),angle=curve.getTangentAt(start).angleTo(curve.getTangentAt(end))*180/Math.PI;assert.ok(distance>=70&&distance<=88,`${constant}: vão controlado ${distance.toFixed(2)}m`);assert.ok(angle<14,`${constant}: aterrissagem alinhada ${angle.toFixed(2)}°`);}
+  }
+});
+
+test("novos cenários usam identidades próprias e decoração protegida",async()=>{
+  const [trackData,gameData,engine]=await Promise.all([readFile(new URL("../app/game/track-data.ts",import.meta.url),"utf8"),readFile(new URL("../app/game/game-data.ts",import.meta.url),"utf8"),readFile(new URL("../app/game/engine.ts",import.meta.url),"utf8")]);
+  assert.match(trackData,/environment:"magma-crown"/);
+  assert.match(trackData,/environment:"cloudline-metro"/);
+  assert.match(gameData,/id:"magma-crown"[\s\S]*?available:true/);
+  assert.match(gameData,/id:"cloudline-metro"[\s\S]*?available:true/);
+  assert.match(engine,/private addMagmaCrown\(\)/);
+  assert.match(engine,/private addCloudlineMetro\(\)/);
+  assert.match(engine,/this\.hasTrackClearance\(candidate,20\)/);
 });
 
 test("seleção de pistas usa o mesmo traçado em miniaturas 3D",async()=>{

@@ -70,7 +70,7 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(engine, /this\.drafting/);
   assert.match(engine, /this\.speed>32&&throttle>\.15/);
   assert.match(engine, /this\.speed<\.75\)this\.speed=0/);
-  assert.match(engine, /Math\.round\(this\.speed\*3\.6\)/);
+  assert.match(engine, /displaySpeedKmh\(this\.speed\)/);
   assert.match(engine, /rival\.distance=10\+index\*8/);
   assert.match(engine, /paceAdjustment=gap>90\?-8/);
   assert.doesNotMatch(engine, /new THREE\.RingGeometry\(\.052,\.064,24\)/);
@@ -86,7 +86,9 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(engine, /drawCountdownPanel/);
   assert.match(engine, /addEnergyStrips/);
   assert.match(engine, /isEnergyZone\(progress,this\.trackLayout\)/);
-  assert.match(engine, /this\.boosting\?-29:this\.energyCharging\?18:\.18/);
+  assert.match(engine, /updateBoostEnergy\(this\.boost,this\.boosting,this\.energyCharging,dt\)/);
+  assert.match(engine, /private resetRaceState\(\)/);
+  assert.match(engine, /rivalTargetSpeed\(this\.gameMode,index,this\.storyEventIndex\)/);
   assert.match(engine, /drawSpeedPanel/);
   assert.match(engine, /enterVRLobby/);
   assert.match(engine, /openVrMenu\("results"\)/);
@@ -111,6 +113,8 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(engine, /sizeAttenuation:false/);
   assert.match(engine, /private hasTrackClearance/);
   assert.match(mechanics, /topSpeed=boosting\?tuning\.topSpeed\+38\*tuning\.boostPower:tuning\.topSpeed/);
+  assert.match(mechanics, /passiveBoostRecovery:0/);
+  assert.match(mechanics, /displaySpeedCap:600/);
   assert.match(ui, /Entrar em VR/);
   assert.match(ui, /engine\.enterVRLobby\(\)/);
   assert.match(ui, /permanecem dentro do espaço imersivo/);

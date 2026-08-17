@@ -1,7 +1,7 @@
 export type TrackPoint=readonly [number,number,number];
 export type TrackRange=readonly [number,number];
 export type MagneticRange=readonly [number,number,number];
-export type TrackEnvironment="orbital-city"|"aurora-ridge"|"solar-foundry";
+export type TrackEnvironment="orbital-city"|"aurora-ridge"|"solar-foundry"|"magma-crown"|"cloudline-metro";
 export interface TrackTheme {sky:number;fog:number;fogDensity:number;track:number;stripe:number;magnetic:number;rail:number;accent:number;ground:number;environment:TrackEnvironment;}
 
 export interface TrackLayout {
@@ -37,6 +37,30 @@ export const SOLAR_FOUNDRY_POINTS:ReadonlyArray<TrackPoint> = [
   [-320,10,255],[-370,10,240],[-400,10,200],
 ];
 
+export const MAGMA_CROWN_POINTS:ReadonlyArray<TrackPoint> = [
+  [494,-2,0],[533,28,75],[532,56,153],[489,80,218],[420,98,262],[347,110,291],
+  [287,116,319],[243,118,361],[205,117,421],[158,116,485],[94,116,532],[19,120,541],
+  [-53,127,506],[-111,138,443],[-152,151,376],[-188,164,326],[-235,175,301],
+  [-301,181,290],[-378,180,275],[-448,172,238],[-490,156,178],[-493,134,105],
+  [-465,106,33],[-428,77,-30],[-403,48,-86],[-402,22,-146],[-414,1,-220],
+  [-421,-14,-306],[-402,-23,-388],[-349,-27,-446],[-270,-27,-467],[-183,-26,-454],
+  [-106,-26,-425],[-43,-28,-405],[14,-33,-407],[76,-43,-430],[148,-55,-454],
+  [223,-68,-457],[287,-80,-425],[326,-88,-362],[339,-91,-284],[339,-87,-212],
+  [347,-75,-155],[379,-56,-109],[434,-30,-61],
+];
+
+export const CLOUDLINE_METRO_POINTS:ReadonlyArray<TrackPoint> = [
+  [737,195,0],[769,210,44],[774,223,96],[748,233,154],[693,240,207],[614,243,248],
+  [520,242,270],[420,238,274],[322,232,266],[231,226,257],[150,219,256],[74,215,270],
+  [0,212,298],[-79,212,331],[-167,214,360],[-264,218,371],[-368,222,359],
+  [-472,226,323],[-567,228,270],[-643,227,210],[-693,223,154],[-715,215,106],
+  [-710,204,69],[-683,190,36],[-643,175,0],[-599,160,-44],[-559,147,-96],
+  [-527,137,-154],[-502,130,-207],[-481,127,-248],[-456,128,-270],[-421,132,-274],
+  [-368,138,-266],[-297,144,-257],[-207,151,-256],[-106,155,-270],[0,158,-298],
+  [101,158,-331],[190,156,-360],[264,152,-371],[322,148,-359],[368,144,-323],
+  [409,142,-270],[452,143,-210],[502,147,-154],[560,155,-106],[623,166,-69],[685,180,-36],
+];
+
 export const GAP_RANGES:ReadonlyArray<TrackRange> = [[.171,.188],[.693,.71]];
 export const MAGNETIC_RANGES:ReadonlyArray<MagneticRange> = [[.455,.555,Math.PI/2],[.79,.865,-Math.PI*.62]];
 export const ENERGY_RANGES:ReadonlyArray<TrackRange> = [[.035,.085],[.305,.355],[.585,.635],[.885,.935]];
@@ -58,8 +82,20 @@ const SOLAR_FOUNDRY:TrackLayout={
   boostPads:[.115,.205,.405,.585,.68,.81,.94],sectors:[[0,.13,"Forja Nascente"],[.13,.3,"Dutos Helios"],[.3,.46,"Coroa Térmica"],[.46,.64,"Ponte do Reator"],[.64,.82,"Fundição Alta"],[.82,1,"Retorno Solar"]],scale:1.8,
   theme:{sky:0x7fb8ca,fog:0xc68c61,fogDensity:.00064,track:0x172c33,stripe:0x477784,magnetic:0xffc457,rail:0xffed9a,accent:0xff6b35,ground:0x35160e,environment:"solar-foundry"},
 };
+const MAGMA_CROWN:TrackLayout={
+  id:"magma-crown",name:"Magma Crown",points:MAGMA_CROWN_POINTS,gaps:[[.12,.132],[.72,.732]],
+  magnetic:[[.31,.365,Math.PI*.21],[.805,.855,-Math.PI*.14]],energy:[[.025,.065],[.245,.285],[.525,.565],[.895,.94]],
+  boostPads:[.095,.205,.395,.49,.64,.785,.93],sectors:[[0,.16,"Portão da Caldeira"],[.16,.33,"Coroa Vulcânica"],[.33,.5,"Descida Obsidiana"],[.5,.7,"Lago de Magma"],[.7,.86,"Pontes de Resfriamento"],[.86,1,"Retorno Ígneo"]],scale:1.8,
+  theme:{sky:0x16060d,fog:0x4c120d,fogDensity:.00072,track:0x21191c,stripe:0x593026,magnetic:0x8e2230,rail:0xffa43a,accent:0xff4a1f,ground:0x120607,environment:"magma-crown"},
+};
+const CLOUDLINE_METRO:TrackLayout={
+  id:"cloudline-metro",name:"Cloudline Metro",points:CLOUDLINE_METRO_POINTS,gaps:[[.12,.132],[.64,.652]],
+  magnetic:[[.345,.405,Math.PI*.18],[.78,.835,-Math.PI*.12]],energy:[[.035,.075],[.265,.305],[.535,.575],[.86,.905]],
+  boostPads:[.105,.225,.37,.505,.615,.755,.91],sectors:[[0,.15,"Terminal Aurora"],[.15,.31,"Expresso Celeste"],[.31,.47,"Curva Nimbus"],[.47,.66,"Ponte Aerovia"],[.66,.84,"Distrito Alto"],[.84,1,"Retorno Metropolitano"]],scale:1.8,
+  theme:{sky:0x82c9e7,fog:0xc8ecf4,fogDensity:.00043,track:0x17374b,stripe:0x3e7895,magnetic:0x5367b8,rail:0xe9fbff,accent:0xff4fa3,ground:0xd9f2f2,environment:"cloudline-metro"},
+};
 
-export const TRACK_LAYOUTS:Readonly<Record<string,TrackLayout>>={[HELIX_VERGE.id]:HELIX_VERGE,[RIFT_ASCENT.id]:RIFT_ASCENT,[SOLAR_FOUNDRY.id]:SOLAR_FOUNDRY};
+export const TRACK_LAYOUTS:Readonly<Record<string,TrackLayout>>={[HELIX_VERGE.id]:HELIX_VERGE,[RIFT_ASCENT.id]:RIFT_ASCENT,[SOLAR_FOUNDRY.id]:SOLAR_FOUNDRY,[MAGMA_CROWN.id]:MAGMA_CROWN,[CLOUDLINE_METRO.id]:CLOUDLINE_METRO};
 export function getTrackLayout(id:string){return TRACK_LAYOUTS[id]??HELIX_VERGE;}
 export function circularProgress(progress:number){return ((progress%1)+1)%1;}
 export function progressInRange(progress:number,range:TrackRange){const p=circularProgress(progress);return p>=range[0]&&p<=range[1];}
