@@ -91,8 +91,13 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(engine, /enterVRLobby/);
   assert.match(engine, /openVrMenu\("results"\)/);
   assert.match(engine, /private updateVrMenu\(\)/);
+  assert.match(engine, /"Opções de áudio"/);
+  assert.match(engine, /private adjustVrAudio/);
+  assert.match(engine, /vrShipPreview\.position\.set\(\.86,\.98,-1\.72\)/);
+  assert.match(engine, /vrTrackPreview\.position\.set\(\.86,1\.02,-1\.72\)/);
+  assert.match(engine, /vrTrackPreview\.rotation\.set\(\.18,0,0\)/);
   assert.match(engine, /private vrPausePressed/);
-  assert.match(engine, /"Retomar corrida","Reiniciar corrida","Menu principal","Sair do VR"/);
+  assert.match(engine, /"Retomar corrida","Reiniciar corrida","Opções de áudio","Menu principal","Sair do VR"/);
   assert.match(engine, /buttons\[9\]\?\.pressed/);
   assert.match(engine, /getController\(index\)/);
   assert.match(engine, /this\.rig\.add\(controller\)/);

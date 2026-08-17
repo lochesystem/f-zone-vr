@@ -66,6 +66,8 @@ A seleção não deve ser uma lista textual. Cada opção apresenta:
 - Elevação, largura, lacunas, recarga e boost permanecem reconhecíveis.
 - Nome, região, extensão, voltas, dificuldade e características acompanham o modelo.
 - Trocar a seleção reconstrói o turntable sem encerrar a sessão VR.
+- Turntables de nave e pista ficam abaixo da linha dos olhos e levemente inclinados para o jogador sentado.
+- Opções de áudio ficam disponíveis no lobby e na pausa VR, usando o mesmo estado persistido do menu 2D.
 
 ## Cockpit
 
