@@ -23,7 +23,7 @@ test("renderiza a apresentação do F-Zone VR", async () => {
 });
 
 test("inclui o núcleo de corrida e conforto WebXR", async () => {
-  const [engine, mechanics, ui, audio, types, gameData, roadmap] = await Promise.all([
+  const [engine, mechanics, ui, audio, types, gameData, roadmap, trackData] = await Promise.all([
     readFile(new URL("../app/game/engine.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/game/mechanics.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/game/FZoneGame.tsx", import.meta.url), "utf8"),
@@ -31,6 +31,7 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
     readFile(new URL("../app/game/types.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/game/game-data.ts", import.meta.url), "utf8"),
     readFile(new URL("../docs/ROADMAP.md", import.meta.url), "utf8"),
+    readFile(new URL("../app/game/track-data.ts", import.meta.url), "utf8"),
   ]);
   assert.match(engine, /requestSession\("immersive-vr"/);
   assert.match(engine, /"hand-tracking"/);
@@ -42,11 +43,11 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(engine, /TRACK_WIDTH=48/);
   assert.match(engine, /SAMPLES=520/);
   assert.match(engine, /"centripetal"/);
-  assert.match(engine, /boostPads=\[\.145,\.24,\.42,\.59,\.665,\.76,\.91\]/);
+  assert.match(trackData, /boostPads:\[\.145,\.24,\.42,\.59,\.665,\.76,\.91\]/);
   assert.match(engine, /addJumpGates\(\)/);
   assert.match(engine, /addMagneticTunnels\(\)/);
   assert.match(engine, /toggleMinimap\(\)/);
-  assert.match(engine, /gapLift\(progress\)/);
+  assert.match(engine, /gapLift\(progress,this\.trackLayout\)/);
   assert.match(engine, /createPlayerCraft\(\)/);
   assert.match(engine, /createRacer\(spec:ShipSpec,variant=0/);
   assert.match(engine, /createRacer\(SHIPS\[index\],index\)/);
@@ -79,7 +80,7 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(engine, /countdownTime=3\.05/);
   assert.match(engine, /drawCountdownPanel/);
   assert.match(engine, /addEnergyStrips/);
-  assert.match(engine, /isEnergyZone\(progress\)/);
+  assert.match(engine, /isEnergyZone\(progress,this\.trackLayout\)/);
   assert.match(engine, /this\.boosting\?-29:this\.energyCharging\?18:\.18/);
   assert.match(engine, /drawSpeedPanel/);
   assert.match(engine, /enterVRLobby/);

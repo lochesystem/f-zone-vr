@@ -22,7 +22,7 @@ export const SHIPS:ShipSpec[]=[
 
 export const TRACKS:TrackSpec[]=[
   {id:"helix-verge",name:"Helix Verge",region:"Órbita baixa",description:"Circuito de estreia com saltos orbitais e túnel magnético.",laps:3,difficulty:2,available:true,features:["Saltos","Mag-lock","Boost pads"]},
-  {id:"rift-ascent",name:"Rift Ascent",region:"Zenith",description:"Subida extrema seguida por uma queda longa sobre a cidade.",laps:3,difficulty:4,available:false,features:["Subida vertical","Mergulho","Hairpins"]},
+  {id:"rift-ascent",name:"Rift Ascent",region:"Zenith",description:"Circuito longo com ascensão progressiva, crista magnética e mergulho sobre a cidade.",laps:3,difficulty:4,available:true,features:["Subida íngreme","2 saltos","Wall ride"]},
   {id:"neon-abyss",name:"Neon Abyss",region:"Subnível 09",description:"Uma prova longa em tubos, paredes magnéticas e trechos suspensos.",laps:4,difficulty:5,available:false,features:["Túneis","Wall ride","Trecho aéreo"]},
 ];
 
