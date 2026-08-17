@@ -93,7 +93,9 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(engine, /rivalTargetSpeed\(this\.gameMode,index,this\.storyEventIndex\)/);
   assert.match(engine, /rival\.root\.rotateY\(yaw\)/);
   assert.doesNotMatch(engine, /rival\.root\.rotation\.y=/);
-  assert.match(engine, /this\.ship\.visible=false/);
+  assert.match(engine, /this\.ship\.visible=true/);
+  assert.match(engine, /this\.ship\.visible=racing/);
+  assert.match(engine, /next\.visible=previous\.visible/);
   assert.doesNotMatch(engine, /const centerScreen=/);
   assert.match(engine, /emberPositions/);
   assert.match(engine, /const skySun=/);
