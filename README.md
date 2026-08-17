@@ -9,7 +9,10 @@ Jogue em: https://lochesystem.github.io/f-zone-vr/
 - circuito suspenso `Helix Verge` com três voltas, grandes desníveis e descidas inclinadas;
 - dois saltos orbitais sobre trechos sem pista e dois túneis de aderência magnética;
 - cockpit em primeira pessoa e cinco rivais;
-- aceleração, frenagem, direção e boost recarregável;
+- pista larga para disputas em múltiplas faixas;
+- pilotagem com inércia lateral, aderência, derrapagem e rebote nas barreiras;
+- colisões entre naves, rivais com troca de faixa e ganho de velocidade no vácuo;
+- aceleração, frenagem e boost recarregável;
 - controles por teclado, gamepad e controles do Quest;
 - entrada WebXR, vibração em impactos e foveated rendering;
 - minimapa acionável na tela e integrado ao cockpit VR;

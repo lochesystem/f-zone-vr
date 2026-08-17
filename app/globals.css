@@ -31,6 +31,8 @@ button { font:inherit; }
 .speed-number { display:flex;align-items:baseline;gap:9px;color:#fff;text-shadow:0 0 20px rgba(105,246,255,.35); }
 .speed-number strong { font:220 68px/.8 var(--font-geist-sans);letter-spacing:-.08em; }
 .speed-number span { color:var(--cyan);font-size:9px; }
+.race-technique { width:max-content;margin-top:10px;padding:5px 8px;border-left:2px solid var(--magenta);background:rgba(255,62,147,.12);color:#ff8fbd;font-size:7px;letter-spacing:.16em;text-shadow:0 0 9px rgba(255,62,147,.45); }
+.race-technique.drafting { border-color:var(--cyan);background:rgba(105,246,255,.1);color:var(--cyan);text-shadow:0 0 9px rgba(105,246,255,.45); }
 .energy-label { margin:16px 0 7px;display:flex;justify-content:space-between;color:rgba(220,250,255,.48);font-size:8px; }
 .energy-track { height:5px;background:rgba(105,246,255,.13);transform:skewX(-22deg);overflow:hidden; }
 .energy-fill { height:100%;background:linear-gradient(90deg,#00a9c2,var(--cyan),#fff);box-shadow:0 0 13px var(--cyan);transition:width .08s; }

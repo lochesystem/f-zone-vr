@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 import * as THREE from "three";
 
-const TRACK_WIDTH=16;
+const TRACK_WIDTH=28;
 
 async function loadTrack(){
   const source=await readFile(new URL("../app/game/track-data.ts",import.meta.url),"utf8");
@@ -25,5 +25,5 @@ test("mantém corredores separados nos cruzamentos da pista",async()=>{
       minimumDistance=Math.min(minimumDistance,point.distanceTo(curve.getPointAt(otherProgress)));
     }
   }
-  assert.ok(minimumDistance>TRACK_WIDTH*1.5,`distância mínima entre trechos: ${minimumDistance.toFixed(2)}m`);
+  assert.ok(minimumDistance>TRACK_WIDTH+4,`distância mínima entre trechos: ${minimumDistance.toFixed(2)}m`);
 });

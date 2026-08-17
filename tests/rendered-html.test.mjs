@@ -34,7 +34,7 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(engine, /globalThis\.isSecureContext/);
   assert.match(engine, /setFoveation\(\.65\)/);
   assert.match(engine, /TOTAL_LAPS=3/);
-  assert.match(engine, /TRACK_WIDTH=16/);
+  assert.match(engine, /TRACK_WIDTH=28/);
   assert.match(engine, /SAMPLES=520/);
   assert.match(engine, /"centripetal"/);
   assert.match(engine, /boostPads=\[\.145,\.24,\.42,\.59,\.665,\.76,\.91\]/);
@@ -44,7 +44,9 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(engine, /gapLift\(progress\)/);
   assert.match(engine, /createPlayerCraft\(\)/);
   assert.match(engine, /MeshPhysicalMaterial/);
-  assert.match(engine, /controls\.steer\*\.075/);
+  assert.match(engine, /lateralVelocity/);
+  assert.match(engine, /resolveRivalCollisions/);
+  assert.match(engine, /this\.drafting/);
   assert.match(engine, /private updateCountdown\(dt:number\)/);
   assert.match(engine, /countdownTime=3\.05/);
   assert.match(engine, /drawCountdownPanel/);
