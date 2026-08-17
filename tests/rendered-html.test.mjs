@@ -39,7 +39,7 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(engine, /globalThis\.isSecureContext/);
   assert.match(engine, /setFoveation\(\.65\)/);
   assert.match(engine, /TOTAL_LAPS=3/);
-  assert.match(engine, /TRACK_WIDTH=38/);
+  assert.match(engine, /TRACK_WIDTH=48/);
   assert.match(engine, /SAMPLES=520/);
   assert.match(engine, /"centripetal"/);
   assert.match(engine, /boostPads=\[\.145,\.24,\.42,\.59,\.665,\.76,\.91\]/);
@@ -62,6 +62,10 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(engine, /private updateCountdown\(dt:number\)/);
   assert.match(engine, /countdownTime=3\.05/);
   assert.match(engine, /drawCountdownPanel/);
+  assert.match(engine, /addEnergyStrips/);
+  assert.match(engine, /isEnergyZone\(progress\)/);
+  assert.match(engine, /this\.boosting\?-29:this\.energyCharging\?18:\.18/);
+  assert.match(engine, /drawSpeedPanel/);
   assert.match(mechanics, /topSpeed=boosting\?tuning\.topSpeed\+38\*tuning\.boostPower:tuning\.topSpeed/);
   assert.match(ui, /Entrar em VR/);
   assert.match(ui, /engine\.enterVR\(\)\.catch/);

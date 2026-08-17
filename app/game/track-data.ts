@@ -15,6 +15,13 @@ export const MAGNETIC_RANGES: ReadonlyArray<readonly [number, number, number]> =
   [.79,.865,-Math.PI*.62],
 ];
 
+export const ENERGY_RANGES: ReadonlyArray<readonly [number, number]> = [
+  [.035,.085],
+  [.305,.355],
+  [.585,.635],
+  [.885,.935],
+];
+
 export function circularProgress(progress:number){return ((progress%1)+1)%1;}
 
 export function progressInRange(progress:number,range:readonly [number,number]){
@@ -22,6 +29,8 @@ export function progressInRange(progress:number,range:readonly [number,number]){
 }
 
 export function isGap(progress:number){return GAP_RANGES.some(range=>progressInRange(progress,range));}
+
+export function isEnergyZone(progress:number){return ENERGY_RANGES.some(range=>progressInRange(progress,range));}
 
 export function gapLift(progress:number){
   const p=circularProgress(progress);
