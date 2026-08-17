@@ -1,7 +1,7 @@
 # F-Zone VR — fila de prioridades
 
-1. **Fluxo completo de corrida** — menu principal, seleção de modo, nave e pista, além do ranking pós-corrida.
-2. **Pilotagem e escala** — resposta lateral mais rápida, pista mais larga, dificuldade maior e velocímetro calibrado entre 400 e 600 km/h.
+1. **Concluído — Fluxo completo de corrida** — tela inicial, menu principal, seleção de modo, nave e pista, além do ranking pós-corrida.
+2. **Concluído — Pilotagem e escala** — resposta lateral mais rápida, pista mais larga, dificuldade maior e velocímetro calibrado entre 400 e 600 km/h.
 3. **HUD em VR** — velocímetro tridimensional legível e novo posicionamento do mapa no cockpit.
 4. **História** — cinco corridas, rival nomeado por evento e progressão condicionada ao pódio.
 5. **Arcade, Cup e pistas** — provas longas, múltiplas voltas, subidas e descidas íngremes e novos circuitos.

@@ -1,5 +1,5 @@
 export type GameModeId="story"|"arcade"|"cup";
-export type MenuScreen="mode"|"ship"|"track";
+export type MenuScreen="entry"|"mode"|"ship"|"track";
 
 export interface GameMode { id:GameModeId;name:string;kicker:string;description:string;rivals:boolean;badge:string; }
 export interface ShipSpec { id:string;name:string;role:string;color:string;accent:string;stats:{acceleration:number;topSpeed:number;handling:number;boost:number;body:number}; }
