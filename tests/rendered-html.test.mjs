@@ -63,10 +63,15 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(ui, /race\.speed<\.75\?0/);
   assert.match(ui, /opponent-radar/);
   assert.match(ui, /boost-fx/);
+  assert.match(ui, /Volume geral/);
+  assert.match(ui, /Efeitos e motor/);
+  assert.match(ui, /saveAudioSettings/);
   assert.match(audio, /class RaceAudio/);
   assert.match(audio, /createOscillator/);
   assert.match(audio, /createBufferSource/);
   assert.match(audio, /audio\/background\.mp3/);
   assert.match(audio, /createMediaElementSource/);
+  assert.match(audio, /f-zone-vr-audio-settings/);
+  assert.match(audio, /\[\["sine",-4\],\["triangle",5\]\]/);
   assert.match(types, /opponents:OpponentMarker\[\]/);
 });
