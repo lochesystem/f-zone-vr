@@ -52,6 +52,11 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(engine, /createRacer\(SHIPS\[index\],index\)/);
   assert.match(engine, /private replacePlayerCraft\(\)/);
   assert.match(engine, /ship\.userData\.shipId/);
+  assert.match(engine, /private cockpit=new THREE\.Group/);
+  assert.match(engine, /this\.buildCockpit\(\)/);
+  assert.match(engine, /private vrShipPreview=new THREE\.Group/);
+  assert.match(engine, /refreshVrShipPreview/);
+  assert.match(engine, /Hangar de naves/);
   assert.match(engine, /variant===3/);
   assert.match(engine, /MeshPhysicalMaterial/);
   assert.match(engine, /lateralVelocity/);
@@ -83,8 +88,8 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(engine, /intersectObject\(this\.vrMenuPanel/);
   assert.match(engine, /vrMenuIndexFromUv/);
   assert.match(engine, /RingGeometry\(\.018,\.032/);
-  assert.match(engine, /this\.rig\.add\(this\.speedPanel\)/);
-  assert.match(engine, /this\.rig\.add\(this\.mapPanel\)/);
+  assert.match(engine, /this\.cockpit\.add\(this\.speedPanel\)/);
+  assert.match(engine, /this\.cockpit\.add\(this\.mapPanel\)/);
   assert.match(mechanics, /topSpeed=boosting\?tuning\.topSpeed\+38\*tuning\.boostPower:tuning\.topSpeed/);
   assert.match(ui, /Entrar em VR/);
   assert.match(ui, /engine\.enterVRLobby\(\)/);
