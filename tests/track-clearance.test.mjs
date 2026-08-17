@@ -99,6 +99,7 @@ test("seleção de pistas usa o mesmo traçado em miniaturas 3D",async()=>{
   const [preview,ui,engine]=await Promise.all([readFile(new URL("../app/game/track-preview.ts",import.meta.url),"utf8"),readFile(new URL("../app/game/FZoneGame.tsx",import.meta.url),"utf8"),readFile(new URL("../app/game/engine.ts",import.meta.url),"utf8")]);
   assert.match(preview,/getTrackLayout\(trackId\)/);
   assert.match(preview,/createTrackPreviewModel/);
+  assert.match(preview,/content\.position\.copy\(center\)\.multiplyScalar\(-scale\)/);
   assert.match(ui,/TrackTurntablePreview/);
   assert.match(engine,/refreshVrTrackPreview/);
   assert.match(engine,/TRAÇADO 3D REAL À DIREITA/);

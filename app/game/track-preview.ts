@@ -52,7 +52,7 @@ function addSpecialSections(group:THREE.Group,trackId:string){
 
 export function createTrackPreviewModel(trackId:string,targetSpan=5.2){
   const {curve}=previewCurve(trackId),content=new THREE.Group(),root=new THREE.Group();addRibbon(content,trackId);addRails(content,trackId);addSpecialSections(content,trackId);
-  const samples=Array.from({length:PREVIEW_SAMPLES},(_,index)=>curve.getPointAt(index/PREVIEW_SAMPLES)),bounds=new THREE.Box3().setFromPoints(samples),center=bounds.getCenter(new THREE.Vector3()),size=bounds.getSize(new THREE.Vector3()),scale=targetSpan/Math.max(size.x,size.z,1);content.position.copy(center).multiplyScalar(-1);content.scale.setScalar(scale);root.add(content);root.userData.trackId=trackId;return root;
+  const samples=Array.from({length:PREVIEW_SAMPLES},(_,index)=>curve.getPointAt(index/PREVIEW_SAMPLES)),bounds=new THREE.Box3().setFromPoints(samples),center=bounds.getCenter(new THREE.Vector3()),size=bounds.getSize(new THREE.Vector3()),scale=targetSpan/Math.max(size.x,size.z,1);content.scale.setScalar(scale);content.position.copy(center).multiplyScalar(-scale);root.add(content);root.userData.trackId=trackId;root.userData.previewScale=scale;return root;
 }
 
 export function disposeTrackPreview(root:THREE.Object3D){
