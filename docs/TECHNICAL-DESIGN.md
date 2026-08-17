@@ -40,6 +40,7 @@ flowchart TD
 | `app/game/engine.ts` | Loop principal, cena Three.js, pista, naves, IA, câmera, cockpit, HUD, controles XR e ciclo da corrida. |
 | `app/game/game-data.ts` | Catálogo de naves, rivais, modos e eventos da história. |
 | `app/game/track-data.ts` | Pontos de controle, setores especiais, tema e metadados dos circuitos. |
+| `app/game/track-preview.ts` | Malha leve de turntable derivada da mesma curva usada pela corrida, compartilhada entre seleção desktop e VR. |
 | `app/game/mechanics.ts` | Funções determinísticas de entrada e aceleração; principal alvo de testes unitários. |
 | `app/game/audio.ts` | Grafo de áudio, música, motor procedural, nitro e preferências de volume. |
 | `app/game/types.ts` | Tipos de seleção, HUD, resultado, áudio e integração entre React e engine. |
@@ -89,7 +90,7 @@ Cada pista é uma `TrackLayout` formada por:
 - setores nomeados;
 - tema visual.
 
-A engine amostra atualmente a curva em alta resolução e gera superfície, bordas, colisão, minimapa e orientação a partir da mesma fonte. Novos sistemas nunca devem manter uma segunda versão manual da trajetória.
+A engine amostra atualmente a curva em alta resolução e gera superfície, bordas, colisão, minimapa, turntable 3D e orientação a partir da mesma fonte. Novos sistemas nunca devem manter uma segunda versão manual da trajetória.
 
 Constantes de referência atuais:
 

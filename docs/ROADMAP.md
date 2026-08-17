@@ -17,6 +17,8 @@ O roadmap ordena entregas. Regras permanentes ficam no [GDD](GDD.md), em [decis�
 - [x] Nitro finito, boost pads e faixas laterais de recarga.
 - [x] Helix Verge ampliada para 3,61 km.
 - [x] Rift Ascent com 5,20 km, aurora, rampas e saltos.
+- [x] Solar Foundry com 6,60 km, cenário industrial diurno e duas pontes de reator.
+- [x] Turntable 3D de pistas no desktop e no VR usando a geometria real.
 - [x] Sessão VR contínua, controles rastreados, raios e cursores.
 - [x] HUD no cockpit e cockpit acompanhando parcialmente o movimento da nave.
 - [x] Música de fundo, motor, efeitos e mix de volumes.
@@ -54,7 +56,7 @@ Cada pista deve cumprir [TRACK-DESIGN.md](TRACK-DESIGN.md) e ter duração real 
 
 1. **Helix Verge** — cidade orbital noturna; entregue.
 2. **Rift Ascent** — aurora e cordilheira; entregue.
-3. **Solar Foundry** — complexo industrial diurno, calor e estruturas solares; planejada.
+3. **Solar Foundry** — complexo industrial diurno, calor e estruturas solares; entregue.
 4. **Magma Crown** — caldeira vulcânica, lava e plataformas de refrigeração; planejada.
 5. **Cloudline Metro** — cidade clara acima das nuvens, grandes retas e tráfego visual distante; planejada.
 

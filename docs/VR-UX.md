@@ -59,6 +59,14 @@ A seleção não deve ser uma lista textual. Cada opção apresenta:
 - prévia simplificada do cockpit;
 - confirmação explícita antes de avançar.
 
+## Galeria de circuitos
+
+- O percurso selecionado aparece como modelo 3D em rotação lenta.
+- A miniatura é gerada da mesma spline da corrida, sem desenho abstrato alternativo.
+- Elevação, largura, lacunas, recarga e boost permanecem reconhecíveis.
+- Nome, região, extensão, voltas, dificuldade e características acompanham o modelo.
+- Trocar a seleção reconstrói o turntable sem encerrar a sessão VR.
+
 ## Cockpit
 
 O cockpit pertence à nave selecionada e deve parecer um habitáculo, não uma bancada genérica.
@@ -123,6 +131,7 @@ O cockpit pertence à nave selecionada e deve parecer um habitáculo, não uma b
 - [ ] Cursor e hover coincidem com a superfície do painel.
 - [ ] Seleção de modo, nave e pista funciona sem sair do VR.
 - [ ] Cockpit corresponde à nave escolhida.
+- [ ] Turntable da pista corresponde ao percurso e ao minimapa da corrida.
 - [ ] Velocímetro, energia e mapa ficam fixos na nave.
 - [ ] Cabeça pode olhar para os lados sem levar o painel junto.
 - [ ] Cockpit acompanha curvas sem atraso desconfortável.
