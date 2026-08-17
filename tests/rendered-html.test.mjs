@@ -64,6 +64,10 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(engine, /this\.drafting/);
   assert.match(engine, /this\.speed>32&&throttle>\.15/);
   assert.match(engine, /this\.speed<\.75\)this\.speed=0/);
+  assert.match(engine, /Math\.round\(this\.speed\*3\.6\)/);
+  assert.match(engine, /rival\.distance=10\+index\*8/);
+  assert.match(engine, /paceAdjustment=gap>90\?-8/);
+  assert.doesNotMatch(engine, /new THREE\.RingGeometry\(\.052,\.064,24\)/);
   assert.match(engine, /buildBoostStreaks/);
   assert.match(engine, /this\.audio\.boostHit/);
   assert.match(engine, /opponents=active\.map/);
