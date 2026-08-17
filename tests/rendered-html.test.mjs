@@ -71,6 +71,12 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(engine, /enterVRLobby/);
   assert.match(engine, /openVrMenu\("results"\)/);
   assert.match(engine, /private updateVrMenu\(\)/);
+  assert.match(engine, /getController\(index\)/);
+  assert.match(engine, /"selectstart"/);
+  assert.match(engine, /setFromXRController/);
+  assert.match(engine, /intersectObject\(this\.vrMenuPanel/);
+  assert.match(engine, /vrMenuIndexFromUv/);
+  assert.match(engine, /RingGeometry\(\.018,\.032/);
   assert.match(engine, /this\.rig\.add\(this\.speedPanel\)/);
   assert.match(engine, /this\.rig\.add\(this\.mapPanel\)/);
   assert.match(mechanics, /topSpeed=boosting\?tuning\.topSpeed\+38\*tuning\.boostPower:tuning\.topSpeed/);
