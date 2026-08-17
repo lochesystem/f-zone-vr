@@ -73,6 +73,7 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(ui, /Efeitos e motor/);
   assert.match(ui, /saveAudioSettings/);
   assert.match(ui, /Escolha sua nave/);
+  assert.match(ui, /setShipId\(ship\.id\);setScreen\("track"\)/);
   assert.match(ui, /Escolha a pista/);
   assert.match(ui, /Resultado oficial/);
   assert.match(audio, /class RaceAudio/);
