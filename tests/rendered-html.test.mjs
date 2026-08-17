@@ -66,5 +66,7 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(audio, /class RaceAudio/);
   assert.match(audio, /createOscillator/);
   assert.match(audio, /createBufferSource/);
+  assert.match(audio, /audio\/background\.mp3/);
+  assert.match(audio, /createMediaElementSource/);
   assert.match(types, /opponents:OpponentMarker\[\]/);
 });
