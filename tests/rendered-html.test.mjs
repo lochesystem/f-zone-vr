@@ -81,10 +81,14 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(engine, /propulsion-trail/);
   assert.match(engine, /exhaust-outer/);
   assert.match(engine, /exhaust-core/);
-  assert.match(engine, /function updatePropulsionTrail/);
-  assert.match(engine, /nitroStretch=nitro\?2\.45:1/);
+  assert.match(engine, /exhaust-particle/);
+  assert.match(engine, /new THREE\.Sprite/);
+  assert.match(engine, /flowPhase/);
+  assert.match(engine, /export function updatePropulsionTrail/);
+  assert.match(engine, /nitroStretch=nitro\?2\.35:1/);
   assert.match(engine, /updatePropulsionTrail\(this\.ship,this\.speed,this\.boosting/);
   assert.match(engine, /updatePropulsionTrail\(rival\.root,rival\.speed,false/);
+  assert.match(engine, /updatePropulsionTrail\(this\.vrShipPreview,96/);
   assert.match(engine, /opponents=active\.map/);
   assert.match(engine, /configureRace\(mode:GameModeId,shipId=/);
   assert.match(engine, /STORY_EVENTS\[this\.storyEventIndex\]/);
@@ -172,6 +176,7 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(ui, /saveAudioSettings/);
   assert.match(ui, /Escolha sua nave/);
   assert.match(ui, /ShipHangarPreview/);
+  assert.match(ui, /updatePropulsionTrail\(model,96/);
   assert.match(ui, /Confirmar nave/);
   assert.match(ui, /Escolha a pista/);
   assert.match(ui, /Resultado oficial/);

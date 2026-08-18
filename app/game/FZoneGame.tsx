@@ -4,7 +4,7 @@ import { useEffect,useRef,useState,type CSSProperties,type ReactNode } from "rea
 import * as THREE from "three";
 import { DEFAULT_AUDIO_SETTINGS,loadAudioSettings,saveAudioSettings,type AudioSettings } from "./audio";
 import { STARTING_LIVES,WEAPON_LABELS } from "./combat";
-import { createRacer,FZoneEngine } from "./engine";
+import { createRacer,FZoneEngine,updatePropulsionTrail } from "./engine";
 import { GAME_MODES,SHIPS,STORY_EVENTS,TRACKS,storyTrackId,type GameModeId,type MenuScreen,type ShipSpec,type StoryEvent } from "./game-data";
 import { formatTime } from "./mechanics";
 import { getTrackLayout,isGap } from "./track-data";
@@ -36,8 +36,8 @@ function ShipHangarPreview({ship}:{ship:ShipSpec}){
     const scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera(35,1,.1,100),variant=Math.max(0,SHIPS.findIndex(candidate=>candidate.id===ship.id)),model=createRacer(ship,variant);camera.position.set(7.4,5.3,8.8);camera.lookAt(0,.2,0);model.rotation.x=-.08;scene.add(model,new THREE.HemisphereLight(0xc8faff,0x07030f,2.4));const key=new THREE.DirectionalLight(0xffffff,4.2);key.position.set(4,8,3);scene.add(key);const rim=new THREE.PointLight(ship.accent,18,18);rim.position.set(-4,2,-4);scene.add(rim);
     const grid=new THREE.GridHelper(14,28,new THREE.Color(ship.accent),new THREE.Color(0x12303b));grid.position.y=-.18;(grid.material as THREE.Material).transparent=true;(grid.material as THREE.Material).opacity=.24;scene.add(grid);
     let frame=0,last=performance.now();const resize=()=>{const width=Math.max(1,canvas.clientWidth),height=Math.max(1,canvas.clientHeight);if(canvas.width!==Math.round(width*renderer.getPixelRatio())||canvas.height!==Math.round(height*renderer.getPixelRatio()))renderer.setSize(width,height,false);camera.aspect=width/height;camera.updateProjectionMatrix();};
-    const animate=(now:number)=>{const dt=Math.min(.05,(now-last)/1000);last=now;model.rotation.y+=dt*.38;model.position.y=.12+Math.sin(now*.0014)*.06;resize();renderer.render(scene,camera);frame=requestAnimationFrame(animate);};frame=requestAnimationFrame(animate);
-    return()=>{cancelAnimationFrame(frame);model.traverse(object=>{if(!(object instanceof THREE.Mesh))return;object.geometry.dispose();const materials=Array.isArray(object.material)?object.material:[object.material];materials.forEach(material=>material.dispose());});renderer.dispose();};
+    const animate=(now:number)=>{const dt=Math.min(.05,(now-last)/1000);last=now;model.rotation.y+=dt*.38;model.position.y=.12+Math.sin(now*.0014)*.06;updatePropulsionTrail(model,96,Math.sin(now*.00135)>.5,now/1000);resize();renderer.render(scene,camera);frame=requestAnimationFrame(animate);};frame=requestAnimationFrame(animate);
+    return()=>{cancelAnimationFrame(frame);model.traverse(object=>{if(object instanceof THREE.Sprite){object.material.dispose();return;}if(!(object instanceof THREE.Mesh))return;object.geometry.dispose();const materials=Array.isArray(object.material)?object.material:[object.material];materials.forEach(material=>material.dispose());});renderer.dispose();};
   },[ship]);
   return <canvas ref={canvasRef} className="ship-hangar-canvas" aria-label={`Prévia tridimensional rotativa da nave ${ship.name}`}/>;
 }

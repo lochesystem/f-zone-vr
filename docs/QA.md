@@ -69,7 +69,8 @@ Essas verificações reduzem regressões, mas a homologação final continua exi
 - [ ] Zona lateral de recarga aumenta energia gradualmente.
 - [ ] Caixas holográficas são visíveis, atravessáveis e reaparecem após o cooldown.
 - [ ] Efeito de nitro não encobre a pista.
-- [ ] Todas as naves em movimento exibem rastros alinhados aos escapamentos; o nitro alonga o rastro do jogador sem soltar a chama do bocal.
+- [ ] Todas as naves em movimento exibem partículas de plasma fluindo e dissipando a partir dos escapamentos; o nitro alonga e intensifica o rastro sem soltar a chama do bocal.
+- [ ] As prévias 3D de nave na tela e no VR mantêm o plasma animado e alternam visualmente entre propulsão normal e nitro.
 - [ ] Rastros permanecem legíveis no Quest e não encobrem a pista no cockpit.
 - [ ] Colisão entre naves altera trajetória sem travar os veículos.
 - [ ] Barreira penaliza e devolve a nave à área dirigível.
