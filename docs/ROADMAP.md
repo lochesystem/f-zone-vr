@@ -16,6 +16,8 @@ O roadmap ordena entregas. Regras permanentes ficam no [GDD](GDD.md), em [decis�
 - [x] Pilotagem e escala: pista larga, direção com resposta lateral e assistência reduzida.
 - [x] Nitro finito e faixas laterais de recarga.
 - [x] Caixas de armamento, metralhadora, míssil teleguiado, escudo, três vidas e renascimento.
+- [x] Dois slots de armamento e arma rastreada pela mão direita no VR.
+- [x] Perfil inicial de desempenho Quest com foveação, escala de framebuffer e efeitos reduzidos.
 - [x] Helix Verge ampliada para 3,61 km.
 - [x] Rift Ascent com 5,20 km, aurora, rampas e saltos.
 - [x] Solar Foundry com 6,60 km, cenário industrial diurno e duas pontes de reator.

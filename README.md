@@ -48,10 +48,11 @@ Novas pistas precisam seguir as [regras obrigatórias de geometria, conforto e i
 | Ação | Teclado | Gamepad | Meta Quest |
 | --- | --- | --- | --- |
 | Direção | A/D ou setas | Analógico esquerdo | Analógico esquerdo |
-| Acelerar | W ou ↑ | Gatilho direito | Gatilho direito |
+| Acelerar | W ou ↑ | Gatilho direito | Empunhadura direita |
 | Frear | S ou ↓ | Gatilho esquerdo | Gatilho esquerdo |
-| Nitro | Shift ou Espaço | A / ombro direito | A ou empunhadura direita |
-| Usar arma | E ou F | B / botão direito | B direito |
+| Nitro | Shift ou Espaço | A / ombro direito | A direito |
+| Usar/mirar arma | E ou F | B / botão direito | Apontar a mão direita e apertar o gatilho |
+| Trocar slot | Q | Y | B direito |
 | Mapa | M | Y / Menu | Botão esquerdo configurado |
 | Pausa | Esc | Menu | Menu/voltar |
 | Menu VR | — | — | Apontar e apertar o gatilho |

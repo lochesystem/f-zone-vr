@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { applyAttack,circularDistance,MACHINE_GUN_AMMO,rollWeapon,SHIELD_HITS,STARTING_LIVES,weaponAmmo } from "../app/game/combat.ts";
+import { applyAttack,circularDistance,MACHINE_GUN_AMMO,rollWeapon,SHIELD_HITS,STARTING_LIVES,storeWeapon,weaponAmmo } from "../app/game/combat.ts";
 
 test("caixas sorteiam as três armas e entregam a munição correta",()=>{
   assert.equal(rollWeapon(()=>0),"machine-gun");
@@ -17,6 +17,17 @@ test("escudo absorve dois ataques antes de consumir uma vida",()=>{
   assert.deepEqual(first,{lives:3,shieldHits:1,destroyed:false,eliminated:false,absorbed:true});
   assert.deepEqual(second,{lives:3,shieldHits:0,destroyed:false,eliminated:false,absorbed:true});
   assert.deepEqual(third,{lives:2,shieldHits:0,destroyed:true,eliminated:false,absorbed:false});
+});
+
+test("inventário preenche dois slots e substitui somente o slot ativo",()=>{
+  const first=storeWeapon([{weapon:null,ammo:0},{weapon:null,ammo:0}],0,"shield");
+  assert.equal(first.target,0);
+  const second=storeWeapon(first.slots,0,"machine-gun");
+  assert.equal(second.target,1);
+  assert.deepEqual(second.slots,[{weapon:"shield",ammo:1},{weapon:"machine-gun",ammo:20}]);
+  const replacement=storeWeapon(second.slots,0,"missile");
+  assert.equal(replacement.replaced,"shield");
+  assert.deepEqual(replacement.slots,[{weapon:"missile",ammo:1},{weapon:"machine-gun",ammo:20}]);
 });
 
 test("terceira destruição elimina a nave",()=>{

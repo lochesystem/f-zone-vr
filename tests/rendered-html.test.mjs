@@ -39,10 +39,11 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(engine, /vrChecked=true/);
   assert.match(engine, /vrApiAvailable=Boolean\(xr\)/);
   assert.match(engine, /globalThis\.isSecureContext/);
-  assert.match(engine, /setFoveation\(\.65\)/);
+  assert.match(engine, /setFoveation\(\.9\)/);
+  assert.match(engine, /setFramebufferScaleFactor\(\.78\)/);
   assert.match(engine, /TOTAL_LAPS=4/);
   assert.match(engine, /TRACK_WIDTH=48/);
-  assert.match(engine, /SAMPLES=720/);
+  assert.match(engine, /SAMPLES=480/);
   assert.match(engine, /"centripetal"/);
   assert.match(trackData, /boostPads:\[\.145,\.24,\.42,\.59,\.665,\.76,\.91\]/);
   assert.match(engine, /addJumpGates\(\)/);
@@ -130,7 +131,14 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(engine, /private nearestTarget/);
   assert.match(engine, /private damageRacer/);
   assert.match(engine, /RACER_RESPAWN_SECONDS/);
-  assert.match(engine, /right\?\.buttons\[5\]\?\.pressed/);
+  assert.match(engine, /fire=Boolean\(right\?\.buttons\[0\]\?\.pressed\)/);
+  assert.match(engine, /switchWeapon=Boolean\(right\?\.buttons\[5\]\?\.pressed\)/);
+  assert.match(engine, /createHandWeapon/);
+  assert.match(engine, /Arma modular da mão direita/);
+  assert.match(engine, /private rightHandAim/);
+  assert.match(engine, /freeFlight/);
+  assert.match(engine, /private playerSlots:\[WeaponSlot,WeaponSlot\]/);
+  assert.match(engine, /private switchWeaponSlot/);
   assert.match(engine, /private createShieldDome|function createShieldDome/);
   assert.match(engine, /THREE\.BackSide/);
   assert.match(ui, /combat-hud/);
@@ -169,6 +177,7 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(audio, /f-zone-vr-audio-settings/);
   assert.match(audio, /\[\["sine",-4\],\["triangle",5\]\]/);
   assert.match(types, /opponents:OpponentMarker\[\]/);
+  assert.match(types, /weaponSlots:\[WeaponSlot,WeaponSlot\]/);
   assert.match(gameData, /id:"story"/);
   assert.match(gameData, /id:"arcade"/);
   assert.match(gameData, /const SHIPS/);

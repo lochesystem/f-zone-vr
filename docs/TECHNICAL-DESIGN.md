@@ -171,6 +171,8 @@ Regras:
 
 ## 11. Desempenho no Quest
 
+- WebXR usa escala de framebuffer reduzida e foveação alta; não aumentar sem medir no headset.
+- A malha principal usa 480 amostras, o minimapa do cockpit atualiza no máximo a 10 Hz e projéteis evitam luzes dinâmicas.
 - Reutilizar geometrias e materiais sempre que possível.
 - Evitar alocação por frame no loop de renderização.
 - Limitar transparências sobrepostas, partículas e luzes dinâmicas.

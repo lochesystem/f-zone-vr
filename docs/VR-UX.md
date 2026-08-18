@@ -120,18 +120,21 @@ O cockpit pertence à nave selecionada e deve parecer um habitáculo, não uma b
 | Confirmar por foco | Botão principal direito |
 | Voltar/pausar | Menu esquerdo quando exposto pelo navegador; clique do analógico como alternativa |
 | Direção na corrida | Analógico esquerdo |
-| Acelerar | Gatilho direito |
+| Acelerar | Empunhadura direita |
 | Frear | Gatilho esquerdo |
-| Nitro | A ou empunhadura direita |
-| Usar arma | B direito |
+| Nitro | A direito |
+| Usar arma | Apontar a arma da mão direita e apertar o gatilho |
+| Trocar slot | B direito |
 | Mapa | Botão configurado no controle esquerdo |
 
 ## Checklist no headset
 
 - [ ] Botão Entrar em VR é reconhecido no Meta Quest Browser por HTTPS.
 - [ ] Os dois controles aparecem e acompanham posição/rotação.
+- [ ] A arma física acompanha a mão direita, a boca do cano coincide com a direção do disparo e some quando o slot está vazio.
 - [ ] Ambos os raios atingem todos os botões visíveis.
 - [ ] Painel físico exibe vidas, arma/munição e cargas de escudo.
+- [ ] Os dois slots podem ser alternados com B sem interromper um domo já ativo.
 - [ ] Domo do escudo permanece periférico e não reduz a leitura do centro da pista.
 - [ ] Cursor e hover coincidem com a superfície do painel.
 - [ ] Seleção de modo, nave e pista funciona sem sair do VR.

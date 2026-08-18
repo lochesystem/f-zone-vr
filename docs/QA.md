@@ -75,16 +75,20 @@ Essas verificações reduzem regressões, mas a homologação final continua exi
 ## Regressão de combate
 
 - [ ] Cada caixa sorteia somente metralhadora, míssil ou escudo.
+- [ ] A primeira caixa ocupa um slot vazio; com ambos cheios, a próxima substitui somente o slot ativo.
+- [ ] `Q`, Y ou B direito alterna entre os dois slots.
 - [ ] Metralhadora entrega exatamente 20 projéteis e aceita disparo contínuo.
 - [ ] Míssil seleciona o adversário mais próximo que esteja à frente e acompanha sua linha.
 - [ ] Sem alvo à frente, o míssil não é consumido.
 - [ ] Escudo exibe domo discreto no desktop e no VR e absorve exatamente dois ataques.
+- [ ] Ativar o escudo libera seu slot e permite usar o item do outro slot enquanto o domo permanece ativo.
+- [ ] No Quest, a arma acompanha posição e rotação da mão direita e os projéteis saem da boca do cano na direção apontada.
 - [ ] Jogador e rivais começam com três vidas.
 - [ ] Destruição gera explosão, remove uma vida e renasce após um segundo.
 - [ ] Nave fica temporariamente invulnerável após renascer.
 - [ ] A terceira destruição encerra a corrida do jogador ou elimina o rival.
 - [ ] Trocar pista ou reiniciar limpa armas, munição, escudo, vidas, projéteis e cooldowns.
-- [ ] `E/F`, botão B do gamepad e botão B direito do Quest usam a arma sem interferir em nitro ou pausa.
+- [ ] `E/F`, botão B do gamepad e gatilho direito do Quest usam a arma sem interferir em nitro ou pausa.
 
 ## Regressão de IA e ranking
 

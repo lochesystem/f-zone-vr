@@ -117,9 +117,10 @@ Na versão atual, o jogador escolhe um dos circuitos disponíveis antes do prime
 - Cada nave começa com três vidas. Um ataque sem proteção destrói a nave, consome uma vida e inicia renascimento de um segundo.
 - Ao perder a terceira vida, a nave é eliminada e sua corrida termina automaticamente.
 - A caixa sorteia com probabilidade uniforme uma das três armas iniciais.
-- **Metralhadora:** vinte projéteis luminosos, disparo contínuo e trajetória reta pela linha atual.
+- **Metralhadora:** vinte projéteis luminosos; no VR a arma acompanha a mão direita e dispara na direção apontada.
 - **Míssil teleguiado:** um disparo que seleciona e persegue o adversário mais próximo à frente.
 - **Escudo prismático:** domo semitransparente que absorve dois ataques sem encobrir o centro de visão do cockpit.
+- O jogador possui dois slots. Uma caixa preenche o primeiro vazio ou substitui o slot ativo quando ambos estão ocupados; ativar o escudo não bloqueia o segundo item.
 - Rivais coletam caixas, usam as mesmas armas, perdem vidas, explodem, renascem e podem ser eliminados.
 - O estado de arma, munição, escudo, vidas, projéteis e caixas deve ser limpo entre corridas e trocas de pista.
 
@@ -208,9 +209,11 @@ Detalhes e checklist estão em [VR-UX.md](VR-UX.md).
 | Ação | Teclado | Gamepad | Meta Quest |
 | --- | --- | --- | --- |
 | Direção | A/D ou setas | Analógico esquerdo | Analógico esquerdo |
-| Acelerar | W ou seta para cima | Gatilho direito | Gatilho direito |
+| Acelerar | W ou seta para cima | Gatilho direito | Empunhadura direita |
 | Frear | S ou seta para baixo | Gatilho esquerdo | Gatilho esquerdo |
-| Nitro | Shift ou Espaço | A / ombro direito | A/B direito |
+| Nitro | Shift ou Espaço | A / ombro direito | A direito |
+| Usar/mirar arma | E/F | B | Apontar mão direita + gatilho |
+| Trocar slot | Q | Y | B direito |
 | Mapa | M | Y / Menu | Botão esquerdo configurado |
 | Pausa/voltar | Esc | Menu | Menu/voltar |
 | Selecionar em VR | — | — | Apontar e apertar gatilho |
