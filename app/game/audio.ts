@@ -1,9 +1,9 @@
-export interface AudioSettings { master:number;music:number;sfx:number;muted:boolean; }
-export const DEFAULT_AUDIO_SETTINGS:AudioSettings={master:.72,music:.55,sfx:.4,muted:false};
+export interface AudioSettings { master:number;music:number;sfx:number;muted:boolean;leftHanded:boolean; }
+export const DEFAULT_AUDIO_SETTINGS:AudioSettings={master:.72,music:.55,sfx:.4,muted:false,leftHanded:false};
 const AUDIO_SETTINGS_KEY="f-zone-vr-audio-settings";
 
 function clampLevel(value:unknown,fallback:number){return typeof value==="number"&&Number.isFinite(value)?Math.max(0,Math.min(1,value)):fallback;}
-export function loadAudioSettings():AudioSettings{try{const stored=localStorage.getItem(AUDIO_SETTINGS_KEY);if(!stored)return{...DEFAULT_AUDIO_SETTINGS};const value=JSON.parse(stored) as Partial<AudioSettings>;return{master:clampLevel(value.master,DEFAULT_AUDIO_SETTINGS.master),music:clampLevel(value.music,DEFAULT_AUDIO_SETTINGS.music),sfx:clampLevel(value.sfx,DEFAULT_AUDIO_SETTINGS.sfx),muted:Boolean(value.muted)};}catch{return{...DEFAULT_AUDIO_SETTINGS};}}
+export function loadAudioSettings():AudioSettings{try{const stored=localStorage.getItem(AUDIO_SETTINGS_KEY);if(!stored)return{...DEFAULT_AUDIO_SETTINGS};const value=JSON.parse(stored) as Partial<AudioSettings>;return{master:clampLevel(value.master,DEFAULT_AUDIO_SETTINGS.master),music:clampLevel(value.music,DEFAULT_AUDIO_SETTINGS.music),sfx:clampLevel(value.sfx,DEFAULT_AUDIO_SETTINGS.sfx),muted:Boolean(value.muted),leftHanded:Boolean(value.leftHanded)};}catch{return{...DEFAULT_AUDIO_SETTINGS};}}
 export function saveAudioSettings(settings:AudioSettings){try{localStorage.setItem(AUDIO_SETTINGS_KEY,JSON.stringify(settings));}catch{/* Preferências continuam válidas nesta sessão. */}}
 
 export class RaceAudio{
@@ -35,7 +35,7 @@ export class RaceAudio{
     this.musicGain.gain.setTargetAtTime((racing?.18:.045)*this.settings.music,now,.35);
   }
 
-  setSettings(settings:AudioSettings){this.settings={master:clampLevel(settings.master,DEFAULT_AUDIO_SETTINGS.master),music:clampLevel(settings.music,DEFAULT_AUDIO_SETTINGS.music),sfx:clampLevel(settings.sfx,DEFAULT_AUDIO_SETTINGS.sfx),muted:Boolean(settings.muted)};this.applySettings();}
+  setSettings(settings:AudioSettings){this.settings={master:clampLevel(settings.master,DEFAULT_AUDIO_SETTINGS.master),music:clampLevel(settings.music,DEFAULT_AUDIO_SETTINGS.music),sfx:clampLevel(settings.sfx,DEFAULT_AUDIO_SETTINGS.sfx),muted:Boolean(settings.muted),leftHanded:Boolean(settings.leftHanded)};this.applySettings();}
 
   private applySettings(){const context=this.context;if(!context||!this.master||!this.musicGain||!this.sfxGain)return;const now=context.currentTime;this.master.gain.setTargetAtTime(this.settings.muted?0:this.settings.master*.72,now,.04);this.sfxGain.gain.setTargetAtTime(this.settings.sfx,now,.04);this.musicGain.gain.setTargetAtTime((this.racing?.18:.045)*this.settings.music,now,.08);}
 

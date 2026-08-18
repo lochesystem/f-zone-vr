@@ -71,30 +71,30 @@ export const MAGNETIC_RANGES:ReadonlyArray<MagneticRange> = [[.455,.555,Math.PI/
 export const ENERGY_RANGES:ReadonlyArray<TrackRange> = [[.035,.085],[.305,.355],[.585,.635],[.885,.935]];
 
 const HELIX_VERGE:TrackLayout={
-  id:"helix-verge",name:"Helix Verge",points:TRACK_POINTS,gaps:GAP_RANGES,dropZones:[[.225,.27],[.735,.775]],magnetic:MAGNETIC_RANGES,energy:ENERGY_RANGES,
+  id:"helix-verge",name:"Helix Verge",points:TRACK_POINTS,gaps:GAP_RANGES,dropZones:[[.02,.3],[.34,.58],[.62,.9]],magnetic:MAGNETIC_RANGES,energy:ENERGY_RANGES,
   boostPads:[.145,.24,.42,.59,.665,.76,.91],sectors:[[0,.11,"Helix Verge"],[.11,.29,"Escalada Zenith"],[.29,.42,"Mergulho Aurora"],[.42,1,"Helix Verge"]],scale:1.8,
   theme:{sky:0x01040a,fog:0x020913,fogDensity:.0018,track:0x0b2530,stripe:0x174657,magnetic:0x452067,rail:0x69f6ff,accent:0xff3e93,ground:0x01040a,environment:"orbital-city"},
 };
 const RIFT_ASCENT:TrackLayout={
-  id:"rift-ascent",name:"Rift Ascent",points:RIFT_ASCENT_POINTS,gaps:[[.211,.226],[.709,.721]],dropZones:[[.13,.175],[.58,.625]],
+  id:"rift-ascent",name:"Rift Ascent",points:RIFT_ASCENT_POINTS,gaps:[[.211,.226],[.709,.721]],dropZones:[[.02,.28],[.32,.58],[.62,.9]],
   magnetic:[[.355,.435,Math.PI*.32],[.79,.865,-Math.PI*.18]],energy:[[.035,.078],[.285,.325],[.545,.59],[.905,.95]],
   boostPads:[.12,.265,.47,.625,.755,.89],sectors:[[0,.15,"Portal Rift"],[.15,.36,"Escalada Zenith"],[.36,.54,"Crista Magnética"],[.54,.74,"Mergulho Solar"],[.74,.9,"Túnel Vértice"],[.9,1,"Retorno Rift"]],scale:1.8,
   theme:{sky:0x07182c,fog:0x183a52,fogDensity:.00105,track:0x163f4b,stripe:0x3b8490,magnetic:0x236b68,rail:0x7dffe0,accent:0xa8ff62,ground:0x041523,environment:"aurora-ridge"},
 };
 const SOLAR_FOUNDRY:TrackLayout={
-  id:"solar-foundry",name:"Solar Foundry",points:SOLAR_FOUNDRY_POINTS,gaps:[[.079,.091],[.618,.63]],dropZones:[[.15,.195],[.455,.5]],
+  id:"solar-foundry",name:"Solar Foundry",points:SOLAR_FOUNDRY_POINTS,gaps:[[.079,.091],[.618,.63]],dropZones:[[.02,.3],[.34,.62],[.66,.9]],
   magnetic:[[.325,.385,Math.PI*.2],[.73,.785,-Math.PI*.16]],energy:[[.02,.06],[.255,.295],[.515,.555],[.84,.885]],
   boostPads:[.115,.205,.405,.585,.68,.81,.94],sectors:[[0,.13,"Forja Nascente"],[.13,.3,"Dutos Helios"],[.3,.46,"Coroa Térmica"],[.46,.64,"Ponte do Reator"],[.64,.82,"Fundição Alta"],[.82,1,"Retorno Solar"]],scale:1.8,
   theme:{sky:0x7fb8ca,fog:0xc68c61,fogDensity:.00064,track:0x172c33,stripe:0x477784,magnetic:0xffc457,rail:0xffed9a,accent:0xff6b35,ground:0x35160e,environment:"solar-foundry"},
 };
 const MAGMA_CROWN:TrackLayout={
-  id:"magma-crown",name:"Magma Crown",points:MAGMA_CROWN_POINTS,gaps:[[.12,.132],[.72,.732]],dropZones:[[.18,.225],[.57,.615]],
+  id:"magma-crown",name:"Magma Crown",points:MAGMA_CROWN_POINTS,gaps:[[.12,.132],[.72,.732]],dropZones:[[.02,.26],[.3,.58],[.62,.9]],
   magnetic:[[.31,.365,Math.PI*.21],[.805,.855,-Math.PI*.14]],energy:[[.025,.065],[.245,.285],[.525,.565],[.895,.94]],
   boostPads:[.095,.205,.395,.49,.64,.785,.93],sectors:[[0,.16,"Portão da Caldeira"],[.16,.33,"Coroa Vulcânica"],[.33,.5,"Descida Obsidiana"],[.5,.7,"Lago de Magma"],[.7,.86,"Pontes de Resfriamento"],[.86,1,"Retorno Ígneo"]],scale:1.8,
   theme:{sky:0x16060d,fog:0x4c120d,fogDensity:.00072,track:0x21191c,stripe:0x593026,magnetic:0x8e2230,rail:0xffa43a,accent:0xff4a1f,ground:0x120607,environment:"magma-crown"},
 };
 const CLOUDLINE_METRO:TrackLayout={
-  id:"cloudline-metro",name:"Cloudline Metro",points:CLOUDLINE_METRO_POINTS,gaps:[[.12,.13],[.64,.65]],dropZones:[[.18,.225],[.705,.75]],verticalLoops:[[.295,.455]],
+  id:"cloudline-metro",name:"Cloudline Metro",points:CLOUDLINE_METRO_POINTS,gaps:[[.12,.13],[.64,.65]],dropZones:[[.02,.295],[.455,.98]],verticalLoops:[[.295,.455]],
   magnetic:[[.29,.46,Math.PI*.04],[.78,.835,-Math.PI*.12]],energy:[[.035,.075],[.255,.285],[.535,.575],[.86,.905]],
   boostPads:[.105,.225,.275,.505,.615,.755,.91],sectors:[[0,.15,"Terminal Aurora"],[.15,.295,"Expresso Celeste"],[.295,.455,"Loop Nimbus"],[.455,.66,"Ponte Aerovia"],[.66,.84,"Distrito Alto"],[.84,1,"Retorno Metropolitano"]],scale:1.8,
   theme:{sky:0x82c9e7,fog:0xc8ecf4,fogDensity:.00043,track:0x17374b,stripe:0x3e7895,magnetic:0x5367b8,rail:0xe9fbff,accent:0xff4fa3,ground:0xd9f2f2,environment:"cloudline-metro"},

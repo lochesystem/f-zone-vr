@@ -64,7 +64,7 @@ test("corridas completas não terminam em aproximadamente um minuto",async()=>{
 test("todas as pistas possuem setores de borda aberta auditáveis",async()=>{
   const source=await readFile(new URL("../app/game/track-data.ts",import.meta.url),"utf8"),matches=[...source.matchAll(/dropZones:(\[\[[^\n]+?\]\])/g)];
   assert.equal(matches.length,5,"cada pista deve declarar suas próprias zonas de queda");
-  for(const match of matches){const ranges=JSON.parse(match[1].replaceAll("[.","[0.").replaceAll(",.",",0."));assert.ok(ranges.length>=2,"cada pista deve possuir pelo menos duas bordas abertas");for(const [start,end] of ranges)assert.ok(end-start>=.035&&end-start<=.06,`zona de queda controlada: ${start}-${end}`);}
+  for(const match of matches){const ranges=JSON.parse(match[1].replaceAll("[.","[0.").replaceAll(",.",",0.")),coverage=ranges.reduce((sum,[start,end])=>sum+end-start,0);assert.ok(ranges.length>=2,"cada pista deve possuir pelo menos duas bordas abertas");assert.ok(coverage>=.79&&coverage<=.81,`aproximadamente 80% da pista deve permitir queda, recebeu ${(coverage*100).toFixed(1)}%`);for(let index=1;index<ranges.length;index++)assert.ok(ranges[index][0]>=ranges[index-1][1],"zonas de queda não podem se sobrepor");}
   assert.match(source,/export function isDropZone/);
 });
 
