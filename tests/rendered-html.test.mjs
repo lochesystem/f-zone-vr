@@ -114,6 +114,9 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(engine, /const skySun=/);
   assert.match(engine, /const cloudGeometry=/);
   assert.match(engine, /drawSpeedPanel/);
+  assert.match(engine, /fillText\("POSIÇÃO",42,96\)/);
+  assert.match(engine, /fillText\("VOLTA",126,96\)/);
+  assert.match(engine, /this\.activeRivals\(\)\.length\+1/);
   assert.match(engine, /enterVRLobby/);
   assert.match(engine, /openVrMenu\("results"\)/);
   assert.match(engine, /private updateVrMenu\(\)/);

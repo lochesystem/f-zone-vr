@@ -72,6 +72,7 @@ Essas verificações reduzem regressões, mas a homologação final continua exi
 - [ ] Todas as naves em movimento exibem partículas de plasma fluindo e dissipando a partir dos escapamentos; o nitro alonga e intensifica o rastro sem soltar a chama do bocal.
 - [ ] As prévias 3D de nave na tela e no VR mantêm o plasma animado e alternam visualmente entre propulsão normal e nitro.
 - [ ] Rastros permanecem legíveis no Quest e não encobrem a pista no cockpit.
+- [ ] O painel físico do cockpit VR mostra posição atual/total de competidores e volta atual/total ao lado do velocímetro, atualizando durante ultrapassagens e passagem pela linha de chegada.
 - [ ] Colisão entre naves altera trajetória sem travar os veículos.
 - [ ] Barreira penaliza e devolve a nave à área dirigível.
 - [ ] Vácuo exige proximidade e alinhamento atrás do rival.

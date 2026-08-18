@@ -112,6 +112,7 @@ Cada evento possui um circuito fixo e a campanha avança na ordem Helix Verge, R
 - Usar nitro ativa áudio próprio e efeito visual periférico sem encobrir o centro da pista.
 - Cada escapamento emite partículas de plasma que percorrem o rastro, tremulam, expandem e se dissipam proporcionalmente à velocidade. No nitro, o fluxo fica mais longo, turbulento e luminoso; rivais conservam rastros menores para leitura de movimento. A mesma animação aparece nas vitrines 3D de seleção na tela e no VR.
 - Estado de energia e nitro é reiniciado corretamente a cada nova corrida.
+- No VR, posição do jogador e volta atual ficam integradas ao painel físico do velocímetro, presas ao cockpit junto de velocidade, vidas, armas e energia.
 
 ### Combate de pista
 
