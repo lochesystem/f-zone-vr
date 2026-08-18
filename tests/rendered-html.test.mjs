@@ -78,6 +78,13 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.doesNotMatch(engine, /new THREE\.RingGeometry\(\.052,\.064,24\)/);
   assert.match(engine, /buildBoostStreaks/);
   assert.match(engine, /this\.audio\.boostHit/);
+  assert.match(engine, /propulsion-trail/);
+  assert.match(engine, /exhaust-outer/);
+  assert.match(engine, /exhaust-core/);
+  assert.match(engine, /function updatePropulsionTrail/);
+  assert.match(engine, /nitroStretch=nitro\?2\.45:1/);
+  assert.match(engine, /updatePropulsionTrail\(this\.ship,this\.speed,this\.boosting/);
+  assert.match(engine, /updatePropulsionTrail\(rival\.root,rival\.speed,false/);
   assert.match(engine, /opponents=active\.map/);
   assert.match(engine, /configureRace\(mode:GameModeId,shipId=/);
   assert.match(engine, /STORY_EVENTS\[this\.storyEventIndex\]/);

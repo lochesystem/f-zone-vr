@@ -110,6 +110,7 @@ Cada evento possui um circuito fixo e a campanha avança na ordem Helix Verge, R
 - Trechos de recarga nas bordas devolvem energia gradualmente e exigem escolha de linha.
 - Caixas holográficas de armamento ocupam linhas alternadas e reaparecem após sete segundos.
 - Usar nitro ativa áudio próprio e efeito visual periférico sem encobrir o centro da pista.
+- Cada escapamento mantém um rastro luminoso proporcional à velocidade. No nitro, a chama externa e o núcleo branco-azulado se alongam e pulsam a partir do bocal; rivais conservam rastros menores para leitura de movimento.
 - Estado de energia e nitro é reiniciado corretamente a cada nova corrida.
 
 ### Combate de pista

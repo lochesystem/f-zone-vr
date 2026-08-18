@@ -16,6 +16,7 @@ Jogo original de corrida antigravitacional para navegador e Meta Quest 3. Pilote
 - Modos História, Arcade e Cup; a História percorre as cinco pistas em ordem até Cloudline Metro e VS está planejado.
 - Cinco rivais, colisão entre naves, vácuo, barreiras e ranking.
 - Nitro finito e áreas laterais de recarga.
+- Rastros luminosos nos escapamentos e chamas alongadas durante o nitro.
 - Caixas holográficas com metralhadora, míssil teleguiado e escudo; combate com três vidas e renascimento.
 - Minimapa com oponentes, cronômetro, posição e resultado final.
 - Música, motor procedural, efeitos e mix independente de volumes.
