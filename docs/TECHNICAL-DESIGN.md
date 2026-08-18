@@ -192,6 +192,8 @@ Regras:
 5. Testar jogador, IA, resultado e reinício com a nave.
 6. Atualizar GDD e QA.
 
+Na História, `StoryEvent.trackId` é a fonte de verdade do circuito. `configureRace` aplica essa associação mesmo que uma tela antiga envie outro `trackId`, impedindo que “Próxima corrida” repita a fase anterior.
+
 ### Nova pista
 
 1. Ler e cumprir `TRACK-DESIGN.md`.

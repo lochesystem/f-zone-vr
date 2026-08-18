@@ -13,7 +13,7 @@ Jogo original de corrida antigravitacional para navegador e Meta Quest 3. Pilote
 - Cinco naves com atributos, silhuetas e cockpits próprios.
 - Cinco circuitos longos, com quatro voltas, saltos, elevação e setores magnéticos.
 - Seleção de pista com turntable 3D produzido pela geometria real do percurso, inclusive no VR.
-- Modos História, Arcade e Cup; VS está planejado.
+- Modos História, Arcade e Cup; a História percorre as cinco pistas em ordem até Cloudline Metro e VS está planejado.
 - Cinco rivais, colisão entre naves, vácuo, barreiras e ranking.
 - Nitro finito e áreas laterais de recarga.
 - Caixas holográficas com metralhadora, míssil teleguiado e escudo; combate com três vidas e renascimento.

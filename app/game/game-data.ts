@@ -4,7 +4,7 @@ export type MenuScreen="entry"|"mode"|"ship"|"track";
 export interface GameMode { id:GameModeId;name:string;kicker:string;description:string;rivals:boolean;badge:string; }
 export interface ShipSpec { id:string;name:string;role:string;color:string;accent:string;stats:{acceleration:number;topSpeed:number;handling:number;boost:number;body:number}; }
 export interface TrackSpec { id:string;name:string;region:string;description:string;laps:number;difficulty:number;available:boolean;features:string[]; }
-export interface StoryEvent { id:string;chapter:string;title:string;rival:string;briefing:string;difficulty:number;laps:number; }
+export interface StoryEvent { id:string;chapter:string;title:string;rival:string;briefing:string;trackId:string;difficulty:number;laps:number; }
 
 export const GAME_MODES:GameMode[]=[
   {id:"story",name:"História",kicker:"Rivalidade",description:"Uma sequência de cinco provas. Termine no pódio para avançar.",rivals:true,badge:"5 eventos"},
@@ -29,11 +29,13 @@ export const TRACKS:TrackSpec[]=[
 ];
 
 export const STORY_EVENTS:StoryEvent[]=[
-  {id:"first-spark",chapter:"01",title:"Primeira Centelha",rival:"Nyx Calder",briefing:"Nyx testa sua linha nas retas de Helix Verge.",difficulty:1,laps:4},
-  {id:"zenith-debt",chapter:"02",title:"Dívida Zenith",rival:"Juno Vale",briefing:"Juno pressiona nas zonas de recarga e fecha a passagem.",difficulty:2,laps:4},
-  {id:"iron-line",chapter:"03",title:"Linha de Ferro",rival:"Rook Mercer",briefing:"Rook usa uma nave pesada e não cede espaço nas curvas.",difficulty:3,laps:4},
-  {id:"violet-lock",chapter:"04",title:"Bloqueio Violeta",rival:"Iris Kade",briefing:"Iris domina o túnel magnético e ataca na saída.",difficulty:4,laps:5},
-  {id:"solar-crown",chapter:"05",title:"Coroa Solar",rival:"Sol Renn",briefing:"A final da temporada exige velocidade, energia e pódio.",difficulty:5,laps:5},
+  {id:"first-spark",chapter:"01",title:"Primeira Centelha",rival:"Nyx Calder",briefing:"Nyx testa sua linha nas retas de Helix Verge.",trackId:"helix-verge",difficulty:1,laps:4},
+  {id:"zenith-debt",chapter:"02",title:"Dívida Zenith",rival:"Juno Vale",briefing:"Juno pressiona nas zonas de recarga e fecha a passagem.",trackId:"rift-ascent",difficulty:2,laps:4},
+  {id:"iron-line",chapter:"03",title:"Linha de Ferro",rival:"Rook Mercer",briefing:"Rook usa uma nave pesada e não cede espaço nas curvas.",trackId:"solar-foundry",difficulty:3,laps:4},
+  {id:"violet-lock",chapter:"04",title:"Bloqueio Violeta",rival:"Iris Kade",briefing:"Iris domina o túnel magnético e ataca na saída.",trackId:"magma-crown",difficulty:4,laps:5},
+  {id:"solar-crown",chapter:"05",title:"Coroa Solar",rival:"Sol Renn",briefing:"A final da temporada exige velocidade, energia e pódio.",trackId:"cloudline-metro",difficulty:5,laps:5},
 ];
+
+export function storyTrackId(eventIndex:number){const safeIndex=Math.max(0,Math.min(STORY_EVENTS.length-1,Math.round(eventIndex)));return STORY_EVENTS[safeIndex]?.trackId??TRACKS[0].id;}
 
 export const RIVAL_NAMES=["Nyx Calder","Juno Vale","Rook Mercer","Iris Kade","Sol Renn"];

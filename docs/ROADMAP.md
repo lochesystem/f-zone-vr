@@ -76,7 +76,7 @@ Para cada nova pista:
 
 ## Prioridade 4 — História e rivais
 
-- [ ] Substituir repetição de pistas na campanha conforme novas fases forem entregues.
+- [x] Associar os cinco eventos às pistas Helix Verge, Rift Ascent, Solar Foundry, Magma Crown e Cloudline Metro, nessa ordem.
 - [ ] Dar comportamento e nave preferida a cada rival.
 - [ ] Criar apresentação curta pré-corrida e reação pós-corrida.
 - [ ] Salvar progresso local com versão de schema.

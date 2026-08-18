@@ -55,6 +55,7 @@ Essas verificações reduzem regressões, mas a homologação final continua exi
 - [ ] Chegada abre ranking final.
 - [ ] Repetir ou iniciar outra corrida reinicia todo o estado.
 - [ ] História bloqueia avanço fora do pódio e libera no pódio.
+- [ ] “Próxima corrida” avança Helix Verge → Rift Ascent → Solar Foundry → Magma Crown → Cloudline Metro na tela e no VR.
 
 ## Regressão de pilotagem
 
@@ -83,6 +84,7 @@ Essas verificações reduzem regressões, mas a homologação final continua exi
 - [ ] Escudo exibe domo discreto no desktop e no VR e absorve exatamente dois ataques.
 - [ ] Ativar o escudo libera seu slot e permite usar o item do outro slot enquanto o domo permanece ativo.
 - [ ] No Quest, a arma acompanha posição e rotação da mão direita e os projéteis saem da boca do cano na direção apontada.
+- [ ] A origem visual do primeiro frame de cada projétil coincide com o marcador `weapon-muzzle`, sem surgir no centro do cockpit.
 - [ ] Jogador e rivais começam com três vidas.
 - [ ] Destruição gera explosão, remove uma vida e renasce após um segundo.
 - [ ] Nave fica temporariamente invulnerável após renascer.

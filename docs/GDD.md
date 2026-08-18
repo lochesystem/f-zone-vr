@@ -58,15 +58,15 @@ Depois que o jogador entra em VR, menus, seleção, corrida e resultados devem p
 
 ### Campanha atual
 
-| Evento | Rival | Voltas | Condição de avanço |
-| --- | --- | ---: | --- |
-| 1 — Primeira Centelha | Nyx Calder | 4 | Pódio |
-| 2 — Dívida Zenith | Juno Vale | 4 | Pódio |
-| 3 — Linha de Ferro | Rook Mercer | 4 | Pódio |
-| 4 — Bloqueio Violeta | Iris Kade | 5 | Pódio |
-| 5 — Coroa Solar | Sol Renn | 5 | Pódio |
+| Evento | Circuito | Rival | Voltas | Condição de avanço |
+| --- | --- | --- | ---: | --- |
+| 1 — Primeira Centelha | Helix Verge | Nyx Calder | 4 | Pódio |
+| 2 — Dívida Zenith | Rift Ascent | Juno Vale | 4 | Pódio |
+| 3 — Linha de Ferro | Solar Foundry | Rook Mercer | 4 | Pódio |
+| 4 — Bloqueio Violeta | Magma Crown | Iris Kade | 5 | Pódio |
+| 5 — Coroa Solar | Cloudline Metro | Sol Renn | 5 | Pódio |
 
-Na versão atual, o jogador escolhe um dos circuitos disponíveis antes do primeiro evento e a campanha mantém essa pista nas provas seguintes. O objetivo do roadmap é associar cada evento a uma pista própria conforme novos circuitos forem entregues. Enquanto houver reutilização, cada prova deve receber variações de dificuldade e identidade de rival.
+Cada evento possui um circuito fixo e a campanha avança na ordem Helix Verge, Rift Ascent, Solar Foundry, Magma Crown e Cloudline Metro. O botão de próxima corrida deve sempre carregar o circuito associado ao novo evento, tanto na tela quanto no VR.
 
 ## 6. Estrutura de uma corrida
 

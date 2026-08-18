@@ -136,6 +136,8 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(engine, /createHandWeapon/);
   assert.match(engine, /Arma modular da mão direita/);
   assert.match(engine, /private rightHandAim/);
+  assert.match(engine, /weapon-muzzle/);
+  assert.match(engine, /muzzle\.getWorldPosition/);
   assert.match(engine, /freeFlight/);
   assert.match(engine, /private playerSlots:\[WeaponSlot,WeaponSlot\]/);
   assert.match(engine, /private switchWeaponSlot/);
@@ -183,5 +185,15 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(gameData, /const SHIPS/);
   assert.match(gameData, /const STORY_EVENTS/);
   assert.match(gameData, /Coroa Solar/);
+  assert.match(gameData, /trackId:"helix-verge"/);
+  assert.match(gameData, /trackId:"rift-ascent"/);
+  assert.match(gameData, /trackId:"solar-foundry"/);
+  assert.match(gameData, /trackId:"magma-crown"/);
+  assert.match(gameData, /trackId:"cloudline-metro"/);
+  assert.match(gameData, /function storyTrackId/);
+  assert.match(engine, /mode==="story"\?storyTrackId\(this\.storyEventIndex\):trackId/);
+  assert.match(ui, /modeId==="story"\?storyTrackId\(eventIndex\):race\.trackId/);
+  assert.match(mechanics, /storyBase:103/);
+  assert.match(mechanics, /rivalStep:3\.1/);
   assert.match(roadmap, /Pilotagem e escala/);
 });
