@@ -47,7 +47,7 @@ function addSpecialSections(group:THREE.Group,trackId:string){
   }
   const energyGeometry=new THREE.BufferGeometry();energyGeometry.setAttribute("position",new THREE.Float32BufferAttribute(energyPositions,3));group.add(new THREE.LineSegments(energyGeometry,new THREE.LineBasicMaterial({color:0x4dffb8,toneMapped:false})));
   for(const [start,end] of layout.gaps){const points=Array.from({length:18},(_,index)=>curve.getPointAt(start+(end-start)*index/17)),geometry=new THREE.BufferGeometry().setFromPoints(points),line=new THREE.Line(geometry,new THREE.LineDashedMaterial({color:0xffc25e,dashSize:10,gapSize:7,toneMapped:false}));line.computeLineDistances();group.add(line);}
-  const markerGeometry=new THREE.SphereGeometry(5.5,10,7),markerMaterial=new THREE.MeshBasicMaterial({color:layout.theme.accent,toneMapped:false});for(const progress of layout.boostPads){const marker=new THREE.Mesh(markerGeometry,markerMaterial);marker.position.copy(curve.getPointAt(progress));marker.position.y+=2;group.add(marker);}
+  const markerGeometry=new THREE.OctahedronGeometry(5.5,0),markerMaterial=new THREE.MeshBasicMaterial({color:layout.theme.accent,toneMapped:false});for(const progress of layout.boostPads){const marker=new THREE.Mesh(markerGeometry,markerMaterial);marker.position.copy(curve.getPointAt(progress));marker.position.y+=3;marker.rotation.y=Math.PI/4;group.add(marker);}
 }
 
 export function createTrackPreviewModel(trackId:string,targetSpan=5.2){

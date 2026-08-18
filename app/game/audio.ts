@@ -43,5 +43,13 @@ export class RaceAudio{
     const context=this.context,gainTarget=this.sfxGain;if(!context||!gainTarget)return;const now=context.currentTime,oscillator=context.createOscillator(),gain=context.createGain();oscillator.type="sawtooth";oscillator.frequency.setValueAtTime(90,now);oscillator.frequency.exponentialRampToValueAtTime(310,now+.28);gain.gain.setValueAtTime(.0001,now);gain.gain.exponentialRampToValueAtTime(.07,now+.035);gain.gain.exponentialRampToValueAtTime(.0001,now+.34);oscillator.connect(gain);gain.connect(gainTarget);oscillator.start(now);oscillator.stop(now+.36);
   }
 
+  weaponPickup(){this.tone(420,920,.18,.035,"sine");}
+  weaponFire(kind:"machine-gun"|"missile"){if(kind==="machine-gun")this.tone(210,105,.07,.018,"square");else this.tone(145,520,.34,.052,"sawtooth");}
+  shieldOn(){this.tone(260,760,.42,.038,"sine");}
+  shieldImpact(){this.tone(760,240,.2,.045,"triangle");}
+  explosion(){this.tone(115,32,.48,.065,"sawtooth");}
+
+  private tone(from:number,to:number,duration:number,volume:number,type:OscillatorType){const context=this.context,gainTarget=this.sfxGain;if(!context||!gainTarget)return;const now=context.currentTime,oscillator=context.createOscillator(),gain=context.createGain();oscillator.type=type;oscillator.frequency.setValueAtTime(from,now);oscillator.frequency.exponentialRampToValueAtTime(Math.max(1,to),now+duration);gain.gain.setValueAtTime(.0001,now);gain.gain.exponentialRampToValueAtTime(volume,now+.012);gain.gain.exponentialRampToValueAtTime(.0001,now+duration);oscillator.connect(gain);gain.connect(gainTarget);oscillator.start(now);oscillator.stop(now+duration+.02);}
+
   destroy(){this.background?.pause();if(this.background)this.background.src="";this.engineOscillators.forEach(oscillator=>oscillator.stop());this.boostNoise?.stop();void this.context?.close();this.context=null;}
 }

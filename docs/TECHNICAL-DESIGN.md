@@ -42,6 +42,7 @@ flowchart TD
 | `app/game/track-data.ts` | Pontos de controle, setores especiais, tema e metadados dos circuitos. |
 | `app/game/track-preview.ts` | Malha leve de turntable derivada da mesma curva usada pela corrida, compartilhada entre seleção desktop e VR. |
 | `app/game/mechanics.ts` | Funções determinísticas de entrada e aceleração; principal alvo de testes unitários. |
+| `app/game/combat.ts` | Constantes e regras determinísticas de sorteio, munição, escudo, dano, vidas e distância circular. |
 | `app/game/audio.ts` | Grafo de áudio, música, motor procedural, nitro e preferências de volume. |
 | `app/game/types.ts` | Tipos de seleção, HUD, resultado, áudio e integração entre React e engine. |
 | `scripts/prepare-pages.mjs` | Prepara a saída estática e caminhos corretos para o GitHub Pages. |
@@ -63,11 +64,13 @@ A engine possui o estado transitório de uma sessão:
 - progresso normalizado na curva;
 - volta, tempo e melhor volta;
 - energia/nitro;
+- arma, munição, escudo, vidas, invulnerabilidade e temporizador de renascimento;
+- caixas disponíveis, projéteis, alvos e explosões;
 - posição de jogador e oponentes;
 - estado de contagem, corrida, pausa e chegada;
 - controladores XR e alvos de menu.
 
-Todo estado transitório deve ser reiniciado por uma única rotina de início/reinício. Nunca preserve velocidade, nitro, volta, temporizadores ou referências de oponentes entre corridas.
+Todo estado transitório deve ser reiniciado por uma única rotina de início/reinício. Nunca preserve velocidade, nitro, volta, armas, vidas, projéteis, caixas em cooldown, temporizadores ou referências de oponentes entre corridas.
 
 ### Ciclo recomendado
 

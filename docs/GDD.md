@@ -108,9 +108,20 @@ Na versão atual, o jogador escolhe um dos circuitos disponíveis antes do prime
 
 - Nitro é um recurso finito; não se regenera infinitamente sozinho durante a corrida.
 - Trechos de recarga nas bordas devolvem energia gradualmente e exigem escolha de linha.
-- Boost pads fornecem impulso localizado e previsível.
+- Caixas holográficas de armamento ocupam linhas alternadas e reaparecem após sete segundos.
 - Usar nitro ativa áudio próprio e efeito visual periférico sem encobrir o centro da pista.
 - Estado de energia e nitro é reiniciado corretamente a cada nova corrida.
+
+### Combate de pista
+
+- Cada nave começa com três vidas. Um ataque sem proteção destrói a nave, consome uma vida e inicia renascimento de um segundo.
+- Ao perder a terceira vida, a nave é eliminada e sua corrida termina automaticamente.
+- A caixa sorteia com probabilidade uniforme uma das três armas iniciais.
+- **Metralhadora:** vinte projéteis luminosos, disparo contínuo e trajetória reta pela linha atual.
+- **Míssil teleguiado:** um disparo que seleciona e persegue o adversário mais próximo à frente.
+- **Escudo prismático:** domo semitransparente que absorve dois ataques sem encobrir o centro de visão do cockpit.
+- Rivais coletam caixas, usam as mesmas armas, perdem vidas, explodem, renascem e podem ser eliminados.
+- O estado de arma, munição, escudo, vidas, projéteis e caixas deve ser limpo entre corridas e trocas de pista.
 
 ## 9. Naves
 

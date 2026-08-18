@@ -122,7 +122,8 @@ O cockpit pertence à nave selecionada e deve parecer um habitáculo, não uma b
 | Direção na corrida | Analógico esquerdo |
 | Acelerar | Gatilho direito |
 | Frear | Gatilho esquerdo |
-| Nitro | A/B direito |
+| Nitro | A ou empunhadura direita |
+| Usar arma | B direito |
 | Mapa | Botão configurado no controle esquerdo |
 
 ## Checklist no headset
@@ -130,6 +131,8 @@ O cockpit pertence à nave selecionada e deve parecer um habitáculo, não uma b
 - [ ] Botão Entrar em VR é reconhecido no Meta Quest Browser por HTTPS.
 - [ ] Os dois controles aparecem e acompanham posição/rotação.
 - [ ] Ambos os raios atingem todos os botões visíveis.
+- [ ] Painel físico exibe vidas, arma/munição e cargas de escudo.
+- [ ] Domo do escudo permanece periférico e não reduz a leitura do centro da pista.
 - [ ] Cursor e hover coincidem com a superfície do painel.
 - [ ] Seleção de modo, nave e pista funciona sem sair do VR.
 - [ ] Cockpit corresponde à nave escolhida.

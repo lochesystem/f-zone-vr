@@ -23,7 +23,7 @@ test("renderiza a apresentação do F-Zone VR", async () => {
 });
 
 test("inclui o núcleo de corrida e conforto WebXR", async () => {
-  const [engine, mechanics, ui, audio, types, gameData, roadmap, trackData] = await Promise.all([
+  const [engine, mechanics, ui, audio, types, gameData, roadmap, trackData, combat] = await Promise.all([
     readFile(new URL("../app/game/engine.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/game/mechanics.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/game/FZoneGame.tsx", import.meta.url), "utf8"),
@@ -32,6 +32,7 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
     readFile(new URL("../app/game/game-data.ts", import.meta.url), "utf8"),
     readFile(new URL("../docs/ROADMAP.md", import.meta.url), "utf8"),
     readFile(new URL("../app/game/track-data.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/game/combat.ts", import.meta.url), "utf8"),
   ]);
   assert.match(engine, /requestSession\("immersive-vr"/);
   assert.match(engine, /"hand-tracking"/);
@@ -123,6 +124,22 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(engine, /this\.cockpit\.add\(this\.mapPanel\)/);
   assert.match(engine, /sizeAttenuation:false/);
   assert.match(engine, /private hasTrackClearance/);
+  assert.match(engine, /private addWeaponPickups/);
+  assert.match(engine, /OctahedronGeometry\(1\.3,1\)/);
+  assert.match(engine, /private spawnProjectile/);
+  assert.match(engine, /private nearestTarget/);
+  assert.match(engine, /private damageRacer/);
+  assert.match(engine, /RACER_RESPAWN_SECONDS/);
+  assert.match(engine, /right\?\.buttons\[5\]\?\.pressed/);
+  assert.match(engine, /private createShieldDome|function createShieldDome/);
+  assert.match(engine, /THREE\.BackSide/);
+  assert.match(ui, /combat-hud/);
+  assert.match(ui, /WEAPON_LABELS/);
+  assert.match(audio, /weaponFire/);
+  assert.match(audio, /shieldImpact/);
+  assert.match(combat, /MACHINE_GUN_AMMO=20/);
+  assert.match(combat, /SHIELD_HITS=2/);
+  assert.match(combat, /STARTING_LIVES=3/);
   assert.match(mechanics, /topSpeed=boosting\?tuning\.topSpeed\+38\*tuning\.boostPower:tuning\.topSpeed/);
   assert.match(mechanics, /passiveBoostRecovery:0/);
   assert.match(mechanics, /displaySpeedCap:600/);

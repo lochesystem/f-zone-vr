@@ -66,11 +66,25 @@ Essas verificações reduzem regressões, mas a homologação final continua exi
 - [ ] Nitro consome recurso finito.
 - [ ] Energia não regenera sozinha fora das áreas previstas.
 - [ ] Zona lateral de recarga aumenta energia gradualmente.
-- [ ] Boost pad aplica impulso uma vez por passagem válida.
+- [ ] Caixas holográficas são visíveis, atravessáveis e reaparecem após o cooldown.
 - [ ] Efeito de nitro não encobre a pista.
 - [ ] Colisão entre naves altera trajetória sem travar os veículos.
 - [ ] Barreira penaliza e devolve a nave à área dirigível.
 - [ ] Vácuo exige proximidade e alinhamento atrás do rival.
+
+## Regressão de combate
+
+- [ ] Cada caixa sorteia somente metralhadora, míssil ou escudo.
+- [ ] Metralhadora entrega exatamente 20 projéteis e aceita disparo contínuo.
+- [ ] Míssil seleciona o adversário mais próximo que esteja à frente e acompanha sua linha.
+- [ ] Sem alvo à frente, o míssil não é consumido.
+- [ ] Escudo exibe domo discreto no desktop e no VR e absorve exatamente dois ataques.
+- [ ] Jogador e rivais começam com três vidas.
+- [ ] Destruição gera explosão, remove uma vida e renasce após um segundo.
+- [ ] Nave fica temporariamente invulnerável após renascer.
+- [ ] A terceira destruição encerra a corrida do jogador ou elimina o rival.
+- [ ] Trocar pista ou reiniciar limpa armas, munição, escudo, vidas, projéteis e cooldowns.
+- [ ] `E/F`, botão B do gamepad e botão B direito do Quest usam a arma sem interferir em nitro ou pausa.
 
 ## Regressão de IA e ranking
 

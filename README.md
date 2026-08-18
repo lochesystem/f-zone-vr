@@ -15,7 +15,8 @@ Jogo original de corrida antigravitacional para navegador e Meta Quest 3. Pilote
 - Seleção de pista com turntable 3D produzido pela geometria real do percurso, inclusive no VR.
 - Modos História, Arcade e Cup; VS está planejado.
 - Cinco rivais, colisão entre naves, vácuo, barreiras e ranking.
-- Nitro finito, boost pads e áreas laterais de recarga.
+- Nitro finito e áreas laterais de recarga.
+- Caixas holográficas com metralhadora, míssil teleguiado e escudo; combate com três vidas e renascimento.
 - Minimapa com oponentes, cronômetro, posição e resultado final.
 - Música, motor procedural, efeitos e mix independente de volumes.
 - Deploy automático no GitHub Pages.
@@ -49,7 +50,8 @@ Novas pistas precisam seguir as [regras obrigatórias de geometria, conforto e i
 | Direção | A/D ou setas | Analógico esquerdo | Analógico esquerdo |
 | Acelerar | W ou ↑ | Gatilho direito | Gatilho direito |
 | Frear | S ou ↓ | Gatilho esquerdo | Gatilho esquerdo |
-| Nitro | Shift ou Espaço | A / ombro direito | A/B direito |
+| Nitro | Shift ou Espaço | A / ombro direito | A ou empunhadura direita |
+| Usar arma | E ou F | B / botão direito | B direito |
 | Mapa | M | Y / Menu | Botão esquerdo configurado |
 | Pausa | Esc | Menu | Menu/voltar |
 | Menu VR | — | — | Apontar e apertar o gatilho |
@@ -98,6 +100,7 @@ app/game/
   track-data.ts    circuitos, setores e temas
   track-preview.ts miniaturas 3D derivadas dos circuitos reais
   mechanics.ts     entrada e velocidade
+  combat.ts        armas, vidas, escudo e regras determinísticas de dano
   audio.ts         música, motor e efeitos
 docs/              design, arquitetura, QA e operação
 public/audio/      música de fundo
