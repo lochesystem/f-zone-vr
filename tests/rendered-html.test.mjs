@@ -53,6 +53,11 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(engine, /ground\.position\.y=-240/);
   assert.match(engine, /toggleMinimap\(\)/);
   assert.match(engine, /gapLift\(progress,this\.trackLayout\)/);
+  assert.match(engine, /isDropZone\(progress,this\.trackLayout\)/);
+  assert.match(engine, /private beginPlayerFall\(\)/);
+  assert.match(engine, /damageRacer\("player","fall"\)/);
+  assert.match(engine, /fallDepth=fallProgress\*fallProgress\*24/);
+  assert.match(engine, /private addDropZoneWarnings\(\)/);
   assert.match(engine, /createPlayerCraft\(\)/);
   assert.match(engine, /createRacer\(spec:ShipSpec,variant=0/);
   assert.match(engine, /createRacer\(SHIPS\[index\],index\)/);

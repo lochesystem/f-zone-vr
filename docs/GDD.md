@@ -113,6 +113,7 @@ Cada evento possui um circuito fixo e a campanha avança na ordem Helix Verge, R
 - Cada escapamento emite partículas de plasma que percorrem o rastro, tremulam, expandem e se dissipam proporcionalmente à velocidade. No nitro, o fluxo fica mais longo, turbulento e luminoso; rivais conservam rastros menores para leitura de movimento. A mesma animação aparece nas vitrines 3D de seleção na tela e no VR.
 - Estado de energia e nitro é reiniciado corretamente a cada nova corrida.
 - No VR, posição do jogador e volta atual ficam integradas ao painel físico do velocímetro, presas ao cockpit junto de velocidade, vidas, armas e energia.
+- Todas as pistas possuem setores de borda aberta sinalizados por marcadores vermelhos e pela interrupção dos guard-rails. Ultrapassar a largura do asfalto inicia uma queda breve, ignora o escudo, consome uma vida e restaura a nave ao centro após um segundo; a terceira queda elimina o jogador.
 
 ### Combate de pista
 

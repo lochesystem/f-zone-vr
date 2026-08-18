@@ -73,6 +73,9 @@ Essas verificações reduzem regressões, mas a homologação final continua exi
 - [ ] As prévias 3D de nave na tela e no VR mantêm o plasma animado e alternam visualmente entre propulsão normal e nitro.
 - [ ] Rastros permanecem legíveis no Quest e não encobrem a pista no cockpit.
 - [ ] O painel físico do cockpit VR mostra posição atual/total de competidores e volta atual/total ao lado do velocímetro, atualizando durante ultrapassagens e passagem pela linha de chegada.
+- [ ] Cada pista possui pelo menos dois setores de borda aberta, claramente anunciados pela interrupção dos trilhos e pelos marcadores vermelhos.
+- [ ] Sair completamente do asfalto em uma borda aberta anima a queda, ignora o escudo, desconta exatamente uma vida e restaura a nave no centro após um segundo.
+- [ ] A terceira queda encerra a corrida como eliminação, enquanto a IA permanece em linhas válidas nesses setores.
 - [ ] Colisão entre naves altera trajetória sem travar os veículos.
 - [ ] Barreira penaliza e devolve a nave à área dirigível.
 - [ ] Vácuo exige proximidade e alinhamento atrás do rival.

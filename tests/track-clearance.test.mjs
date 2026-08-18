@@ -61,6 +61,13 @@ test("corridas completas não terminam em aproximadamente um minuto",async()=>{
   for(const constant of ["TRACK_POINTS","RIFT_ASCENT_POINTS","SOLAR_FOUNDRY_POINTS","MAGMA_CROWN_POINTS","CLOUDLINE_METRO_POINTS"]){const curve=await loadTrack(constant),minimumRaceSeconds=curve.getLength()*4/maximumMetresPerSecond;assert.ok(minimumRaceSeconds>85,`${constant}: duração teórica mínima ${minimumRaceSeconds.toFixed(1)}s`);}
 });
 
+test("todas as pistas possuem setores de borda aberta auditáveis",async()=>{
+  const source=await readFile(new URL("../app/game/track-data.ts",import.meta.url),"utf8"),matches=[...source.matchAll(/dropZones:(\[\[[^\n]+?\]\])/g)];
+  assert.equal(matches.length,5,"cada pista deve declarar suas próprias zonas de queda");
+  for(const match of matches){const ranges=JSON.parse(match[1].replaceAll("[.","[0.").replaceAll(",.",",0."));assert.ok(ranges.length>=2,"cada pista deve possuir pelo menos duas bordas abertas");for(const [start,end] of ranges)assert.ok(end-start>=.035&&end-start<=.06,`zona de queda controlada: ${start}-${end}`);}
+  assert.match(source,/export function isDropZone/);
+});
+
 test("Rift Ascent tem inclinação forte sem mudança vertical instantânea",async()=>{
   const curve=await loadTrack("RIFT_ASCENT_POINTS");let maximumGrade=0,maximumStep=0;
   for(let index=0;index<SAMPLES;index++){

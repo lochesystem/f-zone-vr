@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { getTrackLayout,isGap,isEnergyZone } from "./track-data";
+import { getTrackLayout,isDropZone,isGap,isEnergyZone } from "./track-data";
 
 const PREVIEW_SAMPLES=240;
 const TRACK_WIDTH=48;
@@ -32,7 +32,7 @@ function addRibbon(group:THREE.Group,trackId:string){
 function addRails(group:THREE.Group,trackId:string){
   const {layout,curve}=previewCurve(trackId),positions:number[]=[];
   for(let index=0;index<PREVIEW_SAMPLES;index++){
-    const start=index/PREVIEW_SAMPLES,end=(index+1)/PREVIEW_SAMPLES,middle=(start+end)/2;if(isGap(start,layout)||isGap(end,layout)||isGap(middle,layout))continue;
+    const start=index/PREVIEW_SAMPLES,end=(index+1)/PREVIEW_SAMPLES,middle=(start+end)/2;if(isGap(start,layout)||isGap(end,layout)||isGap(middle,layout)||isDropZone(middle,layout))continue;
     for(const direction of [-1,1]){const a=curve.getPointAt(start).addScaledVector(sideAt(curve,start),direction*TRACK_WIDTH/2),b=curve.getPointAt(end).addScaledVector(sideAt(curve,end),direction*TRACK_WIDTH/2);positions.push(...a.toArray(),...b.toArray());}
   }
   const geometry=new THREE.BufferGeometry();geometry.setAttribute("position",new THREE.Float32BufferAttribute(positions,3));
