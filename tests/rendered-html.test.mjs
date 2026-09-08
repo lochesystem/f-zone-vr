@@ -61,7 +61,7 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(engine, /private dominantHand\(\)/);
   assert.match(engine, /controller\.userData\.handedness/);
   assert.match(engine, /dominantHandAim\(\)/);
-  assert.match(engine, /counterSteering/);
+  // Steering behavior is exercised at different frame rates in race-systems.test.mjs.
   assert.match(audio, /leftHanded:boolean/);
   assert.match(ui, /Modo canhoto/);
   assert.match(engine, /createPlayerCraft\(\)/);

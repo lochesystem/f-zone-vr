@@ -113,3 +113,8 @@ public/audio/      música de fundo
 ## Publicação
 
 Todo merge em `main` executa `.github/workflows/pages.yml` e atualiza o GitHub Pages. Consulte o [guia de release](docs/RELEASE.md) antes de publicar mudanças de pista, pilotagem ou VR.
+# Atualização de estabilidade — setembro de 2026
+
+Direção com ângulo relativo ao traçado, inércia e contravolante; resistência reduz perda de velocidade e deslocamento em colisões. Rivais também podem perder vidas por queda. Tiros VR verificam o segmento percorrido entre quadros. Menus VR usam áreas clicáveis compatíveis com os cartões visuais, incluindo as cinco pistas e opções de mão dominante.
+
+Referências para os novos modelos: [cinco naves em três vistas](assets/concepts/ships-v1/README.md). São conceitos para modelagem no Tripo; as malhas do jogo continuam procedurais até a importação dos GLBs.

@@ -27,7 +27,9 @@ jobs:
           cache: npm
       - name: Instalar dependências
         run: npm ci
-      - name: Gerar versão estática
+      - name: Validar tipos, lint e testes
+        run: npm run typecheck && npm run lint && npm test
+      - name: Gerar artefato do Pages
         run: npm run build:pages
       - name: Configurar o Pages
         uses: actions/configure-pages@v5
