@@ -59,25 +59,3 @@ export function attachAstraModel(root:THREE.Group,interior:boolean){
     root.userData.installingModel=false;
   }).catch(error=>{console.warn("Astra GLB unavailable; retaining procedural ship",error);});
 }
-
-export function createAstraCabin(){
-  const cabin=new THREE.Group();cabin.name="astra-window-frame";
-  const trim=new THREE.MeshStandardMaterial({color:0x10262c,metalness:.6,roughness:.42});
-  const dark=new THREE.MeshStandardMaterial({color:0x050c10,metalness:.15,roughness:.8});
-  const rail=(points:THREE.Vector3[],radius:number)=>{
-    const mesh=new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(points),24,radius,6,false),trim);cabin.add(mesh);
-  };
-  // Panoramic canopy with no central pillar. The eye remains at the normal rig origin.
-  for(const side of [-1,1]){
-    rail([new THREE.Vector3(side*.7,.55,.75),new THREE.Vector3(side*.78,1.35,.48),new THREE.Vector3(side*.65,1.96,-.28),new THREE.Vector3(side*.56,1.3,-1.05),new THREE.Vector3(side*.45,.66,-1.32)],.027);
-    rail([new THREE.Vector3(side*.7,.56,.8),new THREE.Vector3(side*.65,.61,-.6),new THREE.Vector3(side*.45,.66,-1.32)],.04);
-  }
-  rail([new THREE.Vector3(-.45,.66,-1.32),new THREE.Vector3(0,.64,-1.47),new THREE.Vector3(.45,.66,-1.32)],.035);
-  // Small recessed instrument mounts, not a full-width dashboard.
-  for(const side of [-1,1]){
-    const mount=new THREE.Mesh(new THREE.BoxGeometry(.43,.025,.25),dark);mount.position.set(side*.52,.64,-.73);mount.rotation.x=-.35;cabin.add(mount);
-  }
-  const floor=new THREE.Mesh(new THREE.BoxGeometry(1.15,.035,1.55),dark);floor.position.set(0,.13,.24);cabin.add(floor);
-  const seat=new THREE.Mesh(new THREE.BoxGeometry(.57,.8,.12),dark);seat.position.set(0,.62,.76);cabin.add(seat);
-  return cabin;
-}
