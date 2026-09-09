@@ -14,6 +14,20 @@ São propostas de evolução visual para gerar os modelos no Tripo, não captura
 
 ## Arquivos individuais
 
+### Laterais esquerdas
+
+Espelhamentos horizontais das laterais direitas, preservando resolução e desenho. Servem como referência de casco simétrico; não representam detalhes exclusivos do lado oposto.
+
+| Nave | Esquerda | Direita original |
+| --- | --- | --- |
+| Astra V9 | [PNG](astra-v9-left.png) | [PNG](astra-v9-right.png) |
+| Kestrel RX | [PNG](kestrel-rx-left.png) | [PNG](kestrel-rx-right.png) |
+| Titan Forge | [PNG](titan-forge-left.png) | [PNG](titan-forge-right.png) |
+| Pulse Wraith | [PNG](pulse-wraith-left.png) | [PNG](pulse-wraith-right.png) |
+| Vanta Grip | [PNG](vanta-grip-left.png) | [PNG](vanta-grip-right.png) |
+
+### Vistas geradas
+
 Cada vista foi gerada usando a prancha da respectiva nave como referência comum. Os prompts individuais também estão nesta pasta.
 
 | Nave | Frente | Lateral direita | Traseira |
