@@ -12,6 +12,7 @@ Jogo original de corrida antigravitacional para navegador e Meta Quest 3. Pilote
 - Sessão VR contínua com menus espaciais e ponteiros dos dois controles.
 - Cinco naves com atributos, silhuetas e cockpits próprios.
 - Astra V9 com modelo GLB do Tripo no hangar e corrida, cabine panorâmica adaptada sem bancada e alinhamento inicial do assento VR. [Detalhes e limitações](docs/ASTRA-GLB.md).
+- Pulse Wraith com GLB próprio, motores laterais, cabine violeta com instrumentos físicos e rastros alinhados. [Integração e validação](docs/PULSE-GLB.md).
 - Cinco circuitos longos, com quatro voltas, saltos, elevação e setores magnéticos.
 - Seleção de pista com turntable 3D produzido pela geometria real do percurso, inclusive no VR.
 - Modos História, Arcade e Cup; a História percorre as cinco pistas em ordem até Cloudline Metro e VS está planejado.
@@ -118,4 +119,4 @@ Todo merge em `main` executa `.github/workflows/pages.yml` e atualiza o GitHub P
 
 Direção com ângulo relativo ao traçado, inércia e contravolante; resistência reduz perda de velocidade e deslocamento em colisões. Rivais também podem perder vidas por queda. Tiros VR verificam o segmento percorrido entre quadros. Menus VR usam áreas clicáveis compatíveis com os cartões visuais, incluindo as cinco pistas e opções de mão dominante.
 
-Referências para os novos modelos: [cinco naves em três vistas](assets/concepts/ships-v1/README.md). São conceitos para modelagem no Tripo; as malhas do jogo continuam procedurais até a importação dos GLBs.
+Referências para os novos modelos: [cinco naves em três vistas](assets/concepts/ships-v1/README.md). Astra V9 e Pulse Wraith já usam GLBs; as demais continuam procedurais até a importação.

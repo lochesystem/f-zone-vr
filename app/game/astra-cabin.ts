@@ -15,8 +15,8 @@ export function mountAstraDisplay(mesh:THREE.Mesh,kind:keyof typeof ASTRA_DISPLA
   mesh.renderOrder=0;
 }
 
-export function createAstraCabin(){
-  const cabin=new THREE.Group();cabin.name="astra-interior";
+export function createAstraCabin(pulse=false){
+  const cabin=new THREE.Group();cabin.name=pulse?"pulse-interior":"astra-interior";
   const materials={
     shell:new THREE.MeshStandardMaterial({color:0x183239,metalness:.48,roughness:.55,emissive:0x10282c,emissiveIntensity:.17,side:THREE.DoubleSide}),
     dark:new THREE.MeshStandardMaterial({color:0x081217,metalness:.25,roughness:.72,emissive:0x07151b,emissiveIntensity:.22}),
@@ -26,6 +26,7 @@ export function createAstraCabin(){
     amber:new THREE.MeshBasicMaterial({color:0xb78843,toneMapped:false}),
   };
   type Surface=keyof typeof materials;
+  if(pulse){materials.shell.color.set(0x30213f);materials.shell.emissive.set(0x251638);materials.cyan.color.set(0x9c83dc);materials.amber.color.set(0x83c6d2);}
   const batches=new Map<Surface,THREE.BufferGeometry[]>();
   const add=(geometry:THREE.BufferGeometry,surface:Surface,position:readonly number[]=[0,0,0],rotation:readonly number[]=[0,0,0])=>{
     const matrix=new THREE.Matrix4().compose(new THREE.Vector3(position[0],position[1],position[2]),new THREE.Quaternion().setFromEuler(new THREE.Euler(rotation[0],rotation[1],rotation[2])),new THREE.Vector3(1,1,1));

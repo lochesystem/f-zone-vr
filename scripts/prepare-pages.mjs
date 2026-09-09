@@ -18,5 +18,6 @@ const resourcePaths=[...html.matchAll(/(?:href|src)="(\/f-zone-vr\/[^"?#]+)/g)].
 const missing=[...new Set(resourcePaths)].filter(resource=>!existsSync(join(outputRoot,resource.replace(/^\/f-zone-vr\//,""))));
 assert.deepEqual(missing,[],`Recursos ausentes no pacote do Pages: ${missing.join(", ")}`);
 assert.ok(existsSync(join(outputRoot,".nojekyll")),"O pacote do Pages precisa de .nojekyll");
+for(const model of ["astra.glb","pulse.glb"])assert.ok(existsSync(join(outputRoot,"models",model)),`Modelo ausente no Pages: ${model}`);
 
 console.log(`Pacote do Pages validado com ${new Set(resourcePaths).size} recursos públicos.`);
