@@ -11,6 +11,7 @@ Jogo original de corrida antigravitacional para navegador e Meta Quest 3. Pilote
 - Corrida em navegador desktop e WebXR no Meta Quest 3.
 - Sessão VR contínua com menus espaciais e ponteiros dos dois controles.
 - Cinco naves com atributos, silhuetas e cockpits próprios.
+- Astra V9 com modelo GLB do Tripo no hangar e corrida, cabine panorâmica adaptada sem bancada e alinhamento inicial do assento VR. [Detalhes e limitações](docs/ASTRA-GLB.md).
 - Cinco circuitos longos, com quatro voltas, saltos, elevação e setores magnéticos.
 - Seleção de pista com turntable 3D produzido pela geometria real do percurso, inclusive no VR.
 - Modos História, Arcade e Cup; a História percorre as cinco pistas em ordem até Cloudline Metro e VS está planejado.
