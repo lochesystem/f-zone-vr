@@ -14,6 +14,16 @@ São propostas de evolução visual para gerar os modelos no Tripo, não captura
 
 ## Arquivos individuais
 
+### Vista frontal de três quartos — 45°
+
+PNG separado para cada nave, gerado com ImageGen integrado a partir da prancha original, com azimute solicitado de 45° e câmera levemente elevada. Referências artísticas, não renders calibrados de uma mesma malha: detalhes podem variar. Prompts completos em `*-45-prompt.txt`.
+
+- [Astra V9](astra-v9-45.png)
+- [Kestrel RX](kestrel-rx-45.png)
+- [Titan Forge](titan-forge-45.png)
+- [Pulse Wraith](pulse-wraith-45.png)
+- [Vanta Grip](vanta-grip-45.png)
+
 ### Laterais esquerdas
 
 Espelhamentos horizontais das laterais direitas, preservando resolução e desenho. Servem como referência de casco simétrico; não representam detalhes exclusivos do lado oposto.
