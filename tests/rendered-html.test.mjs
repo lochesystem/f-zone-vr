@@ -140,7 +140,9 @@ test("inclui o núcleo de corrida e conforto WebXR", async () => {
   assert.match(engine, /"Retomar corrida","Reiniciar corrida","Opções","Menu principal","Sair do VR"/);
   assert.match(engine, /buttons\[9\]\?\.pressed/);
   assert.match(engine, /getController\(index\)/);
-  assert.match(engine, /this\.rig\.add\(controller\)/);
+  assert.match(engine, /this\.vrOrigin\.root\.add\(controller\)/);
+  assert.match(engine, /this\.vrOrigin\.root\.add\(this\.camera\)/);
+  assert.doesNotMatch(engine, /getOffsetReferenceSpace/);
   assert.match(engine, /"selectstart"/);
   assert.match(engine, /setFromXRController/);
   assert.match(engine, /intersectObject\(this\.vrMenuPanel/);
